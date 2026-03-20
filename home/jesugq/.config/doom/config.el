@@ -74,15 +74,25 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(if (eq system-type 'darwin)
+    (setq mac-command-modifier 'control
+          mac-option-modifier  'super
+          mac-control-modifier 'meta)
+
+  (setq x-control-keysym 'control
+        x-meta-keysym 'meta
+        x-super-keysym 'super))
+
 (setq doom-font (font-spec :family "Office Code Pro" :size 22))
-(setq org-agenda-files '("~/Sync/Apps/Orgmode/"))
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "LOOP(l)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
-(setq org-todo-keyword-faces
-      `(("TODO" :foreground ,(doom-color 'green) :weight bold)
-        ("LOOP" :foreground ,(doom-color 'green) :weight bold)
-        ("WAIT" :foreground ,(doom-color 'yellow) :weight bold)
-        ("NEXT" :foreground ,(doom-color 'magenta) :weight bold)
-        ("DONE" :foreground ,(doom-color 'grey) :weight bold)
-        ("KILL" :foreground ,(doom-color 'grey) :weight bold)))
-(setq-default left-margin-width 22 right-margin-width 22)
+
+(after! org
+  (setq org-agenda-files '("~/Sync/Apps/Orgmode" "~/Sync/Apps/Orgmode/projects" "~/Sync/Apps/Orgmode/notepads"))
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "LOOP(l)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
+  (setq org-todo-keyword-faces
+        `(("TODO" :foreground ,(doom-color 'green) :weight bold)
+          ("LOOP" :foreground ,(doom-color 'green) :weight bold)
+          ("WAIT" :foreground ,(doom-color 'yellow) :weight bold)
+          ("NEXT" :foreground ,(doom-color 'magenta) :weight bold)
+          ("DONE" :foreground ,(doom-color 'grey) :weight bold)
+          ("KILL" :foreground ,(doom-color 'grey) :weight bold))))
