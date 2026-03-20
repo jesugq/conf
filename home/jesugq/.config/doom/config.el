@@ -85,7 +85,11 @@
 
 (setq doom-font (font-spec :family "Office Code Pro" :size 22))
 
+(add-hook 'text-mode-hook #'visual-fill-column-mode)
+(setq-default visual-fill-column-center-text t)
+
 (after! org
+  (setq org-log-done 'time)
   (setq org-agenda-files '("~/Sync/Apps/Orgmode" "~/Sync/Apps/Orgmode/projects" "~/Sync/Apps/Orgmode/notepads"))
   (setq org-todo-keywords
         '((sequence "TODO(t)" "LOOP(l)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
