@@ -74,23 +74,36 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(if (eq system-type 'darwin)
-    (setq mac-command-modifier 'control
-          mac-option-modifier  'super
-          mac-control-modifier 'meta)
+(setq x-control-keysym 'control
+      x-meta-keysym 'meta
+      x-super-keysym 'super)
 
-  (setq x-control-keysym 'control
-        x-meta-keysym 'meta
-        x-super-keysym 'super))
+(map! :g "<C-prior>" #'previous-buffer
+      :g "<C-next>"  #'next-buffer)
+
+(setq mac-command-modifier 'control
+      mac-option-modifier  'super
+      mac-control-modifier 'meta)
+
+(map! :g "C-{" #'previous-buffer
+      :g "C-}" #'next-buffer)
 
 (setq doom-font (font-spec :family "Office Code Pro" :size 22))
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
+
 (setq-default visual-fill-column-center-text t)
 
 (after! org
   (setq org-log-done 'time)
-  (setq org-agenda-files '("~/Sync/Apps/Orgmode" "~/Sync/Apps/Orgmode/projects" "~/Sync/Apps/Orgmode/notepads"))
+  (setq org-agenda-files '("~/Sync/Apps/Orgmode"
+                           "~/Sync/Apps/Orgmode/projects"
+                           "~/Sync/Apps/Orgmode/notepads"
+                           "~/Sync/Apps/Orgmode/resolutions"
+                           "~/Development/orgmode"
+                           "~/Development/orgmode/projects"
+                           "~/Development/orgmode/notepads"
+                           "~/Development/orgmode/resolutions"))
   (setq org-todo-keywords
         '((sequence "TODO(t)" "LOOP(l)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
   (setq org-todo-keyword-faces
