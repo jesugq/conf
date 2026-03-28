@@ -41,7 +41,7 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Sync/Apps/Orgmode")
-
+; (setq org-directory "~/Development/orgmode")
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
@@ -74,42 +74,40 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+
 (setq x-control-keysym 'control
       x-meta-keysym 'meta
       x-super-keysym 'super)
-
 (map! :g "<C-prior>" #'previous-buffer
       :g "<C-next>"  #'next-buffer)
 
-(setq mac-command-modifier 'control
-      mac-option-modifier  'super
-      mac-control-modifier 'meta)
-
-(map! :g "C-{" #'previous-buffer
-      :g "C-}" #'next-buffer)
-
-(setq doom-font (font-spec :family "Office Code Pro" :size 22))
+; (setq mac-command-modifier 'control
+;       mac-option-modifier  'super
+;       mac-control-modifier 'meta)
+; (map! :g "C-{" #'previous-buffer
+;       :g "C-}" #'next-buffer)
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
-
 (setq-default visual-fill-column-center-text t)
+(setq doom-font (font-spec :family "Office Code Pro" :size 22))
 
 (after! org
+  (setq org-startup-folded t)
   (setq org-log-done 'time)
   (setq org-agenda-files '("~/Sync/Apps/Orgmode"
                            "~/Sync/Apps/Orgmode/projects"
                            "~/Sync/Apps/Orgmode/notepads"
-                           "~/Sync/Apps/Orgmode/resolutions"
-                           "~/Development/orgmode"
-                           "~/Development/orgmode/projects"
-                           "~/Development/orgmode/notepads"
-                           "~/Development/orgmode/resolutions"))
+                           "~/Sync/Apps/Orgmode/routines"))
+;   (setq org-agenda-files '("~/Development/orgmode"
+;                            "~/Development/orgmode/projects"
+;                            "~/Development/orgmode/notepads"
+;                            "~/Development/orgmode/routines"))
   (setq org-todo-keywords
         '((sequence "TODO(t)" "LOOP(l)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
   (setq org-todo-keyword-faces
         `(("TODO" :foreground ,(doom-color 'green) :weight bold)
           ("LOOP" :foreground ,(doom-color 'green) :weight bold)
           ("WAIT" :foreground ,(doom-color 'yellow) :weight bold)
-          ("NEXT" :foreground ,(doom-color 'magenta) :weight bold)
+          ("NEXT" :foreground ,(doom-color 'red) :weight bold)
           ("DONE" :foreground ,(doom-color 'grey) :weight bold)
           ("KILL" :foreground ,(doom-color 'grey) :weight bold))))
