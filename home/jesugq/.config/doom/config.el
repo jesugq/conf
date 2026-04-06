@@ -94,6 +94,14 @@
 (after! org
   (setq org-startup-folded t)
   (setq org-log-done 'time)
+  (setq org-priority-highest ?A
+        org-priority-lowest  ?D
+        org-priority-default ?E)
+  (setq org-priority-faces
+        `((?A :foreground ,(doom-color 'red) :weight bold)
+          (?B :foreground ,(doom-color 'orange) :weight bold)
+          (?C :foreground ,(doom-color 'magenta) :weight bold)
+          (?D :foreground ,(doom-color 'blue) :weight bold)))
   (setq org-agenda-files '("~/Sync/Apps/Orgmode"
                            "~/Sync/Apps/Orgmode/projects"
                            "~/Sync/Apps/Orgmode/notepads"
@@ -126,4 +134,4 @@
   :config
   (setq org-habit-following-days 7
         org-habit-preceding-days 35
-        org-habit-show-habits t)  )
+        org-habit-show-habits t))
