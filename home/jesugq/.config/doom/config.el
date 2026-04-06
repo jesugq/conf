@@ -110,4 +110,20 @@
           ("WAIT" :foreground ,(doom-color 'yellow) :weight bold)
           ("NEXT" :foreground ,(doom-color 'red) :weight bold)
           ("DONE" :foreground ,(doom-color 'grey) :weight bold)
-          ("KILL" :foreground ,(doom-color 'grey) :weight bold))))
+          ("KILL" :foreground ,(doom-color 'grey) :weight bold)))
+  (setq org-agenda-custom-commands
+      '(("o" "Orgzly"
+         ((agenda "" ((org-agenda-span 10)
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                      (org-agenda-overriding-header "Agenda")))
+          (todo "WAIT"
+                ((org-agenda-overriding-header "WAIT")))
+          (todo "NEXT"
+                ((org-agenda-overriding-header "NEXT"))))))))
+
+(use-package! org-habit
+  :after org
+  :config
+  (setq org-habit-following-days 7
+        org-habit-preceding-days 35
+        org-habit-show-habits t)  )
