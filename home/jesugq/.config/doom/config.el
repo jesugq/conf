@@ -92,8 +92,17 @@
 (setq doom-font (font-spec :family "Office Code Pro" :size 22))
 
 (after! org
-  (setq org-startup-folded t)
+  (setq org-directory "~/Sync/Apps/Orgmode")
+;   (setq org-directory "~/Development/orgmode")
+  (setq org-default-notes-file (expand-file-name "inbox.org" org-directory))
+  (setq org-agenda-files
+      (mapcar (lambda (path) (expand-file-name path org-directory))
+              '("."
+                "projects"
+                "notepads"
+                "routines")))
   (setq org-log-done 'time)
+  (setq org-startup-folded t)
   (setq org-priority-highest ?A
         org-priority-lowest  ?D
         org-priority-default ?D)
@@ -102,14 +111,6 @@
           (?B :foreground ,(doom-color 'orange) :weight bold)
           (?C :foreground ,(doom-color 'blue) :weight bold)
           (?D :foreground ,(doom-color 'dark-cyan) :weight bold)))
-  (setq org-agenda-files '("~/Sync/Apps/Orgmode"
-                           "~/Sync/Apps/Orgmode/projects"
-                           "~/Sync/Apps/Orgmode/notepads"
-                           "~/Sync/Apps/Orgmode/routines"))
-;   (setq org-agenda-files '("~/Development/orgmode"
-;                            "~/Development/orgmode/projects"
-;                            "~/Development/orgmode/notepads"
-;                            "~/Development/orgmode/routines"))
   (setq org-todo-keywords
         '((sequence "TODO(t)" "LOOP(l)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
   (setq org-todo-keyword-faces
@@ -127,3 +128,7 @@
           (todo "NEXT")
           (tags-todo "+PRIORITY=\"A\"")
           (tags-todo "+PRIORITY=\"B\"")))))
+  (setq org-capture-templates
+      '(("n" "New to Inbox" entry (file "")
+         "* %?")))
+)
