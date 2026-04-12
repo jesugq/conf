@@ -96,12 +96,12 @@
   (setq org-log-done 'time)
   (setq org-priority-highest ?A
         org-priority-lowest  ?D
-        org-priority-default ?E)
+        org-priority-default ?D)
   (setq org-priority-faces
         `((?A :foreground ,(doom-color 'red) :weight bold)
           (?B :foreground ,(doom-color 'orange) :weight bold)
-          (?C :foreground ,(doom-color 'magenta) :weight bold)
-          (?D :foreground ,(doom-color 'blue) :weight bold)))
+          (?C :foreground ,(doom-color 'blue) :weight bold)
+          (?D :foreground ,(doom-color 'dark-cyan) :weight bold)))
   (setq org-agenda-files '("~/Sync/Apps/Orgmode"
                            "~/Sync/Apps/Orgmode/projects"
                            "~/Sync/Apps/Orgmode/notepads"
@@ -122,16 +122,8 @@
   (setq org-agenda-custom-commands
       '(("o" "Orgzly"
          ((agenda "" ((org-agenda-span 10)
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                      (org-agenda-overriding-header "Agenda")))
-          (todo "WAIT"
-                ((org-agenda-overriding-header "WAIT")))
-          (todo "NEXT"
-                ((org-agenda-overriding-header "NEXT"))))))))
-
-(use-package! org-habit
-  :after org
-  :config
-  (setq org-habit-following-days 7
-        org-habit-preceding-days 35
-        org-habit-show-habits t))
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'done))))
+          (todo "WAIT")
+          (todo "NEXT")
+          (tags-todo "+PRIORITY=\"A\"")
+          (tags-todo "+PRIORITY=\"B\"")))))
