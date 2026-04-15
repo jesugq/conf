@@ -112,11 +112,11 @@
           (?C :foreground ,(doom-color 'blue) :weight bold)
           (?D :foreground ,(doom-color 'dark-cyan) :weight bold)))
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "LOOP(l)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
+        '((sequence "TODO(t)" "LOOP(l)" "HOLD(h)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
   (setq org-todo-keyword-faces
         `(("TODO" :foreground ,(doom-color 'green) :weight bold)
           ("LOOP" :foreground ,(doom-color 'green) :weight bold)
-          ("WAIT" :foreground ,(doom-color 'yellow) :weight bold)
+          ("HOLD" :foreground ,(doom-color 'orange) :weight bold)
           ("NEXT" :foreground ,(doom-color 'red) :weight bold)
           ("DONE" :foreground ,(doom-color 'grey) :weight bold)
           ("KILL" :foreground ,(doom-color 'grey) :weight bold)))
@@ -124,7 +124,7 @@
       '(("o" "Orgzly"
          ((agenda "" ((org-agenda-span 10)
                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'done))))
-          (todo "WAIT")
+          (todo "HOLD")
           (todo "NEXT")
           (tags-todo "+PRIORITY=\"A\"")
           (tags-todo "+PRIORITY=\"B\"")))))
