@@ -114,12 +114,10 @@
   (setq org-todo-keywords
         '((sequence "TODO(t)" "LOOP(l)" "HOLD(h)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
   (setq org-todo-keyword-faces
-        `(("TODO" :foreground ,(doom-color 'green) :weight bold)
-          ("LOOP" :foreground ,(doom-color 'green) :weight bold)
+        `(("TODO" :foreground ,(doom-color 'blue) :weight bold)
+          ("LOOP" :foreground ,(doom-color 'cyan) :weight bold)
           ("HOLD" :foreground ,(doom-color 'orange) :weight bold)
-          ("NEXT" :foreground ,(doom-color 'red) :weight bold)
-          ("DONE" :foreground ,(doom-color 'grey) :weight bold)
-          ("KILL" :foreground ,(doom-color 'grey) :weight bold)))
+          ("NEXT" :foreground ,(doom-color 'red) :weight bold)))
   (setq org-agenda-custom-commands
       '(("o" "Orgzly"
          ((agenda "" ((org-agenda-span 10)
