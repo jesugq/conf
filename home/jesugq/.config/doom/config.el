@@ -120,9 +120,7 @@
           ("NEXT" :foreground ,(doom-color 'red) :weight bold)))
   (setq org-agenda-custom-commands
       '(("o" "Orgzly"
-         ((agenda "" ((org-agenda-span 10)
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'done))))
-          (todo "HOLD")
+         ((todo "HOLD")
           (todo "NEXT")
           (tags-todo "+PRIORITY=\"A\"")
           (tags-todo "+PRIORITY=\"B\"")))))
