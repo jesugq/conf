@@ -98,8 +98,10 @@
   (setq org-agenda-files
       (mapcar (lambda (path) (expand-file-name path org-directory))
               '("."
-                "projects"
+                "insights"
                 "notepads"
+                "outlines"
+                "projects"
                 "routines")))
   (setq org-log-done 'time)
   (setq org-startup-folded t)
