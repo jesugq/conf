@@ -122,8 +122,8 @@
           ("NEXT" :foreground ,(doom-color 'red) :weight bold)))
   (setq org-agenda-custom-commands
       '(("o" "Orgzly"
-         ((todo "HOLD")
-          (todo "NEXT")
+         ((todo "NEXT")
+          (todo "HOLD")
           (tags-todo "+PRIORITY=\"A\"")
           (tags-todo "+PRIORITY=\"B\"")))))
   (setq org-capture-templates
