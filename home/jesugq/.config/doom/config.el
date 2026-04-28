@@ -94,7 +94,7 @@
 (after! org
   (setq org-directory "~/Sync/Apps/Orgmode")
 ;   (setq org-directory "~/Development/orgmode")
-  (setq org-default-notes-file (expand-file-name "inbox.org" org-directory))
+  (setq org-default-notes-file (expand-file-name "@inbox.org" org-directory))
   (setq org-agenda-files
       (mapcar (lambda (path) (expand-file-name path org-directory))
               '("."
