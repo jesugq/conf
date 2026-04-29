@@ -125,8 +125,23 @@
          ((todo "NEXT")
           (todo "HOLD")
           (tags-todo "+PRIORITY=\"A\"/-NEXT-HOLD")
-          (tags-todo "+PRIORITY=\"B\"/-NEXT-HOLD")))))
+          (tags-todo "+PRIORITY=\"B\"/-NEXT-HOLD")))
+        ("a" "Agenda"
+         ((agenda ""
+                  ((org-agenda-span 10)
+                   (org-agenda-show-log nil)
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'done))))
+          (agenda ""
+                  ((org-agenda-span 31)
+                   (org-agenda-start-day "-30d")
+                   (org-agenda-show-all-dates nil)
+                   (org-agenda-show-log 'closed)
+                   (org-agenda-log-mode-items '(closed))
+                   (org-agenda-entry-types '(:closed))))))))
   (setq org-capture-templates
-      '(("n" "New to Inbox" entry (file "")
-         "* %?")))
+        '(("i" "Inbox" entry (file "@inbox.org") "* %?")
+          ("n" "Notes" entry (file "@notes.org") "* %?")
+          ("r" "Rands" entry (file "@rands.org") "* %?")
+          ("t" "Tasks" entry (file "@tasks.org") "* %?")
+          ("w" "Wifes" entry (file "@wifes.org") "* %?")))
 )
