@@ -114,10 +114,10 @@
           (?C :foreground ,(doom-color 'blue) :weight bold)
           (?D :foreground ,(doom-color 'dark-cyan) :weight bold)))
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "LOOP(l)" "HOLD(h)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
+        '((sequence "LOOP(l)" "TODO(t)" "HOLD(h)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
   (setq org-todo-keyword-faces
-        `(("TODO" :foreground ,(doom-color 'blue) :weight bold)
-          ("LOOP" :foreground ,(doom-color 'cyan) :weight bold)
+        `(("LOOP" :foreground ,(doom-color 'dark-cyan) :weight bold)
+          ("TODO" :foreground ,(doom-color 'blue) :weight bold)
           ("HOLD" :foreground ,(doom-color 'orange) :weight bold)
           ("NEXT" :foreground ,(doom-color 'red) :weight bold)))
   (setq org-agenda-custom-commands
@@ -139,9 +139,9 @@
                    (org-agenda-log-mode-items '(closed))
                    (org-agenda-entry-types '(:closed))))))))
   (setq org-capture-templates
-        '(("i" "Inbox" entry (file "@inbox.org") "* %?")
+        '(("g" "Goals" entry (file "@goals.org") "* %?")
+          ("i" "Inbox" entry (file "@inbox.org") "* %?")
+          ("l" "Lists" entry (file "@lists.org") "* %?")
           ("n" "Notes" entry (file "@notes.org") "* %?")
-          ("r" "Rands" entry (file "@rands.org") "* %?")
-          ("t" "Tasks" entry (file "@tasks.org") "* %?")
-          ("w" "Wifes" entry (file "@wifes.org") "* %?")))
+          ("t" "Tasks" entry (file "@tasks.org") "* %?")))
 )
