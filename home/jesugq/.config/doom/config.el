@@ -102,7 +102,9 @@
                 "notepads"
                 "outlines"
                 "projects"
-                "routines")))
+                "routines")
+      )
+  )
   (setq org-log-done 'time)
   (setq org-startup-folded t)
   (setq org-priority-highest ?A
@@ -112,9 +114,10 @@
         `((?A :foreground ,(doom-color 'red) :weight bold)
           (?B :foreground ,(doom-color 'orange) :weight bold)
           (?C :foreground ,(doom-color 'blue) :weight bold)
-          (?D :foreground ,(doom-color 'dark-cyan) :weight bold)))
-  (setq org-todo-keywords
-        '((sequence "LOOP(l)" "TODO(t)" "HOLD(h)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
+          (?D :foreground ,(doom-color 'dark-cyan) :weight bold)
+         )
+  )
+  (setq org-todo-keywords '((sequence "LOOP(l)" "TODO(t)" "HOLD(h)" "NEXT(n)" "|" "DONE(d)" "KILL(k)")))
   (setq org-todo-keyword-faces
         `(("LOOP" :foreground ,(doom-color 'dark-cyan) :weight bold)
           ("TODO" :foreground ,(doom-color 'blue) :weight bold)
@@ -125,19 +128,30 @@
          ((todo "NEXT")
           (todo "HOLD")
           (tags-todo "+PRIORITY=\"A\"/-NEXT-HOLD")
-          (tags-todo "+PRIORITY=\"B\"/-NEXT-HOLD")))
+          (tags-todo "+PRIORITY=\"B\"/-NEXT-HOLD")
+         )
+        )
         ("a" "Agenda"
          ((agenda ""
                   ((org-agenda-span 10)
                    (org-agenda-show-log nil)
-                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'done))))
-          (agenda ""
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'done))
+                  )
+         ))
+        )
+        ("c" "Closed"
+         ((agenda ""
                   ((org-agenda-span 31)
                    (org-agenda-start-day "-30d")
                    (org-agenda-show-all-dates nil)
                    (org-agenda-show-log 'closed)
                    (org-agenda-log-mode-items '(closed))
-                   (org-agenda-entry-types '(:closed))))))))
+                   (org-agenda-entry-types '(:closed))
+                  )
+          ))
+        )
+      )
+  )
   (setq org-capture-templates
         '(("g" "Goals" entry (file "@goals.org") "* %?")
           ("i" "Inbox" entry (file "@inbox.org") "* %?")
