@@ -127,9 +127,12 @@
       '(("o" "Orgzly"
          ((todo "NEXT")
           (todo "HOLD")
-          (tags-todo "+PRIORITY=\"A\"/-NEXT-HOLD")
-          (tags-todo "+PRIORITY=\"B\"/-NEXT-HOLD")
          )
+         )
+        ("p" "Priority"
+         ((tags-todo "+PRIORITY=\"A\"")
+          (tags-todo "+PRIORITY=\"B\"")
+          (tags-todo "+PRIORITY=\"C\""))
         )
         ("a" "Agenda"
          ((agenda ""
