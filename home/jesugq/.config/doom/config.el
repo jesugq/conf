@@ -132,7 +132,7 @@
         ("p" "Priority"
          ((tags-todo "+PRIORITY=\"A\"")
           (tags-todo "+PRIORITY=\"B\"")
-          (tags-todo "+PRIORITY=\"C\""))
+         )
         )
         ("a" "Agenda"
          ((agenda ""
