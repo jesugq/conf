@@ -89,7 +89,7 @@
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
-(setq doom-font (font-spec :family "Office Code Pro" :size 22))
+(setq doom-font (font-spec :family "Office Code Pro" :size 26))
 
 (after! org
   (setq org-directory "~/Sync/Apps/Orgmode")
