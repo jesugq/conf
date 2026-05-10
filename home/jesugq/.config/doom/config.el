@@ -156,9 +156,6 @@
       )
   )
   (setq org-capture-templates
-        '(("g" "Goals" entry (file "@goals.org") "* %?")
-          ("i" "Inbox" entry (file "@inbox.org") "* %?")
-          ("l" "Lists" entry (file "@lists.org") "* %?")
-          ("n" "Notes" entry (file "@notes.org") "* %?")
-          ("t" "Tasks" entry (file "@tasks.org") "* %?")))
+        '(("n" "Inbox" entry (file "@inbox.org") "* %?"))
+  )
 )
