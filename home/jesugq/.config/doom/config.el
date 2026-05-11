@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'kaolin-modo-dark)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -74,6 +74,15 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setq cerise0 "#e121b1"
+      magenta0 "#c932c9"
+      purple0 "#ab33eb"
+      violet0 "#853AE1"
+
+      cyan1 "#57bfc2"
+      teal1 "#4d9391"
+      aquamarine1 "#47ba99"
+      spring-green1 "#35BF88")
 
 (setq x-control-keysym 'control
       x-meta-keysym 'meta
@@ -92,8 +101,6 @@
 (setq doom-font (font-spec :family "Office Code Pro" :size 26))
 
 (after! org
-  (setq org-directory "~/Sync/Apps/Orgmode")
-;   (setq org-directory "~/Development/orgmode")
   (setq org-default-notes-file (expand-file-name "@inbox.org" org-directory))
   (setq org-agenda-files
       (mapcar (lambda (path) (expand-file-name path org-directory))
@@ -111,17 +118,20 @@
         org-priority-lowest  ?D
         org-priority-default ?D)
   (setq org-priority-faces
-        `((?A :foreground ,(doom-color 'red) :weight bold)
-          (?B :foreground ,(doom-color 'orange) :weight bold)
-          (?C :foreground ,(doom-color 'blue) :weight bold)
-          (?D :foreground ,(doom-color 'dark-cyan) :weight bold)
+        `((?A :foreground ,cerise0 :weight bold)
+          (?B :foreground ,magenta0 :weight bold)
+          (?C :foreground ,purple0 :weight bold)
+          (?D :foreground ,violet0 :weight bold)
          )
   )
   (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)")))
   (setq org-todo-keyword-faces
-        `(("TODO" :foreground ,(doom-color 'dark-cyan) :weight bold)
-          ("WAIT" :foreground ,(doom-color 'teal) :weight bold)
-          ("NEXT" :foreground ,(doom-color 'cyan) :weight bold)))
+        `(("TODO" :foreground ,cyan1 :weight bold)
+          ("WAIT" :foreground ,teal1 :weight bold)
+          ("NEXT" :foreground ,aquamarine1 :weight bold)
+          ("DONE" :foreground ,spring-green1 :weight bold)
+         )
+  )
   (setq org-agenda-custom-commands
       '(("o" "Orgzly"
          ((todo "NEXT")

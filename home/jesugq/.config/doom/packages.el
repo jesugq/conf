@@ -54,3 +54,4 @@
 ;; (unpin! t)
 
 (package! olivetti)
+(package! kaolin-themes)
