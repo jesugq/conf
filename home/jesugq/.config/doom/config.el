@@ -124,22 +124,24 @@
           (?D :foreground ,violet0 :weight bold)
          )
   )
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "NEXT(n)" "|" "DONE(d)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "MOVE(m)" "|" "DONE(d)")))
   (setq org-todo-keyword-faces
         `(("TODO" :foreground ,cyan1 :weight bold)
           ("WAIT" :foreground ,teal1 :weight bold)
-          ("NEXT" :foreground ,aquamarine1 :weight bold)
+          ("MOVE" :foreground ,aquamarine1 :weight bold)
           ("DONE" :foreground ,spring-green1 :weight bold)
          )
   )
   (setq org-agenda-custom-commands
-      '(("o" "Orgzly"
-         ((todo "NEXT")
+      '(("o" "Orgmode"
+         ((tags-todo "started")
+          (todo "MOVE")
           (todo "WAIT")
          )
          )
         ("p" "Priority"
-         ((tags-todo "+PRIORITY=\"A\"")
+         ((tags-todo "focused")
+          (tags-todo "+PRIORITY=\"A\"")
           (tags-todo "+PRIORITY=\"B\"")
          )
         )
@@ -163,6 +165,11 @@
           ))
         )
       )
+  )
+  (setq org-tag-alist
+        '(("started" . ?s)
+          ("focused" . ?f)
+         )
   )
   (setq org-capture-templates
         '(("n" "Inbox" entry (file "@inbox.org") "* %?"))
