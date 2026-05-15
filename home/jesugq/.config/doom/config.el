@@ -133,16 +133,19 @@
          )
   )
   (setq org-agenda-custom-commands
-      '(("o" "Orgmode"
-         ((tags-todo "started")
-          (todo "MOVE")
+      '(("c" "Categories"
+         ((tags "focus")
+          (tags "block")
+         )
+        )
+        ("o" "Orgmode"
+         ((todo "MOVE")
           (todo "WAIT")
          )
-         )
+        )
         ("p" "Priority"
-         ((tags-todo "focused")
-          (tags-todo "+PRIORITY=\"A\"")
-          (tags-todo "+PRIORITY=\"B\"")
+         ((tags-todo "+PRIORITY=\"A\"/TODO")
+          (tags-todo "+PRIORITY=\"B\"/TODO")
          )
         )
         ("a" "Agenda"
@@ -153,7 +156,7 @@
                   )
          ))
         )
-        ("c" "Closed"
+        ("d" "Done"
          ((agenda ""
                   ((org-agenda-span 31)
                    (org-agenda-start-day "-30d")
@@ -167,10 +170,12 @@
       )
   )
   (setq org-tag-alist
-        '(("started" . ?s)
-          ("focused" . ?f)
+        '(("focus" . ?f)
+          ("block" . ?b)
          )
   )
+  (setq org-tags-match-list-sublevels nil)
+  (setq org-agenda-dim-blocked-tasks nil)
   (setq org-capture-templates
         '(("n" "Inbox" entry (file "@inbox.org") "* %?"))
   )
