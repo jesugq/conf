@@ -87,14 +87,14 @@
 (setq x-control-keysym 'control
       x-meta-keysym 'meta
       x-super-keysym 'super)
-(map! :g "<C-prior>" #'previous-buffer
-      :g "<C-next>"  #'next-buffer)
+(map! :g "<C-prior>" #'centaur-tabs-backward
+      :g "<C-next>"  #'centaur-tabs-forward)
 
 ; (setq mac-command-modifier 'control
 ;       mac-option-modifier  'super
 ;       mac-control-modifier 'meta)
-; (map! :g "C-{" #'previous-buffer
-;       :g "C-}" #'next-buffer)
+; (map! :g "C-{" #'centaur-tabs-backward
+;       :g "C-}" #'centaur-tabs-forward)
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
