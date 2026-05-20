@@ -133,12 +133,12 @@
          )
   )
   (setq org-agenda-custom-commands
-      '(("c" "Categories"
+      '(("i" "Inner Tasks"
          ((tags "focus")
           (tags "block")
          )
         )
-        ("o" "Orgmode"
+        ("o" "Outer Tasks"
          ((todo "MOVE")
           (todo "WAIT")
          )
@@ -156,7 +156,7 @@
                   )
          ))
         )
-        ("d" "Done"
+        ("c" "Closed"
          ((agenda ""
                   ((org-agenda-span 31)
                    (org-agenda-start-day "-30d")
