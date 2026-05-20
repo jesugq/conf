@@ -1,0 +1,6 @@
+alias jq-zsh='vim ~/.zshjq'
+
+alias jq-restart-logid='sudo systemctl restart logid'
+alias jq-restart-plasma='systemctl --user restart plasma-plasmashell'
+alias jq-restart-doom='~/.config/emacs/bin/doom sync'
+
