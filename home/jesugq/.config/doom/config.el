@@ -98,7 +98,7 @@
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
-(setq doom-font (font-spec :family "Office Code Pro" :size 26))
+(setq doom-font (font-spec :family "Office Code Pro" :size 30))
 
 (after! org
   (setq org-default-notes-file (expand-file-name "@inbox.org" org-directory))
@@ -177,6 +177,6 @@
   (setq org-tags-match-list-sublevels nil)
   (setq org-agenda-dim-blocked-tasks nil)
   (setq org-capture-templates
-        '(("n" "Inbox" entry (file "@inbox.org") "* %?"))
+        '(("n" "Inbox" entry (file "@inbox.org") "* TODO %?"))
   )
 )
