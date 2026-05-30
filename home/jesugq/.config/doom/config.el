@@ -133,12 +133,7 @@
          )
   )
   (setq org-agenda-custom-commands
-      '(("i" "Inner Tasks"
-         ((tags "focus")
-          (tags "block")
-         )
-        )
-        ("o" "Outer Tasks"
+      '(("o" "Option"
          ((todo "MOVE")
           (todo "WAIT")
          )
@@ -169,12 +164,6 @@
         )
       )
   )
-  (setq org-tag-alist
-        '(("focus" . ?f)
-          ("block" . ?b)
-         )
-  )
-  (setq org-tags-match-list-sublevels nil)
   (setq org-agenda-dim-blocked-tasks nil)
   (setq org-capture-templates
         '(("n" "Inbox" entry (file "@inbox.org") "* TODO %?"))
