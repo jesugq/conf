@@ -99,6 +99,8 @@
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
 (setq doom-font (font-spec :family "Office Code Pro" :size 30))
+(setq display-line-numbers-type 'visual)
+(setq line-move-visual t)
 
 (after! org
   (setq org-default-notes-file (expand-file-name "@inbox.org" org-directory))
