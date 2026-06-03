@@ -84,12 +84,16 @@
       aquamarine1 "#47ba99"
       spring-green1 "#35BF88")
 
-(map! :g "<C-prior>" #'centaur-tabs-backward
-      :g "<C-next>"  #'centaur-tabs-forward)
+(map! :gn "<C-prior>" #'centaur-tabs-backward
+      :gn "<C-next>"  #'centaur-tabs-forward)
+(map! :gn "H" #'previous-buffer
+      :gn "L" #'next-buffer)
 
 ; (setq mac-command-modifier 'meta)
 ; (map! :g "C-{" #'centaur-tabs-backward
 ;       :g "C-}" #'centaur-tabs-forward)
+; (map! :gn "H" #'previous-buffer
+;       :gn "L" #'next-buffer)
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
@@ -163,6 +167,6 @@
   )
   (setq org-agenda-dim-blocked-tasks nil)
   (setq org-capture-templates
-        '(("n" "Inbox" entry (file "@inbox.org") "* TODO %?"))
+        '(("n" "Inbox" entry (file "@inbox.org") "* %?"))
   )
 )
