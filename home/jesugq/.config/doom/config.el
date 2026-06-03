@@ -84,15 +84,10 @@
       aquamarine1 "#47ba99"
       spring-green1 "#35BF88")
 
-(setq x-control-keysym 'control
-      x-meta-keysym 'meta
-      x-super-keysym 'super)
 (map! :g "<C-prior>" #'centaur-tabs-backward
       :g "<C-next>"  #'centaur-tabs-forward)
 
-; (setq mac-command-modifier 'control
-;       mac-option-modifier  'super
-;       mac-control-modifier 'meta)
+; (setq mac-command-modifier 'meta)
 ; (map! :g "C-{" #'centaur-tabs-backward
 ;       :g "C-}" #'centaur-tabs-forward)
 
