@@ -77,26 +77,33 @@
 (setq cerise0 "#e121b1"
       magenta0 "#c932c9"
       purple0 "#ab33eb"
-      violet0 "#853AE1"
+      violet0 "#853ae1"
 
       cyan1 "#57bfc2"
       teal1 "#4d9391"
       aquamarine1 "#47ba99"
-      spring-green1 "#35BF88")
+      spring-green1 "#35bf88"
+
+      gray0 "#353b3c")
 
 (map! :gn "<C-prior>" #'centaur-tabs-backward
       :gn "<C-next>"  #'centaur-tabs-forward)
-(map! :gn "H" #'previous-buffer
-      :gn "L" #'next-buffer)
 
 ; (setq mac-command-modifier 'meta)
 ; (map! :g "C-{" #'centaur-tabs-backward
 ;       :g "C-}" #'centaur-tabs-forward)
-; (map! :gn "H" #'previous-buffer
-;       :gn "L" #'next-buffer)
+
+(map! :n "H" #'previous-buffer
+      :n "L" #'next-buffer
+      :leader :n "m t" #'org-todo
+      :leader :n "m p" #'org-priority)
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
+
+(custom-set-faces!
+  `(region :background ,gray0 :foreground unspecified))
+
 (setq doom-font (font-spec :family "Office Code Pro" :size 30))
 (setq display-line-numbers-type 'visual)
 (setq line-move-visual t)
@@ -126,18 +133,18 @@
           (?D :foreground ,violet0 :weight bold)
          )
   )
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "MOVE(m)" "|" "DONE(d)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "FUZZY(f)" "READY(r)" "|" "DONE(d)")))
   (setq org-todo-keyword-faces
         `(("TODO" :foreground ,cyan1 :weight bold)
-          ("WAIT" :foreground ,teal1 :weight bold)
-          ("MOVE" :foreground ,aquamarine1 :weight bold)
+          ("FUZZY" :foreground ,teal1 :weight bold)
+          ("READY" :foreground ,aquamarine1 :weight bold)
           ("DONE" :foreground ,spring-green1 :weight bold)
          )
   )
   (setq org-agenda-custom-commands
       '(("o" "Option"
-         ((todo "MOVE")
-          (todo "WAIT")
+         ((todo "READY")
+          (todo "FUZZY")
          )
         )
         ("p" "Priority"
