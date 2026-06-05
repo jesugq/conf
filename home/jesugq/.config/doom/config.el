@@ -106,11 +106,12 @@
   (setq org-agenda-files
       (mapcar (lambda (path) (expand-file-name path org-directory))
               '("."
-                "insights"
-                "notepads"
-                "outlines"
-                "projects"
-                "routines")
+		"01 insights"
+		"02 PROJECTS"
+		"03 routines"
+		"04 FEATURES"
+		"05 outlines"
+		"06 NOTEPADS")
       )
   )
   (setq org-log-done 'time)
