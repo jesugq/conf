@@ -28,6 +28,7 @@
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
+(setq doom-font (font-spec :family "Office Code Pro" :size 30))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -36,7 +37,8 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'visual)
+(setq line-move-visual t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -74,6 +76,21 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(map! :gn "<C-prior>" #'centaur-tabs-backward
+      :gn "<C-next>"  #'centaur-tabs-forward)
+; (setq mac-command-modifier 'meta)
+; (map! :g "C-{" #'centaur-tabs-backward
+;       :g "C-}" #'centaur-tabs-forward)
+
+(map! :n "H" #'previous-buffer
+      :n "L" #'next-buffer)
+
+(add-hook 'text-mode-hook #'visual-fill-column-mode)
+(setq-default visual-fill-column-center-text t)
+
+(custom-set-faces!
+  `(region :background ,gray0 :foreground unspecified))
+
 (setq cerise0 "#e121b1"
       magenta0 "#c932c9"
       purple0 "#ab33eb"
@@ -85,28 +102,6 @@
       spring-green1 "#35bf88"
 
       gray0 "#353b3c")
-
-(map! :gn "<C-prior>" #'centaur-tabs-backward
-      :gn "<C-next>"  #'centaur-tabs-forward)
-
-; (setq mac-command-modifier 'meta)
-; (map! :g "C-{" #'centaur-tabs-backward
-;       :g "C-}" #'centaur-tabs-forward)
-
-(map! :n "H" #'previous-buffer
-      :n "L" #'next-buffer
-      :leader :n "m t" #'org-todo
-      :leader :n "m p" #'org-priority)
-
-(add-hook 'text-mode-hook #'visual-fill-column-mode)
-(setq-default visual-fill-column-center-text t)
-
-(custom-set-faces!
-  `(region :background ,gray0 :foreground unspecified))
-
-(setq doom-font (font-spec :family "Office Code Pro" :size 30))
-(setq display-line-numbers-type 'visual)
-(setq line-move-visual t)
 
 (after! org
   (setq org-default-notes-file (expand-file-name "@inbox.org" org-directory))
