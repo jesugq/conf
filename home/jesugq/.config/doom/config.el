@@ -169,6 +169,13 @@
       )
   )
   (setq org-agenda-dim-blocked-tasks nil)
+  (setq org-tag-alist
+        '(("inner" . ?i)
+          ("outer" . ?o)
+          ("coder" . ?c)
+          ("phone" . ?p)
+          ("einks" . ?e)))
+  (setq org-tags-match-list-sublevels nil)
   (setq org-capture-templates
         '(("n" "Inbox" entry (file "@inbox.org") "* %?"))
   )
