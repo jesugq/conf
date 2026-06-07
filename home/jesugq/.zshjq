@@ -1,20 +1,7 @@
-alias jq-zsh='vim ~/.zshjq'
-alias jq-src="source ~/.zshjq"
-alias jq-man="vim -c 'h user-manual|only'"
+# jq_misc
+alias jq_misc_work="echo $((($(date +%s)-$(date -d "2025-06-23" +%s))/86400))"
+alias jq_misc_week='date +%V'
 
-alias jq-work="echo $((($(date +%s)-$(date -d "2025-06-23" +%s))/86400))"
-alias jq-week='date +%V' 
-
-alias jq-plasma-restart='systemctl --user restart plasma-plasmashell'
-
-alias jq-logid-config='sudo vim /etc/logid.cfg'
-alias jq-logid-restart='sudo systemctl restart logid'
-
-alias jq-keyd-config='sudo vim /etc/keyd/default.conf'
-alias jq-keyd-reload='sudo keyd reload'
-
-alias jq-doom-config='vim ~/.config/doom/config.el'
-alias jq-doom-reload='~/.config/emacs/bin/doom sync'
-
-alias jq-kitty-config='vim ~/.config/kitty/kitty.conf'
+# jq_plasma
+alias jq_plasma_restart='systemctl --user restart plasma-plasmashell'
 

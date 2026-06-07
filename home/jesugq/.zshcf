@@ -1,0 +1,88 @@
+# cf
+CF_DIR=~/Development/configs
+cf_cd() {
+	cd $CF_DIR
+}
+
+# cf_zshjq
+ZSHJQ_DIR=~/.zshjq
+cf_zshjq_config() {
+	nvim $ZSHJQ_DIR
+}
+cf_zshjq_reload() {
+	source $ZSHJQ_DIR
+}
+cf_zshjq_to_local() {
+	cp $CF_DIR$ZSHJQ_DIR $ZSHJQ_DIR
+}
+cf_zshjq_to_repos() {
+	cp $ZSHJQ_DIR $CF_DIR$ZSHJQ_DIR
+}
+
+# cf_zshcf
+ZSHCF_DIR=~/.zshcf
+cf_zshcf_config() {
+	nvim $ZSHCF_DIR
+}
+cf_zshcf_reload() {
+	source $ZSHCF_DIR
+}
+cf_zshcf_to_local() {
+	cp $CF_DIR$ZSHCF_DIR $ZSHCF_DIR
+}
+cf_zshcf_to_repos() {
+	cp $ZSHCF_DIR $CF_DIR$ZSHCF_DIR
+}
+
+# cf_logid
+alias cf_logid_restart='sudo systemctl restart logid'
+LOGID_DIR=/etc/logid.cfg
+cf_logid_config() {
+	sudo nvim $LOGID_DIR
+}
+cf_logid_to_local() {
+	sudo cp $CF_DIR$LOGID_DIR $LOGID_DIR
+}
+cf_logid_to_repos() {
+	sudo cp $LOGID_DIR $CF_DIR$LOGID_DIR
+}
+
+# cf_keyd
+alias cf_keyd_reload='sudo keyd reload'
+alias cf_keyd_monitor='sudo keyd monitor'
+KEYD_DIR=/etc/keyd/default.conf
+cf_keyd_config() {
+	sudo nvim $KEYD_DIR
+}
+cf_keyd_to_local() {
+	sudo cp $CF_DIR$KEYD_DIR $KEYD_DIR
+}
+cf_keyd_to_repos() {
+	sudo cp $KEYD_DIR $CF_DIR$KEYD_DIR
+}
+
+# cf_doom
+alias cf_doom_reload="~/.config/emacs/bin/doom sync"
+DOOM_DIR=~/.config/doom/config.el
+cf_doom_config() {
+	nvim $DOOM_DIR
+}
+cf_doom_to_local() {
+	cp $CF_DIR$DOOM_DIR $DOOM_DIR
+}
+cf_doom_to_repos() {
+	cp $DOOM_DIR $CF_DIR$DOOM_DIR
+}
+
+# cf_kitty
+KITTY_DIR=~/.config/kitty/kitty.conf
+cf_kitty_config() {
+	nvim $KITTY_DIR
+}
+cf_kitty_to_local() {
+	cp $CF_DIR$KITTY_DIR $KITTY_DIR
+}
+cf_kitty_to_repos() {
+	cp $KITTY_DIR $CF_DIR$KITTY_DIR
+}
+

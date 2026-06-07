@@ -82,9 +82,6 @@
 ; (map! :g "C-{" #'centaur-tabs-backward
 ;       :g "C-}" #'centaur-tabs-forward)
 
-(map! :n "H" #'previous-buffer
-      :n "L" #'next-buffer)
-
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
 
