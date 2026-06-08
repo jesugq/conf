@@ -79,8 +79,8 @@
 (map! :gn "<C-prior>" #'centaur-tabs-backward
       :gn "<C-next>"  #'centaur-tabs-forward)
 ; (setq mac-command-modifier 'meta)
-; (map! :g "C-{" #'centaur-tabs-backward
-;       :g "C-}" #'centaur-tabs-forward)
+; (map! :gn "M-{" #'centaur-tabs-backward
+;       :gn "M-}" #'centaur-tabs-forward)
 
 (add-hook 'text-mode-hook #'visual-fill-column-mode)
 (setq-default visual-fill-column-center-text t)
@@ -105,12 +105,12 @@
   (setq org-agenda-files
       (mapcar (lambda (path) (expand-file-name path org-directory))
               '("."
-		"01 insights"
-		"02 PROJECTS"
-		"03 routines"
-		"04 FEATURES"
-		"05 outlines"
-		"06 NOTEPADS")
+                "01 insights"
+                "02 PROJECTS"
+                "03 routines"
+                "04 FEATURES"
+                "05 outlines"
+                "06 NOTEPADS")
       )
   )
   (setq org-log-done 'time)
