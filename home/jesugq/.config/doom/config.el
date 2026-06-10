@@ -134,7 +134,9 @@
          )
   )
   (setq org-agenda-custom-commands
-      '(("o" "Option"
+      '(("i" "CODER"
+        ((tags-todo "+coder")))
+        ("o" "Option"
          ((todo "READY")
           (todo "FUZZY")
          )
@@ -170,6 +172,7 @@
         '(("inner" . ?i)
           ("outer" . ?o)
           ("coder" . ?c)
+          ("workr" . ?w)
           ("phone" . ?p)
           ("einks" . ?e)))
   (setq org-tags-match-list-sublevels nil)
