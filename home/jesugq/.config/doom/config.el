@@ -134,14 +134,15 @@
          )
   )
   (setq org-agenda-custom-commands
-      '(("i" "CODER"
-        ((tags-todo "+coder")))
-        ("o" "Option"
+      '(("i" "Tags"
+         ((tags-todo "+coder")
+          (tags-todo "+workr")))
+        ("o" "Faces"
          ((todo "READY")
           (todo "FUZZY")
          )
         )
-        ("p" "Priority"
+        ("p" "Prios"
          ((tags-todo "+PRIORITY=\"A\"/TODO")
           (tags-todo "+PRIORITY=\"B\"/TODO")
          )
@@ -154,7 +155,7 @@
                   )
          ))
         )
-        ("c" "Closed"
+        ("z" "Closed"
          ((agenda ""
                   ((org-agenda-span 31)
                    (org-agenda-start-day "-30d")
@@ -169,9 +170,7 @@
   )
   (setq org-agenda-dim-blocked-tasks nil)
   (setq org-tag-alist
-        '(("inner" . ?i)
-          ("outer" . ?o)
-          ("coder" . ?c)
+        '(("coder" . ?c)
           ("workr" . ?w)
           ("phone" . ?p)
           ("einks" . ?e)))
