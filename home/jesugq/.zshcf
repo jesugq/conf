@@ -1,6 +1,9 @@
 # cf
-CF_DIR=~/Development/configs
+CF_DIR=~/Development/config
 cf_cd() {
+	cd $CF_DIR
+}
+cf_nvim() {
 	cd $CF_DIR
 }
 
@@ -34,6 +37,37 @@ cf_zshcf_to_repos() {
 	cp $ZSHCF_DIR $CF_DIR$ZSHCF_DIR
 }
 
+# nv_zshcf
+ZSHNV_DIR=~/.zshnv
+cf_zshnv_config() {
+	nvim $ZSHNV_DIR
+}
+cf_zshnv_reload() {
+	source $ZSHNV_DIR
+}
+cf_zshnv_to_local() {
+	cp $CF_DIR$ZSHNV_DIR $ZSHNV_DIR
+}
+cf_zshnv_to_repos() {
+	cp $ZSHNV_DIR $CF_DIR$ZSHNV_DIR
+}
+
+
+# nv_zshcf
+ZSHDM_DIR=~/.zshdm
+cf_zshdm_config() {
+	nvim $ZSHDM_DIR
+}
+cf_zshdm_reload() {
+	source $ZSHDM_DIR
+}
+cf_zshdm_to_local() {
+	cp $CF_DIR$ZSHDM_DIR $ZSHDM_DIR
+}
+cf_zshdm_to_repos() {
+	cp $ZSHDM_DIR $CF_DIR$ZSHDM_DIR
+}
+
 # cf_logid
 alias cf_logid_restart='sudo systemctl restart logid'
 LOGID_DIR=/etc/logid.cfg
@@ -59,19 +93,6 @@ cf_keyd_to_local() {
 }
 cf_keyd_to_repos() {
 	sudo cp $KEYD_DIR $CF_DIR$KEYD_DIR
-}
-
-# cf_doom
-alias cf_doom_reload="~/.config/emacs/bin/doom sync"
-DOOM_DIR=~/.config/doom/config.el
-cf_doom_config() {
-	nvim $DOOM_DIR
-}
-cf_doom_to_local() {
-	cp $CF_DIR$DOOM_DIR $DOOM_DIR
-}
-cf_doom_to_repos() {
-	cp $DOOM_DIR $CF_DIR$DOOM_DIR
 }
 
 # cf_kitty

@@ -1,0 +1,10 @@
+# nv
+NV_DIR=~/.config/nvim
+nv_cd() {
+	cd $NV_DIR
+}
+nv_nvim() {
+	cd $NV_DIR
+	nvim $NV_DIR
+}
+
