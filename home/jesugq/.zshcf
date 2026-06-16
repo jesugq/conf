@@ -1,109 +1,84 @@
 # cf
-CF_DIR=~/Development/config
+CF_DIR=$HOME/Development/config
 cf_cd() {
 	cd $CF_DIR
 }
 cf_nvim() {
-	cd $CF_DIR
+	cf_cd
+	nvim .
 }
 
-# cf_zshjq
-ZSHJQ_DIR=~/.zshjq
-cf_zshjq_config() {
-	nvim $ZSHJQ_DIR
+# cf_zsh
+ZSH_DIR=$HOME
+ZSH_EXT=cf
+cf_zsh_cd () {
+	cd $ZSH_DIR
 }
-cf_zshjq_reload() {
-	source $ZSHJQ_DIR
+cf_zsh_nvim () {
+	local app="${1:-$ZSH_EXT}"
+	cf_zsh_cd
+	nvim .zsh$app
 }
-cf_zshjq_to_local() {
-	cp $CF_DIR$ZSHJQ_DIR $ZSHJQ_DIR
+cf_zsh_to_local() {
+	local app="${1:-$ZSH_EXT}"
+	cp $CF_DIR/$ZSH_DIR/.zsh$app $ZSH_DIR/.zsh$app
 }
-cf_zshjq_to_repos() {
-	cp $ZSHJQ_DIR $CF_DIR$ZSHJQ_DIR
-}
-
-# cf_zshcf
-ZSHCF_DIR=~/.zshcf
-cf_zshcf_config() {
-	nvim $ZSHCF_DIR
-}
-cf_zshcf_reload() {
-	source $ZSHCF_DIR
-}
-cf_zshcf_to_local() {
-	cp $CF_DIR$ZSHCF_DIR $ZSHCF_DIR
-}
-cf_zshcf_to_repos() {
-	cp $ZSHCF_DIR $CF_DIR$ZSHCF_DIR
-}
-
-# nv_zshcf
-ZSHNV_DIR=~/.zshnv
-cf_zshnv_config() {
-	nvim $ZSHNV_DIR
-}
-cf_zshnv_reload() {
-	source $ZSHNV_DIR
-}
-cf_zshnv_to_local() {
-	cp $CF_DIR$ZSHNV_DIR $ZSHNV_DIR
-}
-cf_zshnv_to_repos() {
-	cp $ZSHNV_DIR $CF_DIR$ZSHNV_DIR
-}
-
-
-# nv_zshcf
-ZSHDM_DIR=~/.zshdm
-cf_zshdm_config() {
-	nvim $ZSHDM_DIR
-}
-cf_zshdm_reload() {
-	source $ZSHDM_DIR
-}
-cf_zshdm_to_local() {
-	cp $CF_DIR$ZSHDM_DIR $ZSHDM_DIR
-}
-cf_zshdm_to_repos() {
-	cp $ZSHDM_DIR $CF_DIR$ZSHDM_DIR
+cf_zsh_to_repos() {
+	local app="${1:-$ZSH_EXT}"
+	cp $ZSH_DIR/.zsh$app $CF_DIR/$ZSH_DIR/.zsh$app
 }
 
 # cf_logid
+LOGID_DIR=/etc
+LOGID_CFG=logid.cfg
 alias cf_logid_restart='sudo systemctl restart logid'
-LOGID_DIR=/etc/logid.cfg
-cf_logid_config() {
-	sudo nvim $LOGID_DIR
+cf_logid_cd() {
+	cd $LOGID_DIR
+}
+cf_logid_nvim() {
+	cf_logid_cd
+	sudo nvim $LOGID_DIR/$LOGID_CFG
 }
 cf_logid_to_local() {
-	sudo cp $CF_DIR$LOGID_DIR $LOGID_DIR
+	sudo cp $CF_DIR/$LOGID_DIR/$LOGID_CFG $LOGID_DIR/$LOGID_CFG
 }
 cf_logid_to_repos() {
-	sudo cp $LOGID_DIR $CF_DIR$LOGID_DIR
+	sudo cp $LOGID_DIR/$LOGID_CFG $CF_DIR/$LOGID_DIR/$LOGID_CFG
 }
 
 # cf_keyd
+KEYD_DIR=/etc/keyd
+KEYD_CFG=default.conf
 alias cf_keyd_reload='sudo keyd reload'
 alias cf_keyd_monitor='sudo keyd monitor'
-KEYD_DIR=/etc/keyd/default.conf
-cf_keyd_config() {
-	sudo nvim $KEYD_DIR
+cf_keyd_cd() {
+	cd $KEYD_DIR
+}
+cf_keyd_nvim() {
+	cf_keyd_cd
+	sudo nvim $KEYD_CFG
 }
 cf_keyd_to_local() {
-	sudo cp $CF_DIR$KEYD_DIR $KEYD_DIR
+	sudo cp $CF_DIR/$KEYD_DIR/$KEYD_CFG $KEYD_DIR/$KEYD_CFG
 }
 cf_keyd_to_repos() {
-	sudo cp $KEYD_DIR $CF_DIR$KEYD_DIR
+	sudo cp $KEYD_DIR/$KEYD_CFG $CF_DIR/$KEYD_DIR/$KEYD_CFG
 }
 
 # cf_kitty
-KITTY_DIR=~/.config/kitty/kitty.conf
-cf_kitty_config() {
-	nvim $KITTY_DIR
+KITTY_DIR=$HOME/.config/kitty
+KITTY_CFG=kitty.conf
+cf_kitty_cd() {
+	cd $KITTY_DIR
+}
+cf_kitty_nvim() {
+	cf_kitty_cd
+	nvim $KITTY_CFG
 }
 cf_kitty_to_local() {
-	cp $CF_DIR$KITTY_DIR $KITTY_DIR
+	cp $CF_DIR/$KITTY_DIR/$KITTY_CFG $KITTY_DIR/$KITTY_CFG
 }
 cf_kitty_to_repos() {
-	cp $KITTY_DIR $CF_DIR$KITTY_DIR
+	cp $KITTY_DIR/$KITTY_CFG $CF_DIR/$KITTY_DIR/$KITTY_CFG
 }
 
