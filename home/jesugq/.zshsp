@@ -1,0 +1,146 @@
+# sp
+alias sp_ssh='ssh-add ~/.ssh/id_ed25519'
+alias sp_aws='aws sso login --profile staging'
+alias sp_ngrok='ngrok http 4005'
+alias sp_stats='docker stats'
+alias sp_usr='spb_bash rails r script/marketing/create_user.rb --'
+
+# alias sp-stop='sp stop'
+# alias sp-start='sp start'
+# alias sp-doctor='sp doctor'
+# alias sp-sidekiq='sp-sidekiq'
+# alias sp-yarn='sp yarn lint:all'
+# alias sp-routes='sp rails routes | grep'
+# alias sp-restart='sp restart -a' # {{app}}
+# alias sp-exec='sp exec -a' # {{app}} {{command}}
+# alias sp-bash='sp bash -a' # {{app}}
+# alias sp-attach='sp attach -a' # {{app}}
+# alias sp-rails='sp rails -a' # {{app}}
+# alias sp-rspec='sp rspec -a' # {{app}} {{spec}}
+# alias sp-rubocop='sp rubocop -a' # {{app}} {{spec}}
+# alias sp-teleport='sp bin/lake-console'
+# alias sp-exec='sp staging:exec' # rev01 bash
+# alias sp-db='sp staging:db' # rev01
+# alias sp-logs='sp staging:logs' # rev01 -f -a simplepractice
+
+# spd
+DOCKER_DIR=~/Development/docker-dev
+spd_cd() {
+	cd $DOCKER_DIR
+}
+spd_nvim() {
+	spd_cd
+	nvim $DOCKER_DIR
+}
+spd_sync() {
+	spd_cd
+	git pull
+	sp apps:sync
+	sp stop
+	sp start
+}
+spd_agent() {
+	spd_cd
+	cursor agent
+}
+
+# spb
+BACKEND_DIR=~/Development/simplepractice
+BACKEND_APP=simplepractice
+spb_cd() {
+	cd $BACKEND_DIR
+}
+spb_nvim() {
+	spb_cd
+	nvim $BACKEND_DIR
+}
+spb_agent() {
+	spb_cd
+	cursor agent
+}
+spb_restart() {
+	sp restart -a $BACKEND_APP --backend
+}
+spb_attach() {
+	sp attach -a $BACKEND_APP
+}
+spb_bash() {
+	sp exec -a $BACKEND_APP bash
+}
+spb_rails() {
+	sp exec -a $BACKEND_APP rails console
+}
+spb_mysql() {
+	sp exec -a $BACKEND_APP mysql -h mysql.local -u root $BACKEND_APP
+}
+spb_rspec() {
+	docker exec -it -e rails_env=test $BACKEND_APP bundle exec rspec $1
+}
+spb_oas() {
+	spb_cd
+	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
+}
+
+# spf
+FRONTEND_DIR=~/Development/simplepractice-frontend
+FRONTEND_APP=simplepractice-frontend
+spf_cd() {
+	cd $FRONTEND_DIR
+}
+spf_nvim() {
+	spf_cd
+	nvim $FRONTEND_DIR
+}
+spf_agent() {
+	spf_cd
+	cursor agent
+}
+spf_restart() {
+	sp restart -a $FRONTEND_APP --frontend
+}
+spf_attach() {
+	sp attach -a $FRONTEND_APP
+}
+spf_bash() {
+	sp exec -a $FRONTEND_APP bash
+}
+spf_rails() {
+	sp exec -a $FRONTEND_APP rails console
+}
+spf_yarn() {
+	docker exec -it -e COVERAGE=$1 $FRONTEND_APP yarn test --serve -f 'dummy test'
+}
+
+# sps
+SSO_DIR=~/Development/sp-sso-account
+SSO_APP=sp-sso-account
+sps_cd() {
+	cd $SSO_DIR
+}
+sps_nvim() {
+	sps_cd
+	nvim $SSO_DIR
+}
+sps_agent() {
+	sps_cd
+	cursor agent
+}
+sps_restart() {
+	sp restart -a $SSO_APP --backend
+}
+sps_attach() {
+	sp attach -a $SSO_APP
+}
+sps_bash() {
+	sp exec -a $SSO_APP bash
+}
+sps_rails() {
+	sp exec -a $SSO_APP rails console
+}
+sps_mysql() {
+	sp exec -a $SSO_APP mysql -h mysql.local -u root $SSO_APP
+}
+sps_rspec() {
+	docker exec -it -e rails_env=test $SSO_APP bundle exec rspec $1
+}
+
