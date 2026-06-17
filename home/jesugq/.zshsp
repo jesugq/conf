@@ -104,9 +104,6 @@ spf_attach() {
 spf_bash() {
 	sp exec -a $FRONTEND_APP bash
 }
-spf_rails() {
-	sp exec -a $FRONTEND_APP rails console
-}
 spf_yarn() {
 	docker exec -it -e COVERAGE=$1 $FRONTEND_APP yarn test --serve -f 'dummy test'
 }
