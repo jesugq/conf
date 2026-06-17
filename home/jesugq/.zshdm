@@ -3,11 +3,11 @@ DM_DIR=~/.config/doom
 dm_cd() {
 	cd $DM_DIR
 }
+dm_nvim() {
+	dm_cd
+	nvim .
+}
 dm_reload() {
 	$DM_DIR/../emacs/bin/doom sync
-}
-dm_nvim() {
-	cd $DM_DIR
-	nvim .
 }
 

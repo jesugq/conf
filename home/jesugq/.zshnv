@@ -4,7 +4,7 @@ nv_cd() {
 	cd $NV_DIR
 }
 nv_nvim() {
-	cd $NV_DIR
+	nv_cd
 	nvim .
 }
 

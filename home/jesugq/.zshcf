@@ -7,78 +7,16 @@ cf_nvim() {
 	cf_cd
 	nvim .
 }
+cf_reload() {
+	cf_cd
+	sudo rsync -av etc/ /etc/
+	rsync -av home/jesugq/ $HOME/
 
-# cf_zsh
-ZSH_DIR=$HOME
-ZSH_EXT=cf
-cf_zsh_cd () {
-	cd $ZSH_DIR
+	source $HOME/.zshcf
+	source $HOME/.zshdm
+	source $HOME/.zshnv
 }
-cf_zsh_nvim () {
-	local app="${1:-$ZSH_EXT}"
-	cf_zsh_cd
-	nvim .zsh$app
-}
-cf_zsh_to_local() {
-	local app="${1:-$ZSH_EXT}"
-	cp $CF_DIR/$ZSH_DIR/.zsh$app $ZSH_DIR/.zsh$app
-}
-cf_zsh_to_repos() {
-	local app="${1:-$ZSH_EXT}"
-	cp $ZSH_DIR/.zsh$app $CF_DIR/$ZSH_DIR/.zsh$app
-}
-
-# cf_logid
-LOGID_DIR=/etc
-LOGID_CFG=logid.cfg
 alias cf_logid_restart='sudo systemctl restart logid'
-cf_logid_cd() {
-	cd $LOGID_DIR
-}
-cf_logid_nvim() {
-	cf_logid_cd
-	sudo nvim $LOGID_DIR/$LOGID_CFG
-}
-cf_logid_to_local() {
-	sudo cp $CF_DIR/$LOGID_DIR/$LOGID_CFG $LOGID_DIR/$LOGID_CFG
-}
-cf_logid_to_repos() {
-	sudo cp $LOGID_DIR/$LOGID_CFG $CF_DIR/$LOGID_DIR/$LOGID_CFG
-}
-
-# cf_keyd
-KEYD_DIR=/etc/keyd
-KEYD_CFG=default.conf
 alias cf_keyd_reload='sudo keyd reload'
 alias cf_keyd_monitor='sudo keyd monitor'
-cf_keyd_cd() {
-	cd $KEYD_DIR
-}
-cf_keyd_nvim() {
-	cf_keyd_cd
-	sudo nvim $KEYD_CFG
-}
-cf_keyd_to_local() {
-	sudo cp $CF_DIR/$KEYD_DIR/$KEYD_CFG $KEYD_DIR/$KEYD_CFG
-}
-cf_keyd_to_repos() {
-	sudo cp $KEYD_DIR/$KEYD_CFG $CF_DIR/$KEYD_DIR/$KEYD_CFG
-}
-
-# cf_kitty
-KITTY_DIR=$HOME/.config/kitty
-KITTY_CFG=kitty.conf
-cf_kitty_cd() {
-	cd $KITTY_DIR
-}
-cf_kitty_nvim() {
-	cf_kitty_cd
-	nvim $KITTY_CFG
-}
-cf_kitty_to_local() {
-	cp $CF_DIR/$KITTY_DIR/$KITTY_CFG $KITTY_DIR/$KITTY_CFG
-}
-cf_kitty_to_repos() {
-	cp $KITTY_DIR/$KITTY_CFG $CF_DIR/$KITTY_DIR/$KITTY_CFG
-}
 
