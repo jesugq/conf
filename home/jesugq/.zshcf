@@ -19,4 +19,5 @@ cf_reload() {
 alias cf_logid_restart='sudo systemctl restart logid'
 alias cf_keyd_reload='sudo keyd reload'
 alias cf_keyd_monitor='sudo keyd monitor'
+alias cf_plasma_reload='systemctl --user restart plasma-plasmashell.service'
 
