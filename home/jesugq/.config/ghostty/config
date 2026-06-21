@@ -1,0 +1,10 @@
+# orgmode
+initial-command = cd $HOME/Sync/Apps/Orgmode && nvim .
+
+# font
+font-family = 'Office Code Pro'
+font-size = 20.0
+
+# linux support
+keybind = ctrl+enter=unbind
+
