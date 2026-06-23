@@ -60,6 +60,7 @@ spb_agent() {
 }
 spb_restart() {
 	sp restart -a $BACKEND_APP --backend
+	spb_attach
 }
 spb_attach() {
 	sp attach -a $BACKEND_APP
@@ -97,6 +98,7 @@ spf_agent() {
 }
 spf_restart() {
 	sp restart -a $FRONTEND_APP --frontend
+	spf_attach
 }
 spf_attach() {
 	sp attach -a $FRONTEND_APP
@@ -124,6 +126,7 @@ sps_agent() {
 }
 sps_restart() {
 	sp restart -a $SSO_APP --backend
+	sps_attach
 }
 sps_attach() {
 	sp attach -a $SSO_APP

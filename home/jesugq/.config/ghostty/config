@@ -1,10 +1,42 @@
-# orgmode
-initial-command = cd $HOME/Sync/Apps/Orgmode && nvim .
+# theme
+theme = TokyoNight
+
+# tab bar
+window-padding-color = extend
 
 # font
 font-family = 'Office Code Pro'
-font-size = 20.0
+font-size = 24.0
 
 # linux support
 keybind = ctrl+enter=unbind
+
+# macos support
+keybind = super+a=text:\x1ba
+keybind = super+b=text:\x1bb
+keybind = super+c=text:\x1bc
+keybind = super+d=text:\x1bd
+keybind = super+e=text:\x1be
+keybind = super+f=text:\x1bf
+keybind = super+h=text:\x1bh
+keybind = super+j=text:\x1bj
+keybind = super+k=text:\x1bk
+keybind = super+l=text:\x1bl
+keybind = super+m=text:\x1bm
+keybind = super+n=text:\x1bn
+keybind = super+p=text:\x1bp
+keybind = super+q=text:\x1bq
+keybind = super+r=text:\x1br
+keybind = super+s=text:\x1bs
+keybind = super+t=text:\x1bt
+keybind = super+u=text:\x1bu
+keybind = super+v=text:\x1bv
+keybind = super+w=text:\x1bw
+keybind = super+x=text:\x1bx
+keybind = super+y=text:\x1by
+keybind = super+z=text:\x1bz
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+shift+w=close_tab
 
