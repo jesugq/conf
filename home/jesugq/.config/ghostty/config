@@ -5,7 +5,7 @@ theme = TokyoNight
 window-padding-color = extend
 
 # font
-font-family = 'Office Code Pro'
+font-family = "Office Code Pro"
 font-size = 24.0
 
 # linux support
