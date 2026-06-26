@@ -1,12 +1,12 @@
 # theme
 theme = TokyoNight
 
-# tab bar
-window-padding-color = extend
-
 # font
 font-family = "Office Code Pro"
 font-size = 24.0
+
+# tab bar
+window-padding-color = extend
 
 # linux support
 keybind = ctrl+enter=unbind
