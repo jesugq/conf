@@ -15,6 +15,7 @@ cf_reload() {
 	source $HOME/.zshcf
 	source $HOME/.zshdm
 	source $HOME/.zshnv
+    source $HOME/.zshsp
 }
 alias cf_logid_restart='sudo systemctl restart logid'
 alias cf_keyd_reload='sudo keyd reload'

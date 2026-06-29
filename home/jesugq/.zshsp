@@ -1,27 +1,20 @@
-# sp
-alias sp_ssh='ssh-add ~/.ssh/id_ed25519'
-alias sp_aws='aws sso login --profile staging'
-alias sp_ngrok='ngrok http 4005'
-alias sp_stats='docker stats'
-alias sp_usr='spb_bash rails r script/marketing/create_user.rb --'
-
-# alias sp-stop='sp stop'
-# alias sp-start='sp start'
-# alias sp-doctor='sp doctor'
-# alias sp-sidekiq='sp-sidekiq'
-# alias sp-yarn='sp yarn lint:all'
-# alias sp-routes='sp rails routes | grep'
-# alias sp-restart='sp restart -a' # {{app}}
-# alias sp-exec='sp exec -a' # {{app}} {{command}}
-# alias sp-bash='sp bash -a' # {{app}}
-# alias sp-attach='sp attach -a' # {{app}}
-# alias sp-rails='sp rails -a' # {{app}}
-# alias sp-rspec='sp rspec -a' # {{app}} {{spec}}
-# alias sp-rubocop='sp rubocop -a' # {{app}} {{spec}}
-# alias sp-teleport='sp bin/lake-console'
-# alias sp-exec='sp staging:exec' # rev01 bash
-# alias sp-db='sp staging:db' # rev01
-# alias sp-logs='sp staging:logs' # rev01 -f -a simplepractice
+# 'sp stop'
+# 'sp start'
+# 'sp doctor'
+# 'sp-sidekiq'
+# 'sp yarn lint:all'
+# 'sp rails routes | grep'
+# 'sp restart -a' # {{app}}
+# 'sp exec -a' # {{app}} {{command}}
+# 'sp bash -a' # {{app}}
+# 'sp attach -a' # {{app}}
+# 'sp rails -a' # {{app}}
+# 'sp rspec -a' # {{app}} {{spec}}
+# 'sp rubocop -a' # {{app}} {{spec}}
+# 'sp bin/lake-console'
+# 'sp staging:exec' # rev01 bash
+# 'sp staging:db' # rev01
+# 'sp staging:logs' # rev01 -f -a simplepractice
 
 # spd
 DOCKER_DIR=~/Development/docker-dev
@@ -39,10 +32,23 @@ spd_sync() {
 	sp stop
 	sp start
 }
+spd_ssh() {
+	spd_cd
+	ssh-add ~/.ssh/id_ed25519
+}
 spd_agent() {
 	spd_cd
 	cursor agent
 }
+spd_remap() {
+    hidutil property --set '{"UserKeyMapping":[
+      {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
+      {"HIDKeyboardModifierMappingSrc":0x7000000E0,"HIDKeyboardModifierMappingDst":0x700000039}
+    ]}'
+}
+alias spd_aws='aws sso login --profile staging'
+alias spd_ngrok='ngrok http 4005'
+alias spd_stats='docker stats'
 
 # spb
 BACKEND_DIR=~/Development/simplepractice
@@ -75,11 +81,14 @@ spb_mysql() {
 	sp exec -a $BACKEND_APP mysql -h mysql.local -u root $BACKEND_APP
 }
 spb_rspec() {
-	docker exec -it -e rails_env=test $BACKEND_APP bundle exec rspec $1
+	docker exec -it -e COVERAGE=$1 rails_env=test $BACKEND_APP bundle exec rspec $1
 }
 spb_oas() {
 	spb_cd
 	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
+}
+spb_usr() {
+	spb_bash rails r script/marketing/create_user.rb --
 }
 
 # spf
