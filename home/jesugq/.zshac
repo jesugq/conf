@@ -1,4 +1,4 @@
-function y() {
+function yz() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	command yazi "$@" --cwd-file="$tmp"
 	IFS= read -r -d '' cwd < "$tmp"
@@ -6,3 +6,6 @@ function y() {
 	command rm -f -- "$tmp"
 }
 
+function lg() {
+	lazygit
+}
