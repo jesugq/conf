@@ -21,7 +21,8 @@ alias cf_logid_restart='sudo systemctl restart logid'
 alias cf_keyd_reload='sudo keyd reload'
 alias cf_keyd_monitor='sudo keyd monitor'
 alias cf_plasma_reload='systemctl --user restart plasma-plasmashell.service'
-cf_orgmode_cd() {
+
+cf_org_cd() {
 	local directory
 	if [[ "$OSTYPE" == "darwin"* ]]; then
 		directory=$HOME/Development/orgmode
@@ -30,8 +31,22 @@ cf_orgmode_cd() {
 	fi
 	cd $directory
 }
-cf_orgmode_nvim() {
-	cf_orgmode_cd
+cf_org_nvim() {
+	cf_org_cd
+	nvim .
+}
+
+cf_mark_cd() {
+	local directory
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+		directory=$HOME/Development/markdown
+	else
+		directory=$HOME/Sync/Apps/Markdown
+	fi
+	cd $directory
+}
+cf_mark_nvim() {
+	cf_mark_cd
 	nvim .
 }
 
