@@ -81,7 +81,13 @@ spb_mysql() {
 	sp exec -a $BACKEND_APP mysql -h mysql.local -u root $BACKEND_APP
 }
 spb_rspec() {
-	docker exec -it -e COVERAGE=$1 rails_env=test $BACKEND_APP bundle exec rspec $1
+	if [ $1 = true ]; then
+		shift
+		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
+	else
+		shift
+		docker exec -it $BACKEND_APP bundle exec rspec "$@"
+	fi
 }
 spb_oas() {
 	spb_cd
@@ -116,7 +122,13 @@ spf_bash() {
 	sp exec -a $FRONTEND_APP bash
 }
 spf_yarn() {
-	docker exec -it -e COVERAGE=$1 $FRONTEND_APP yarn test --serve -f 'dummy test'
+	if [ $1 = true ]; then
+		shift
+		docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
+	else
+		shift
+		docker exec -it $FRONTEND_APP yarn test --serve -f 'dummy test'
+	fi
 }
 
 # sps
