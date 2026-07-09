@@ -17,11 +17,11 @@ cf_reload() {
 	source $HOME/.zshnv
     source $HOME/.zshsp
 }
-alias cf_logid_restart=sudo systemctl restart logid
-alias cf_tmux_reload=tmux source-file $HOME/tmux.conf
-alias cf_keyd_reload=sudo keyd reload
-alias cf_keyd_monitor=sudo keyd monitor
-alias cf_plasma_reload=systemctl --user restart plasma-plasmashell.service
+alias cf_logid_restart="sudo systemctl restart logid"
+alias cf_tmux_reload="tmux source-file $HOME/tmux.conf"
+alias cf_keyd_reload="sudo keyd reload"
+alias cf_keyd_monitor="sudo keyd monitor"
+alias cf_plasma_reload="systemctl --user restart plasma-plasmashell.service"
 
 # cf_org
 if [[ "$OSTYPE" == "darwin"* ]]; then
