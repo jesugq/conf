@@ -7,6 +7,7 @@ font-size = 16.0
 
 # tab bar
 window-padding-color = extend
+bell-features = audio
 
 # linux support
 keybind = ctrl+enter=unbind
@@ -38,6 +39,4 @@ keybind = super+z=text:\x1bz
 keybind = super+enter=text:\x1b\r
 keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
-keybind = super+shift+[=text:\x1b{
-keybind = super+shift+]=text:\x1b}
 
