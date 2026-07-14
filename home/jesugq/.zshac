@@ -9,3 +9,25 @@ function yz() {
 function lg() {
 	lazygit
 }
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    ORG_DIR=$HOME/Development/orgmode
+else
+    ORG_DIR=$HOME/Sync/Apps/Orgmode
+fi
+function org() {
+	cd $ORG_DIR
+	nvim .
+}
+
+unalias md
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    MD_DIR=$HOME/Development/markdown
+else
+    MD_DIR=$HOME/Sync/Apps/Markdown
+fi
+function md() {
+	cd $MD_DIR
+	nvim .
+}
+

@@ -23,31 +23,3 @@ alias cf_keyd_reload="sudo keyd reload"
 alias cf_keyd_monitor="sudo keyd monitor"
 alias cf_plasma_reload="systemctl --user restart plasma-plasmashell.service"
 
-# cf_org
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    CF_ORG_DIR=$HOME/Development/orgmode
-else
-    CF_ORG_DIR=$HOME/Sync/Apps/Orgmode
-fi
-cf_org_cd() {
-	cd $CF_ORG_DIR
-}
-cf_org_nvim() {
-	cf_org_cd
-	nvim .
-}
-
-# cf_mark
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    CF_MARK_DIR=$HOME/Development/markdown
-else
-    CF_MARK_DIR=$HOME/Sync/Apps/Markdown
-fi
-cf_mark_cd() {
-	cd $CF_MARK_DIR
-}
-cf_mark_nvim() {
-	cf_mark_cd
-	nvim .
-}
-
