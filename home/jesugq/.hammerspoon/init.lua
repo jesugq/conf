@@ -1,4 +1,4 @@
-local optTabTap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
+multiTap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
     local keyCode = event:getKeyCode()
     local flags = event:getFlags()
 
@@ -19,7 +19,7 @@ local optTabTap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(
     return false
 end)
 
-optTabTap:start()
+multiTap:start()
 
 hs.alert.show("Hammerspoon Config Loaded: Opt+Tab remap active")
 hs.alert.show("Hammerspoon Config Loaded: Ctrl+[ remap active")
