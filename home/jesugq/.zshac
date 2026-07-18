@@ -31,3 +31,10 @@ function md() {
 	nvim .
 }
 
+function aic() {
+  cursor agent
+}
+
+function aig() {
+  gemini
+}

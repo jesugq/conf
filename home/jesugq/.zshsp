@@ -25,9 +25,13 @@ sp_nvim() {
 	sp_cd
 	nvim $FOLDER_DIR
 }
-sp_agent() {
+sp_cursor() {
 	sp_cd
 	cursor agent
+}
+sp_gemini() {
+	sp_cd
+	gemini
 }
 sp_remap() {
 	hidutil property --set '{"UserKeyMapping":[
@@ -104,7 +108,7 @@ spb_usr() {
 }
 
 # spf
-FRONTEND_DIR=~/Development/simplepractice-frontend
+FRONTEND_DIR=~/Development/frontend
 FRONTEND_APP=simplepractice-frontend
 spf_cd() {
 	cd $FRONTEND_DIR
