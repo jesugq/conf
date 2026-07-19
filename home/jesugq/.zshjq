@@ -1,5 +1,5 @@
-alias logidr="sudo systemctl restart logid"
-alias plasmar="systemctl --user restart plasma-plasmashell.service"
+alias logidrld="sudo systemctl restart logid"
+alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     OG_DIR=$HOME/Development/orgmode
@@ -61,10 +61,12 @@ function nvcd() {
 }
 
 function aic() {
-  cursor agent
+  tmux rename-window "aic"
+  agent
 }
 function aig() {
-  gemini
+  tmux rename-window "aig"
+  agy
 }
 
 function yz() {

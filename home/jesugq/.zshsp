@@ -34,12 +34,14 @@ spqmap() {
 	]}'
 }
 spqaic() {
+  tmux rename-window "spqaic"
 	cd $QUEEN_DIR
-	cursor agent
+	agent
 }
 spqaig() {
+  tmux rename-window "spqaig"
 	cd $QUEEN_DIR
-	gemini
+	agy
 }
 
 # spd
