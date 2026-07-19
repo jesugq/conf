@@ -1,0 +1,81 @@
+alias logidr="sudo systemctl restart logid"
+alias plasmar="systemctl --user restart plasma-plasmashell.service"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    OG_DIR=$HOME/Development/orgmode
+else
+    OG_DIR=$HOME/Sync/Apps/Orgmode
+fi
+function og() {
+  tmux rename-window "og"
+	cd $OG_DIR
+	nvim .
+}
+function ogcd() {
+	cd $OG_DIR
+}
+
+unalias md
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    MD_DIR=$HOME/Development/markdown
+else
+    MD_DIR=$HOME/Sync/Apps/Markdown
+fi
+function md() {
+  tmux rename-window "md"
+	cd $MD_DIR
+	nvim .
+}
+function mdcd() {
+	cd $MD_DIR
+}
+
+CF_DIR=$HOME/Development/config
+function cf() {
+  tmux rename-window "cf"
+	cd $CF_DIR
+	nvim .
+}
+function cfcd() {
+	cd $CF_DIR
+}
+function cfrld() {
+  cd $CF_DIR
+	sudo rsync -av etc/ /etc/
+	rsync -av home/jesugq/ $HOME/
+}
+function cfsrc() {
+  cd $CF_DIR
+	source $HOME/.zshjq
+  source $HOME/.zshsp
+}
+
+NV_DIR=$HOME/.config/nvim
+function nv() {
+  tmux rename-window "nv"
+	cd $NV_DIR
+	nvim .
+}
+function nvcd() {
+	cd $NV_DIR
+}
+
+function aic() {
+  cursor agent
+}
+function aig() {
+  gemini
+}
+
+function yz() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  command rm -f -- "$tmp"
+}
+
+function lg() {
+	lazygit
+}
+

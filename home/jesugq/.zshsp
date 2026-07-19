@@ -17,80 +17,88 @@
 # 'sp staging:logs' # rev01 -f -a simplepractice
 
 # sp
-FOLDER_DIR=~/Development/
-sp_cd() {
-	cd $FOLDER_DIR
+QUEEN_DIR=~/Development/
+spq() {
+  tmux rename-window "sp"
+	cd $QUEEN_DIR
+  nvim .
 }
-sp_nvim() {
-	sp_cd
-	nvim $FOLDER_DIR
+spqcd() {
+	cd $QUEEN_DIR
 }
-sp_cursor() {
-	sp_cd
-	cursor agent
-}
-sp_gemini() {
-	sp_cd
-	gemini
-}
-sp_remap() {
+spqmap() {
+	cd $QUEEN_DIR
 	hidutil property --set '{"UserKeyMapping":[
 	  {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
 	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
 	]}'
 }
+spqaic() {
+	cd $QUEEN_DIR
+	cursor agent
+}
+spqaig() {
+	cd $QUEEN_DIR
+	gemini
+}
 
 # spd
 DOCKER_DIR=~/Development/docker-dev
-spd_cd() {
+spd() {
+  tmux rename-window "spd"
+	cd $DOCKER_DIR
+  nvim .
+}
+spdcd() {
 	cd $DOCKER_DIR
 }
-spd_nvim() {
-	spd_cd
-	nvim $DOCKER_DIR
-}
-spd_sync() {
-	spd_cd
+spdapp() {
+  tmux rename-window "spdapp"
+	cd $DOCKER_DIR
+	ssh-add ~/.ssh/id_ed25519
 	git pull
 	sp apps:sync
 	sp stop
 	sp start
 }
-spd_ssh() {
-	spd_cd
-	ssh-add ~/.ssh/id_ed25519
+spdaws() {
+  aws sso login --profile staging
 }
-alias spd_aws='aws sso login --profile staging'
-alias spd_ngrok='ngrok http 4005'
-alias spd_stats='docker stats'
 
 # spb
 BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
-spb_cd() {
+spb() {
+  tmux rename-window "spb"
+	cd $BACKEND_DIR
+  nvim .
+}
+spbcd() {
 	cd $BACKEND_DIR
 }
-spb_nvim() {
-	spb_cd
-	nvim $BACKEND_DIR
-}
-spb_restart() {
+spbrld() {
+  tmux rename-window "spbrld"
 	sp restart -a $BACKEND_APP --backend
 	spb_attach
 }
-spb_attach() {
+spblog() {
+  tmux rename-window "spblog"
 	sp attach -a $BACKEND_APP
 }
-spb_bash() {
+spbbash() {
+  tmux rename-window "spbbash"
 	sp exec -a $BACKEND_APP bash
 }
-spb_rails() {
+spbrails() {
+  tmux rename-window "spbrails"
 	sp exec -a $BACKEND_APP rails console
 }
-spb_mysql() {
+spbmysql() {
+  tmux rename-window "spbmysql"
 	sp exec -a $BACKEND_APP mysql -h mysql.local -u root $BACKEND_APP
 }
-spb_rspec() {
+spbrspec() {
+  tmux rename-window "spbrspec"
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
@@ -99,35 +107,41 @@ spb_rspec() {
 		docker exec -it $BACKEND_APP bundle exec rspec "$@"
 	fi
 }
-spb_oas() {
-	spb_cd
+spboas() {
+  tmux rename-window "spboas"
 	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
 }
-spb_usr() {
+spbusr() {
+  tmux rename-window "spbusr"
 	sp exec -a $BACKEND_APP rails r script/marketing/create_user.rb -- "$@"
 }
 
 # spf
 FRONTEND_DIR=~/Development/frontend
 FRONTEND_APP=simplepractice-frontend
-spf_cd() {
+spf() {
+  tmux rename-window "spf"
 	cd $FRONTEND_DIR
+	nvim .
 }
-spf_nvim() {
-	spf_cd
-	nvim $FRONTEND_DIR
+spfcd() {
+  cd $FRONTEND_DIR
 }
-spf_restart() {
+spfrld() {
+  tmux rename-window "spfrld"
 	sp restart -a $FRONTEND_APP --frontend
 	spf_attach
 }
-spf_attach() {
+spflog() {
+  tmux rename-window "spflog"
 	sp attach -a $FRONTEND_APP
 }
-spf_bash() {
+spfbash() {
+  tmux rename-window "spfbash"
 	sp exec -a $FRONTEND_APP bash
 }
-spf_yarn() {
+spfyarn() {
+  tmux rename-window "spfyarn"
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
@@ -140,30 +154,37 @@ spf_yarn() {
 # sps
 SSO_DIR=~/Development/sp-sso-account
 SSO_APP=sp-sso-account
-sps_cd() {
-	cd $SSO_DIR
+sps() {
+  tmux rename-window "sps"
+  cd $SSO_DIR
+	nvim .
 }
-sps_nvim() {
-	sps_cd
-	nvim $SSO_DIR
+spscd() {
+  cd $SSO_DIR
 }
-sps_restart() {
+spsrld() {
+  tmux rename-window "spsrld"
 	sp restart -a $SSO_APP --backend
 	sps_attach
 }
-sps_attach() {
+spslog() {
+  tmux rename-window "spslog"
 	sp attach -a $SSO_APP
 }
-sps_bash() {
+spsbash() {
+  tmux rename-window "spsbash"
 	sp exec -a $SSO_APP bash
 }
-sps_rails() {
+spsrails() {
+  tmux rename-window "spsrails"
 	sp exec -a $SSO_APP rails console
 }
-sps_mysql() {
+spsmysql() {
+  tmux rename-window "spsmysql"
 	sp exec -a $SSO_APP mysql -h mysql.local -u root $SSO_APP
 }
-sps_rspec() {
+spsrspec() {
+  tmux rename-window "spsrspec"
 	docker exec -it -e rails_env=test $SSO_APP bundle exec rspec $1
 }
 
