@@ -1,7 +1,7 @@
 # 'sp stop'
 # 'sp start'
 # 'sp doctor'
-# 'sp-sidekiq'
+# 'sp sidekiq'
 # 'sp yarn lint:all'
 # 'sp rails routes | grep'
 # 'sp restart -a' # {{app}}
@@ -57,14 +57,18 @@ spdcd() {
 spdapp() {
   tmux rename-window "spdapp"
 	cd $DOCKER_DIR
-	ssh-add ~/.ssh/id_ed25519
 	git pull
 	sp apps:sync
 	sp stop
 	sp start
 }
 spdaws() {
+	cd $DOCKER_DIR
   aws sso login --profile staging
+}
+spdssh() {
+	cd $DOCKER_DIR
+	ssh-add ~/.ssh/id_ed25519
 }
 
 # spb
