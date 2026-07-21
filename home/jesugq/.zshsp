@@ -19,11 +19,12 @@
 # sp
 QUEEN_DIR=~/Development/
 spq() {
-  tmux rename-window "sp"
+  tmux rename-window "spq"
 	cd $QUEEN_DIR
   nvim .
 }
 spqcd() {
+  tmux rename-window "spq"
 	cd $QUEEN_DIR
 }
 spqmap() {
@@ -32,16 +33,6 @@ spqmap() {
 	  {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
 	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
 	]}'
-}
-spqaic() {
-  tmux rename-window "spqaic"
-	cd $QUEEN_DIR
-	agent
-}
-spqaig() {
-  tmux rename-window "spqaig"
-	cd $QUEEN_DIR
-	agy
 }
 
 # spd
@@ -52,6 +43,7 @@ spd() {
   nvim .
 }
 spdcd() {
+  tmux rename-window "spd"
 	cd $DOCKER_DIR
 }
 spdapp() {
@@ -80,31 +72,25 @@ spb() {
   nvim .
 }
 spbcd() {
+  tmux rename-window "spb"
 	cd $BACKEND_DIR
 }
 spbrld() {
-  tmux rename-window "spbrld"
 	sp restart -a $BACKEND_APP --backend
-	spb_attach
 }
 spblog() {
-  tmux rename-window "spblog"
 	sp attach -a $BACKEND_APP
 }
 spbbash() {
-  tmux rename-window "spbbash"
 	sp exec -a $BACKEND_APP bash
 }
 spbrails() {
-  tmux rename-window "spbrails"
 	sp exec -a $BACKEND_APP rails console
 }
 spbmysql() {
-  tmux rename-window "spbmysql"
 	sp exec -a $BACKEND_APP mysql -h mysql.local -u root $BACKEND_APP
 }
 spbrspec() {
-  tmux rename-window "spbrspec"
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
@@ -114,11 +100,9 @@ spbrspec() {
 	fi
 }
 spboas() {
-  tmux rename-window "spboas"
 	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
 }
 spbusr() {
-  tmux rename-window "spbusr"
 	sp exec -a $BACKEND_APP rails r script/marketing/create_user.rb -- "$@"
 }
 
@@ -131,23 +115,19 @@ spf() {
 	nvim .
 }
 spfcd() {
+  tmux rename-window "spf"
   cd $FRONTEND_DIR
 }
 spfrld() {
-  tmux rename-window "spfrld"
 	sp restart -a $FRONTEND_APP --frontend
-	spf_attach
 }
 spflog() {
-  tmux rename-window "spflog"
 	sp attach -a $FRONTEND_APP
 }
 spfbash() {
-  tmux rename-window "spfbash"
 	sp exec -a $FRONTEND_APP bash
 }
 spfyarn() {
-  tmux rename-window "spfyarn"
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
@@ -166,31 +146,25 @@ sps() {
 	nvim .
 }
 spscd() {
+  tmux rename-window "sps"
   cd $SSO_DIR
 }
 spsrld() {
-  tmux rename-window "spsrld"
 	sp restart -a $SSO_APP --backend
-	sps_attach
 }
 spslog() {
-  tmux rename-window "spslog"
 	sp attach -a $SSO_APP
 }
 spsbash() {
-  tmux rename-window "spsbash"
 	sp exec -a $SSO_APP bash
 }
 spsrails() {
-  tmux rename-window "spsrails"
 	sp exec -a $SSO_APP rails console
 }
 spsmysql() {
-  tmux rename-window "spsmysql"
 	sp exec -a $SSO_APP mysql -h mysql.local -u root $SSO_APP
 }
 spsrspec() {
-  tmux rename-window "spsrspec"
 	docker exec -it -e rails_env=test $SSO_APP bundle exec rspec $1
 }
 

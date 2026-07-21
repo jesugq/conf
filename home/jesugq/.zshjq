@@ -12,6 +12,7 @@ function og() {
 	nvim .
 }
 function ogcd() {
+  tmux rename-window "og"
 	cd $OG_DIR
 }
 
@@ -27,6 +28,7 @@ function md() {
 	nvim .
 }
 function mdcd() {
+  tmux rename-window "md"
 	cd $MD_DIR
 }
 
@@ -37,6 +39,7 @@ function cf() {
 	nvim .
 }
 function cfcd() {
+  tmux rename-window "cf"
 	cd $CF_DIR
 }
 function cfrld() {
@@ -57,15 +60,14 @@ function nv() {
 	nvim .
 }
 function nvcd() {
+  tmux rename-window "nv"
 	cd $NV_DIR
 }
 
 function aic() {
-  tmux rename-window "aic"
   agent
 }
 function aig() {
-  tmux rename-window "aig"
   agy
 }
 

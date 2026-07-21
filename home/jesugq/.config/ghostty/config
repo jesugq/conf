@@ -7,7 +7,7 @@ font-size = 24.0
 
 # tab bar
 window-padding-color = extend
-bell-features = audio
+bell-features = border,system,attention
 
 # linux support
 keybind = ctrl+enter=unbind
