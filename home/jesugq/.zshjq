@@ -83,3 +83,7 @@ function lg() {
 	lazygit
 }
 
+function fm() {
+  somafm
+}
+
