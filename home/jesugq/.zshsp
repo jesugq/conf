@@ -19,12 +19,10 @@
 # sp
 QUEEN_DIR=~/Development/
 spq() {
-  tmux rename-window "spq"
 	cd $QUEEN_DIR
   nvim .
 }
 spqcd() {
-  tmux rename-window "spq"
 	cd $QUEEN_DIR
 }
 spqmap() {
@@ -38,16 +36,13 @@ spqmap() {
 # spd
 DOCKER_DIR=~/Development/docker-dev
 spd() {
-  tmux rename-window "spd"
 	cd $DOCKER_DIR
   nvim .
 }
 spdcd() {
-  tmux rename-window "spd"
 	cd $DOCKER_DIR
 }
 spdapp() {
-  tmux rename-window "spdapp"
 	cd $DOCKER_DIR
 	git pull
 	sp apps:sync
@@ -67,12 +62,10 @@ spdssh() {
 BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
 spb() {
-  tmux rename-window "spb"
 	cd $BACKEND_DIR
   nvim .
 }
 spbcd() {
-  tmux rename-window "spb"
 	cd $BACKEND_DIR
 }
 spbrld() {
@@ -110,12 +103,10 @@ spbusr() {
 FRONTEND_DIR=~/Development/frontend
 FRONTEND_APP=simplepractice-frontend
 spf() {
-  tmux rename-window "spf"
 	cd $FRONTEND_DIR
 	nvim .
 }
 spfcd() {
-  tmux rename-window "spf"
   cd $FRONTEND_DIR
 }
 spfrld() {
@@ -141,12 +132,10 @@ spfyarn() {
 SSO_DIR=~/Development/sp-sso-account
 SSO_APP=sp-sso-account
 sps() {
-  tmux rename-window "sps"
   cd $SSO_DIR
 	nvim .
 }
 spscd() {
-  tmux rename-window "sps"
   cd $SSO_DIR
 }
 spsrld() {

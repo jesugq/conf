@@ -11,6 +11,7 @@ bell-features = border,system,attention
 
 # linux support
 keybind = ctrl+enter=unbind
+keybind = ctrl+backslash=unbind
 
 # macos support
 keybind = super+a=text:\x1ba
@@ -45,3 +46,4 @@ keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
 keybind = ctrl+shift+k=clear_screen
 keybind = ctrl+shift+f=start_search
+

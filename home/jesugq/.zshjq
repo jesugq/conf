@@ -7,12 +7,10 @@ else
     OG_DIR=$HOME/Sync/Apps/Orgmode
 fi
 function og() {
-  tmux rename-window "og"
 	cd $OG_DIR
 	nvim .
 }
 function ogcd() {
-  tmux rename-window "og"
 	cd $OG_DIR
 }
 
@@ -23,23 +21,19 @@ else
     MD_DIR=$HOME/Sync/Apps/Markdown
 fi
 function md() {
-  tmux rename-window "md"
 	cd $MD_DIR
 	nvim .
 }
 function mdcd() {
-  tmux rename-window "md"
 	cd $MD_DIR
 }
 
 CF_DIR=$HOME/Development/config
 function cf() {
-  tmux rename-window "cf"
 	cd $CF_DIR
 	nvim .
 }
 function cfcd() {
-  tmux rename-window "cf"
 	cd $CF_DIR
 }
 function cfrld() {
@@ -55,12 +49,10 @@ function cfsrc() {
 
 NV_DIR=$HOME/.config/nvim
 function nv() {
-  tmux rename-window "nv"
 	cd $NV_DIR
 	nvim .
 }
 function nvcd() {
-  tmux rename-window "nv"
 	cd $NV_DIR
 }
 
