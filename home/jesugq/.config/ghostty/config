@@ -3,7 +3,7 @@ theme = GitHub Dark Dimmed
 
 # font
 font-family = "CommitMono"
-font-size = 20.0
+font-size = 24.0
 
 # tab bar
 window-padding-color = extend
