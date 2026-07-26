@@ -56,6 +56,15 @@ function nvcd() {
 	cd $NV_DIR
 }
 
+AMIG_DIR=$HOME/Development/cozy-animals-backend
+function amig() {
+	cd $AMIG_DIR
+	nvim .
+}
+function amigcd() {
+	cd $AMIG_DIR
+}
+
 function aic() {
   agent
 }
