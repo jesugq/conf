@@ -79,3 +79,6 @@ function fm() {
   somafm
 }
 
+function tm() {
+  tmux new-session -s "$1" 2>/dev/null || tmux attach-session -t "$1"
+}
