@@ -154,6 +154,12 @@ spsmysql() {
 	sp exec -a $SSO_APP mysql -h mysql.local -u root $SSO_APP
 }
 spsrspec() {
-	docker exec -it -e rails_env=test $SSO_APP bundle exec rspec $1
+	if [ $1 = true ]; then
+		shift
+		docker exec -it -e COVERAGE=true $SSO_APP bundle exec rspec "$@"
+	else
+		shift
+		docker exec -it $SSO_APP bundle exec rspec "$@"
+	fi
 }
 
