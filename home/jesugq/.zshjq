@@ -43,8 +43,7 @@ function cfrld() {
 }
 function cfsrc() {
   cd $CF_DIR
-	source $HOME/.zshjq
-  source $HOME/.zshsp
+	source $HOME/.zshrc
 }
 
 NV_DIR=$HOME/.config/nvim
