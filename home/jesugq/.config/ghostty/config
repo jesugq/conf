@@ -1,19 +1,43 @@
 # theme
-theme = GitHub Dark Dimmed
+theme = TokyoNight
 
 # font
 font-family = "CommitMono"
 font-size = 20.0
 
-# tab bar
-window-padding-color = extend
-bell-features = border,system,attention
+# linux consistency
+keybind = ctrl+a=text:\x01
+keybind = ctrl+b=text:\x02
+keybind = ctrl+c=text:\x03
+keybind = ctrl+d=text:\x04
+keybind = ctrl+e=text:\x05
+keybind = ctrl+f=text:\x06
+keybind = ctrl+g=text:\x07
+keybind = ctrl+h=text:\x08
+keybind = ctrl+i=text:\x09
+keybind = ctrl+j=text:\x0a
+keybind = ctrl+k=text:\x0b
+keybind = ctrl+l=text:\x0c
+keybind = ctrl+m=text:\x0d
+keybind = ctrl+n=text:\x0e
+keybind = ctrl+o=text:\x0f
+keybind = ctrl+p=text:\x10
+keybind = ctrl+q=text:\x11
+keybind = ctrl+r=text:\x12
+keybind = ctrl+s=text:\x13
+keybind = ctrl+t=text:\x14
+keybind = ctrl+u=text:\x15
+keybind = ctrl+v=text:\x16
+keybind = ctrl+w=text:\x17
+keybind = ctrl+x=text:\x18
+keybind = ctrl+y=text:\x19
+keybind = ctrl+z=text:\x1a
 
 # linux support
 keybind = ctrl+enter=unbind
 keybind = ctrl+backslash=unbind
 
-# macos support
+# macos consistency
 keybind = super+a=text:\x1ba
 keybind = super+b=text:\x1bb
 keybind = super+c=text:\x1bc
@@ -37,13 +61,16 @@ keybind = super+w=text:\x1bw
 keybind = super+x=text:\x1bx
 keybind = super+y=text:\x1by
 keybind = super+z=text:\x1bz
+
+# macos support
 keybind = super+enter=text:\x1b\r
+keybind = super+[=text:\x1b[
+keybind = super+]=text:\x1b]
 keybind = super+shift+[=text:\x1b{
 keybind = super+shift+]=text:\x1b}
 
-# missing functions
+# globe support
 keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
-keybind = ctrl+shift+k=clear_screen
-keybind = ctrl+shift+f=start_search
+keybind = ctrl+shift+l=clear_screen
 
