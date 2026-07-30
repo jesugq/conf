@@ -45,7 +45,6 @@ local function add_sendlinuxmod(target, inputs)
     })
   end
 end
-
 local function add_sendmacosmod(target, inputs)
   for _, key in ipairs(inputs) do
     table.insert(target, {
@@ -87,6 +86,7 @@ local macos_letters = {
 
 -- macos support
 local macos_bindings = {
+  { key = 'Enter', mods = 'SUPER', action = wezterm.action.SendString('\x1b\r') },
   { key = ',', mods = 'SUPER|SHIFT', action = wezterm.action.ReloadConfiguration },
   { key = '[', mods = 'SUPER', action = wezterm.action.ActivateTabRelative(-1) },
   { key = ']', mods = 'SUPER', action = wezterm.action.ActivateTabRelative(1) },

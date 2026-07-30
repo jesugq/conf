@@ -18,7 +18,7 @@ keybind = ctrl+i=text:\x09
 keybind = ctrl+j=text:\x0a
 keybind = ctrl+k=text:\x0b
 keybind = ctrl+l=text:\x0c
-keybind = ctrl+m=text:\x0d
+# keybind = ctrl+m=text:\x0d
 keybind = ctrl+n=text:\x0e
 keybind = ctrl+o=text:\x0f
 keybind = ctrl+p=text:\x10
