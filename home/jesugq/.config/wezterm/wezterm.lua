@@ -59,6 +59,8 @@ local linux_letters = {
 -- linux support
 local linux_bindings = {
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.ReloadConfiguration },
+  { key = 'PageUp', mods = 'CTRL', action = wezterm.action.SendKey({ key = 'PageUp', mods = 'CTRL' }) },
+  { key = 'PageDown', mods = 'CTRL', action = wezterm.action.SendKey({ key = 'PageDown', mods = 'CTRL' }) },
 }
 
 -- macos consistency
@@ -82,7 +84,7 @@ local globe_bindings = {
   { key = 'c', mods = 'CTRL|SHIFT', action = wezterm.action.CopyTo('Clipboard') },
   { key = 'v', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom('Clipboard') },
   { key = 'l', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey({ key = 'l', mods = 'CTRL' }) },
-  -- { key = 'f', mods = 'CTRL|SHIFT', action = wezterm.action.Search },
+  { key = 'f', mods = 'CTRL|SHIFT', action = wezterm.action.Search('CurrentSelectionOrEmptyString') },
 }
 
 -- keybindings

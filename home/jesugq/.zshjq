@@ -2,9 +2,9 @@ alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    OG_DIR=$HOME/Development/orgmode
+  OG_DIR=$HOME/Development/orgmode
 else
-    OG_DIR=$HOME/Sync/Apps/Orgmode
+  OG_DIR=$HOME/Sync/Apps/Orgmode
 fi
 function og() {
 	cd $OG_DIR
@@ -16,9 +16,9 @@ function ogcd() {
 
 unalias md
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    MD_DIR=$HOME/Development/markdown
+  MD_DIR=$HOME/Development/markdown
 else
-    MD_DIR=$HOME/Sync/Apps/Markdown
+  MD_DIR=$HOME/Sync/Apps/Markdown
 fi
 function md() {
 	cd $MD_DIR
@@ -92,5 +92,19 @@ function tm() {
 }
 function tmls() {
   tmux ls
+}
+
+function cl() {
+  calcurse
+}
+CL_ORIGIN_DIR=$HOME/.config/calcurse
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  CL_TARGET_DIR=$HOME/Development/calcurse
+else
+  CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
+fi
+function clrld() {
+  calcurse-caldav
+  rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
 }
 
