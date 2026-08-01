@@ -82,7 +82,7 @@ local globe_bindings = {
   { key = 'c', mods = 'CTRL|SHIFT', action = wezterm.action.CopyTo('Clipboard') },
   { key = 'v', mods = 'CTRL|SHIFT', action = wezterm.action.PasteFrom('Clipboard') },
   { key = 'l', mods = 'CTRL|SHIFT', action = wezterm.action.SendKey({ key = 'l', mods = 'CTRL' }) },
-  { key = 'f', mods = 'CTRL|SHIFT', action = wezterm.action.Search({ CaseSensitive = {} }) },
+  -- { key = 'f', mods = 'CTRL|SHIFT', action = wezterm.action.Search },
 }
 
 -- keybindings
