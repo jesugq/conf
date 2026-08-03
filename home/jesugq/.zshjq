@@ -1,17 +1,25 @@
 alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  OG_DIR=$HOME/Development/orgmode
-else
-  OG_DIR=$HOME/Sync/Apps/Orgmode
-fi
-function og() {
-	cd $OG_DIR
-	nvim .
+function fd() {
+  feedr
 }
-function ogcd() {
-	cd $OG_DIR
+
+function cl() {
+  calcurse
+}
+CL_ORIGIN_DIR=$HOME/.config/calcurse
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  CL_TARGET_DIR=$HOME/Development/calcurse
+else
+  CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
+fi
+function clcd() {
+  cd $CL_TARGET_DIR
+}
+function clrld() {
+  calcurse-caldav
+  rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
 }
 
 unalias md
@@ -26,6 +34,19 @@ function md() {
 }
 function mdcd() {
 	cd $MD_DIR
+}
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  OG_DIR=$HOME/Development/orgmode
+else
+  OG_DIR=$HOME/Sync/Apps/Orgmode
+fi
+function og() {
+	cd $OG_DIR
+	nvim .
+}
+function ogcd() {
+	cd $OG_DIR
 }
 
 CF_DIR=$HOME/Development/config
@@ -92,19 +113,5 @@ function tm() {
 }
 function tmls() {
   tmux ls
-}
-
-function cl() {
-  calcurse
-}
-CL_ORIGIN_DIR=$HOME/.config/calcurse
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  CL_TARGET_DIR=$HOME/Development/calcurse
-else
-  CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
-fi
-function clrld() {
-  calcurse-caldav
-  rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
 }
 

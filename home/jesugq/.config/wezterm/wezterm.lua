@@ -13,7 +13,7 @@ config.window_padding = {
 }
 
 -- font
-config.font = wezterm.font('CommitMono')
+config.font = wezterm.font('Maple Mono NF')
 config.font_size = 20.0
 
 -- tab bar
