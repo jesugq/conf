@@ -74,19 +74,19 @@ spbrld() {
 spblogs() {
 	sp attach -a $BACKEND_APP
 }
-spbtellogs() {
+spbrevlogs() {
   sp staging:logs -a $BACKEND_APP "$1" -f
 }
 spbbash() {
 	sp exec -a $BACKEND_APP bash
 }
-spbtelbash() {
+spbrevbash() {
   sp staging:exec -a $BACKEND_APP "$1" bash
 }
 spbdb() {
 	sp exec -a $BACKEND_APP mysql -h mysql.local -u root $BACKEND_APP
 }
-spbteldb() {
+spbrevdb() {
   sp staging:db -a $BACKEND_APP "$1"
 }
 spbrspec() {
@@ -121,13 +121,13 @@ spfrld() {
 spflogs() {
 	sp attach -a $FRONTEND_APP
 }
-spftellogs() {
+spfrevlogs() {
   sp staging:logs -a $FRONTEND_APP "$1" -f
 }
 spfbash() {
 	sp exec -a $FRONTEND_APP bash
 }
-spftelbash() {
+spfrevbash() {
   sp staging:exec -a $FRONTEND_APP "$1" bash
 }
 spfyarn() {
@@ -156,19 +156,19 @@ spsrld() {
 spslogs() {
 	sp attach -a $SSO_APP
 }
-spstellogs() {
+spsrevlogs() {
   sp staging:logs -a $SSO_APP "$1" -f
 }
 spsbash() {
 	sp exec -a $SSO_APP bash
 }
-spstelbash() {
+spsrevbash() {
   sp staging:exec -a $SSO_APP "$1" bash
 }
 spsdb() {
 	sp exec -a $SSO_APP mysql -h mysql.local -u root $SSO_APP
 }
-spsteldb() {
+spsrevdb() {
   sp staging:db -a $SSO_APP "$1"
 }
 spsrspec() {
