@@ -14,7 +14,7 @@ config.window_padding = {
 
 -- font
 config.font = wezterm.font('Maple Mono NF')
-config.font_size = 20.0
+config.font_size = 24.0
 
 -- tab bar
 config.hide_tab_bar_if_only_one_tab = true
