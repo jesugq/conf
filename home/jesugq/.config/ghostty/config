@@ -14,7 +14,7 @@ keybind = ctrl+e=text:\x05
 keybind = ctrl+f=text:\x06
 keybind = ctrl+g=text:\x07
 keybind = ctrl+h=text:\x08
-keybind = ctrl+i=text:\x09
+# keybind = ctrl+i=text:\x09
 keybind = ctrl+j=text:\x0a
 keybind = ctrl+k=text:\x0b
 keybind = ctrl+l=text:\x0c
@@ -34,6 +34,7 @@ keybind = ctrl+y=text:\x19
 keybind = ctrl+z=text:\x1a
 
 # linux support
+keybind = ctrl+i=text:\x1b[105;5u
 keybind = ctrl+enter=unbind
 keybind = ctrl+backslash=unbind
 
@@ -64,8 +65,8 @@ keybind = super+z=text:\x1bz
 
 # macos support
 keybind = super+enter=text:\x1b\r
-keybind = super+[=text:\x1b[
-keybind = super+]=text:\x1b]
+keybind = super+left_bracket=text:\x1b[
+keybind = super+right_bracket=text:\x1b]
 keybind = super+shift+[=text:\x1b{
 keybind = super+shift+]=text:\x1b}
 
@@ -73,5 +74,5 @@ keybind = super+shift+]=text:\x1b}
 keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
 keybind = ctrl+shift+l=clear_screen
-keybind = ctrl+shift+f=search
+keybind = ctrl+shift+f=start_search
 

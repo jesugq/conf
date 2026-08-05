@@ -14,7 +14,7 @@ config.window_padding = {
 
 -- font
 config.font = wezterm.font('Maple Mono NF')
-config.font_size = 24.0
+config.font_size = 20.0
 
 -- tab bar
 config.hide_tab_bar_if_only_one_tab = true
@@ -51,14 +51,15 @@ end
 
 -- linux consistency
 local linux_letters = {
-  --   'm'
-  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'    ,
+  --   'i', 'm'
+  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l',
   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 }
 
 -- linux support
 local linux_bindings = {
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.ReloadConfiguration },
+  { key = 'i', mods = 'CTRL', action = wezterm.action.SendString('\x1b[105;5u') },
   { key = 'PageUp', mods = 'CTRL', action = wezterm.action.SendKey({ key = 'PageUp', mods = 'CTRL' }) },
   { key = 'PageDown', mods = 'CTRL', action = wezterm.action.SendKey({ key = 'PageDown', mods = 'CTRL' }) },
 }
