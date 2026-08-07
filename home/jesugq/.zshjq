@@ -109,9 +109,11 @@ function fm() {
 }
 
 function tm() {
+  cd $HOME
   tmux new-session -s "$1" 2>/dev/null || tmux attach-session -t "$1"
 }
 function tmls() {
+  cd $HOME
   tmux ls
 }
 
