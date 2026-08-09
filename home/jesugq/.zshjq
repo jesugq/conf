@@ -1,19 +1,31 @@
 alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
-function fd() {
-  feedr
+function fm() {
+  tmux rename-window fm
+  somafm
 }
 
-function cl() {
-  calcurse
+function fd() {
+  cd $HOME
+  tmux rename-window fd
+  feedr
 }
+function fdcd() {
+  cd $HOME
+}
+
 CL_ORIGIN_DIR=$HOME/.config/calcurse
 if [[ "$OSTYPE" == "darwin"* ]]; then
   CL_TARGET_DIR=$HOME/Development/calcurse
 else
   CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
 fi
+function cl() {
+  cd $CL_TARGET_DIR
+  tmux rename-window cl
+  calcurse
+}
 function clcd() {
   cd $CL_TARGET_DIR
 }
@@ -30,6 +42,7 @@ else
 fi
 function md() {
 	cd $MD_DIR
+  tmux rename-window md
 	nvim .
 }
 function mdcd() {
@@ -43,6 +56,7 @@ else
 fi
 function og() {
 	cd $OG_DIR
+  tmux rename-window og
 	nvim .
 }
 function ogcd() {
@@ -52,6 +66,7 @@ function ogcd() {
 CF_DIR=$HOME/Development/config
 function cf() {
 	cd $CF_DIR
+  tmux rename-window cf
 	nvim .
 }
 function cfcd() {
@@ -70,6 +85,7 @@ function cfsrc() {
 NV_DIR=$HOME/.config/nvim
 function nv() {
 	cd $NV_DIR
+  tmux rename-window nv
 	nvim .
 }
 function nvcd() {
@@ -102,10 +118,6 @@ function yz() {
 
 function lg() {
 	lazygit
-}
-
-function fm() {
-  somafm
 }
 
 function tm() {
