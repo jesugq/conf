@@ -45,6 +45,10 @@ function md() {
   tmux rename-window md
 	nvim .
 }
+function mdlg() {
+	cd $MD_DIR
+  lazygit
+}
 function mdcd() {
 	cd $MD_DIR
 }
@@ -59,6 +63,10 @@ function og() {
   tmux rename-window og
 	nvim .
 }
+function oglg() {
+	cd $OG_DIR
+  lazygit
+}
 function ogcd() {
 	cd $OG_DIR
 }
@@ -68,6 +76,10 @@ function cf() {
 	cd $CF_DIR
   tmux rename-window cf
 	nvim .
+}
+function cflg() {
+	cd $CF_DIR
+	lazygit
 }
 function cfcd() {
 	cd $CF_DIR
@@ -88,6 +100,10 @@ function nv() {
   tmux rename-window nv
 	nvim .
 }
+function nvlg() {
+	cd $NV_DIR
+  lazygit
+}
 function nvcd() {
 	cd $NV_DIR
 }
@@ -96,6 +112,10 @@ AMIG_DIR=$HOME/Development/cozy-animals-backend
 function amig() {
 	cd $AMIG_DIR
 	nvim .
+}
+function amiglg() {
+	cd $AMIG_DIR
+  lazygit
 }
 function amigcd() {
 	cd $AMIG_DIR
@@ -119,6 +139,7 @@ function yz() {
 function lg() {
 	lazygit
 }
+
 
 function tm() {
   cd $HOME

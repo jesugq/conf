@@ -22,6 +22,10 @@ spq() {
 	cd $QUEEN_DIR
   nvim .
 }
+spqlg() {
+	cd $QUEEN_DIR
+  lazygit
+}
 spqcd() {
 	cd $QUEEN_DIR
 }
@@ -38,6 +42,10 @@ DOCKER_DIR=~/Development/docker-dev
 spd() {
 	cd $DOCKER_DIR
   nvim .
+}
+spdlg() {
+	cd $DOCKER_DIR
+  lazygit
 }
 spdcd() {
 	cd $DOCKER_DIR
@@ -64,6 +72,10 @@ BACKEND_APP=simplepractice
 spb() {
 	cd $BACKEND_DIR
   nvim .
+}
+spblg() {
+	cd $BACKEND_DIR
+  lazygit
 }
 spbcd() {
 	cd $BACKEND_DIR
@@ -112,6 +124,10 @@ spf() {
 	cd $FRONTEND_DIR
 	nvim .
 }
+spflg() {
+	cd $FRONTEND_DIR
+  lazygit
+}
 spfcd() {
   cd $FRONTEND_DIR
 }
@@ -146,6 +162,10 @@ SSO_APP=sp-sso-account
 sps() {
   cd $SSO_DIR
 	nvim .
+}
+spslg() {
+  cd $SSO_DIR
+  lazygit
 }
 spscd() {
   cd $SSO_DIR
