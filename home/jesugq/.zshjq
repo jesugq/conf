@@ -101,6 +101,10 @@ function ne() {
 function lg() {
   lazygit
 }
+
+function ai() {
+  nvim 'prompt.md'
+}
 function aic() {
   agent
 }
