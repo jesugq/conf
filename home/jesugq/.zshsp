@@ -112,7 +112,7 @@ function qabash() {
   sp staging:exec "qa$1" bash
 }
 function qarails() {
-  sp staging:exec "qa$1" rails
+  sp staging:exec "qa$1" rails console
 }
 function qadb() {
   sp staging:db "qa$1"
@@ -126,7 +126,7 @@ function revbash() {
   sp staging:exec "rev$1" bash
 }
 function revrails() {
-  sp staging:exec "rev$1" rails
+  sp staging:exec "rev$1" rails console
 }
 function revdb() {
   sp staging:db "rev$1"
@@ -137,7 +137,7 @@ function spbash() {
 	sp exec bash
 }
 function sprails() {
-	sp exec rails
+	sp exec rails console
 }
 function sprld() {
 	sp restart
