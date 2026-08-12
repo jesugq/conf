@@ -51,9 +51,10 @@ end
 
 -- linux consistency
 local linux_letters = {
-  --   'i', 'm'
-  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l',
-  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+  --   'b', i', 'm',
+  --   'n',
+  'a', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l',
+  'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 }
 
 -- linux support
