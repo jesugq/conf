@@ -14,7 +14,7 @@ config.window_padding = {
 
 -- font
 config.font = wezterm.font('Maple Mono NF')
-config.font_size = 20.0
+config.font_size = 16.0
 
 -- tab bar
 config.hide_tab_bar_if_only_one_tab = true
@@ -58,6 +58,7 @@ local linux_letters = {
 
 -- linux support
 local linux_bindings = {
+  { key = 'Enter', mods = 'ALT', action = wezterm.action.SendString('\x1b\r') },
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.ReloadConfiguration },
   { key = 'i', mods = 'CTRL', action = wezterm.action.SendString('\x1b[105;5u') },
   { key = 'PageUp', mods = 'CTRL', action = wezterm.action.SendKey({ key = 'PageUp', mods = 'CTRL' }) },

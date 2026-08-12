@@ -3,7 +3,7 @@ theme = TokyoNight
 
 # font
 font-family = "CommitMono"
-font-size = 24.0
+font-size = 20.0
 
 # linux consistency
 keybind = ctrl+a=text:\x01

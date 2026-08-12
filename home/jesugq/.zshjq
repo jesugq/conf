@@ -1,125 +1,14 @@
 alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
-function fm() {
-  tmux rename-window fm
-  somafm
-}
-
-function fd() {
+# tmux
+function macos() {
   cd $HOME
-  tmux rename-window fd
-  feedr
+	hidutil property --set '{"UserKeyMapping":[
+	  {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
+	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
+	]}'
 }
-function fdcd() {
-  cd $HOME
-}
-
-CL_ORIGIN_DIR=$HOME/.config/calcurse
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  CL_TARGET_DIR=$HOME/Development/calcurse
-else
-  CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
-fi
-function cl() {
-  cd $CL_TARGET_DIR
-  tmux rename-window cl
-  calcurse
-}
-function clcd() {
-  cd $CL_TARGET_DIR
-}
-function clrld() {
-  calcurse-caldav
-  rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
-}
-
-unalias md
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  MD_DIR=$HOME/Development/markdown
-else
-  MD_DIR=$HOME/Sync/Apps/Markdown
-fi
-function md() {
-	cd $MD_DIR
-  tmux rename-window md
-	nvim .
-}
-function mdcd() {
-	cd $MD_DIR
-}
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  OG_DIR=$HOME/Development/orgmode
-else
-  OG_DIR=$HOME/Sync/Apps/Orgmode
-fi
-function og() {
-	cd $OG_DIR
-  tmux rename-window og
-	nvim .
-}
-function ogcd() {
-	cd $OG_DIR
-}
-
-CF_DIR=$HOME/Development/config
-function cf() {
-	cd $CF_DIR
-  tmux rename-window cf
-	nvim .
-}
-function cfcd() {
-	cd $CF_DIR
-}
-function cfrld() {
-  cd $CF_DIR
-	sudo rsync -av etc/ /etc/
-	rsync -av home/jesugq/ $HOME/
-}
-function cfsrc() {
-  cd $CF_DIR
-	source $HOME/.zshrc
-}
-
-NV_DIR=$HOME/.config/nvim
-function nv() {
-	cd $NV_DIR
-  tmux rename-window nv
-	nvim .
-}
-function nvcd() {
-	cd $NV_DIR
-}
-
-AMIG_DIR=$HOME/Development/cozy-animals-backend
-function amig() {
-	cd $AMIG_DIR
-	nvim .
-}
-function amigcd() {
-	cd $AMIG_DIR
-}
-
-function aic() {
-  agent
-}
-function aig() {
-  agy
-}
-
-function yz() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-  command yazi "$@" --cwd-file="$tmp"
-  IFS= read -r -d '' cwd < "$tmp"
-  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-  command rm -f -- "$tmp"
-}
-
-function lg() {
-	lazygit
-}
-
 function tm() {
   cd $HOME
   tmux new-session -s "$1" 2>/dev/null || tmux attach-session -t "$1"
@@ -129,3 +18,92 @@ function tmls() {
   tmux ls
 }
 
+# shared
+function fm() {
+  tmux rename-window fm
+  somafm
+}
+function fd() {
+  tmux rename-window fd
+  feedr
+}
+CL_ORIGIN_DIR=$HOME/.config/calcurse
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  CL_TARGET_DIR=$HOME/Development/calcurse
+else
+  CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
+fi
+function cl() {
+  tmux rename-window cl
+  calcurse
+}
+function clrld() {
+  tmux rename-window cl
+  calcurse-caldav
+  rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
+}
+
+# local
+unalias md
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  MD_DIR=$HOME/Development/markdown
+else
+  MD_DIR=$HOME/Sync/Apps/Markdown
+fi
+function md() {
+  tmux rename-window md
+	cd $MD_DIR
+}
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  OG_DIR=$HOME/Development/orgmode
+else
+  OG_DIR=$HOME/Sync/Apps/Orgmode
+fi
+function og() {
+  tmux rename-window og
+	cd $OG_DIR
+}
+
+# repos
+CF_DIR=$HOME/Development/config
+function cf() {
+  tmux rename-window cf
+	cd $CF_DIR
+}
+function cfrld() {
+  tmux rename-window cf
+  cd $CF_DIR
+	sudo rsync -av etc/ /etc/
+	rsync -av home/jesugq/ $HOME/
+}
+function cfsrc() {
+  tmux rename-window cf
+  cd $CF_DIR
+	source $HOME/.zshrc
+}
+NM_DIR=$HOME/.config/nvim
+function nm() {
+  tmux rename-window nm
+	cd $NM_DIR
+}
+
+# utils
+function yz() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  command rm -f -- "$tmp"
+}
+function nv() {
+  nvim .
+}
+function lg() {
+  lazygit
+}
+function aic() {
+  agent
+}
+function aig() {
+  agy
+}

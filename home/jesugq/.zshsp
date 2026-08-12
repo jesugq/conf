@@ -16,44 +16,28 @@
 # 'sp staging:db' # rev01
 # 'sp staging:logs' # rev01 -f -a simplepractice
 
-# sp
-QUEEN_DIR=~/Development/
-spq() {
-	cd $QUEEN_DIR
-  nvim .
-}
-spqcd() {
-	cd $QUEEN_DIR
-}
-spqmap() {
-	cd $QUEEN_DIR
-	hidutil property --set '{"UserKeyMapping":[
-	  {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
-	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
-	]}'
-}
-
 # spd
 DOCKER_DIR=~/Development/docker-dev
-spd() {
-	cd $DOCKER_DIR
-  nvim .
-}
-spdcd() {
+function spd() {
+  tmux rename-window spd
 	cd $DOCKER_DIR
 }
-spdapp() {
-	cd $DOCKER_DIR
-	git pull
-	sp apps:sync
-	sp stop
-	sp start
+function spdapp() {
+  tmux rename-window spd
+  cd $DOCKER_DIR
+  git pull
+  sp apps:sync
+  sp stop
+  sp start
 }
-spdaws() {
+function spdaws() {
+  tmux rename-window spd
 	cd $DOCKER_DIR
   aws sso login --profile staging
+	cd $QUEEN_DIR
 }
-spdssh() {
+function spdssh() {
+  tmux rename-window spd
 	cd $DOCKER_DIR
 	ssh-add ~/.ssh/id_ed25519
 }
@@ -62,34 +46,15 @@ spdssh() {
 BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
 spb() {
-	cd $BACKEND_DIR
-  nvim .
-}
-spbcd() {
+  tmux rename-window spb
 	cd $BACKEND_DIR
 }
-spbrld() {
-	sp restart -a $BACKEND_APP --backend
+function spbdb() {
+  tmux rename-window spb
+	sp exec mysql -h mysql.local -u root $BACKEND_APP
 }
-spblogs() {
-	sp attach -a $BACKEND_APP
-}
-spbrevlogs() {
-  sp staging:logs -a $BACKEND_APP "$1" -f
-}
-spbbash() {
-	sp exec -a $BACKEND_APP bash
-}
-spbrevbash() {
-  sp staging:exec -a $BACKEND_APP "$1" bash
-}
-spbdb() {
-	sp exec -a $BACKEND_APP mysql -h mysql.local -u root $BACKEND_APP
-}
-spbrevdb() {
-  sp staging:db -a $BACKEND_APP "$1"
-}
-spbrspec() {
+function spbrspec() {
+  tmux rename-window spb
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
@@ -98,39 +63,16 @@ spbrspec() {
 		docker exec -it $BACKEND_APP bundle exec rspec "$@"
 	fi
 }
-spboas() {
-	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
-}
-spbusr() {
-	sp exec -a $BACKEND_APP rails r script/marketing/create_user.rb -- "$@"
-}
 
 # spf
 FRONTEND_DIR=~/Development/frontend
 FRONTEND_APP=simplepractice-frontend
-spf() {
+function spf() {
+  tmux rename-window spf
 	cd $FRONTEND_DIR
-	nvim .
 }
-spfcd() {
-  cd $FRONTEND_DIR
-}
-spfrld() {
-	sp restart -a $FRONTEND_APP --frontend
-}
-spflogs() {
-	sp attach -a $FRONTEND_APP
-}
-spfrevlogs() {
-  sp staging:logs -a $FRONTEND_APP "$1" -f
-}
-spfbash() {
-	sp exec -a $FRONTEND_APP bash
-}
-spfrevbash() {
-  sp staging:exec -a $FRONTEND_APP "$1" bash
-}
-spfyarn() {
+function spyarn() {
+  tmux rename-window spf
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
@@ -143,35 +85,16 @@ spfyarn() {
 # sps
 SSO_DIR=~/Development/sp-sso-account
 SSO_APP=sp-sso-account
-sps() {
-  cd $SSO_DIR
-	nvim .
-}
-spscd() {
+function sps() {
+  tmux rename-window sps
   cd $SSO_DIR
 }
-spsrld() {
-	sp restart -a $SSO_APP --backend
+function spsdb() {
+  tmux rename-window sps
+	sp exec mysql -h mysql.local -u root $SSO_APP
 }
-spslogs() {
-	sp attach -a $SSO_APP
-}
-spsrevlogs() {
-  sp staging:logs -a $SSO_APP "$1" -f
-}
-spsbash() {
-	sp exec -a $SSO_APP bash
-}
-spsrevbash() {
-  sp staging:exec -a $SSO_APP "$1" bash
-}
-spsdb() {
-	sp exec -a $SSO_APP mysql -h mysql.local -u root $SSO_APP
-}
-spsrevdb() {
-  sp staging:db -a $SSO_APP "$1"
-}
-spsrspec() {
+function spsrspec() {
+  tmux rename-window sps
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $SSO_APP bundle exec rspec "$@"
@@ -181,3 +104,50 @@ spsrspec() {
 	fi
 }
 
+# qa
+function qalog() {
+  sp staging:logs "qa$1" -f
+}
+function qabash() {
+  sp staging:exec "qa$1" bash
+}
+function qarails() {
+  sp staging:exec "qa$1" rails
+}
+function qadb() {
+  sp staging:db "qa$1"
+}
+
+# rev
+function revlog() {
+  sp staging:logs "rev$1" -f
+}
+function revbash() {
+  sp staging:exec "rev$1" bash
+}
+function revrails() {
+  sp staging:exec "rev$1" rails
+}
+function revdb() {
+  sp staging:db "rev$1"
+}
+
+# sp
+function spbash() {
+	sp exec bash
+}
+function sprails() {
+	sp exec rails
+}
+function sprld() {
+	sp restart
+}
+function splog() {
+	sp attach
+}
+function spoas() {
+	sp exec rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
+}
+function spusr() {
+	sp exec rails r script/marketing/create_user.rb -- "$@"
+}
