@@ -65,7 +65,7 @@ function og() {
 }
 
 # repos
-CF_DIR=$HOME/Development/config
+CF_DIR=$HOME/Development/conf
 function cf() {
   tmux rename-window cf
 	cd $CF_DIR
