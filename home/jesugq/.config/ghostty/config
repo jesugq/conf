@@ -7,7 +7,7 @@ font-size = 20.0
 
 # linux consistency
 keybind = ctrl+a=text:\x01
-# keybind = ctrl+b=text:\x02
+keybind = ctrl+b=text:\x02
 keybind = ctrl+c=text:\x03
 keybind = ctrl+d=text:\x04
 keybind = ctrl+e=text:\x05
