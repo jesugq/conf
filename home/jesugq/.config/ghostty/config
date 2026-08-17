@@ -34,6 +34,7 @@ keybind = ctrl+y=text:\x19
 keybind = ctrl+z=text:\x1a
 
 # linux support
+keybind = ctrl+/=text:\x1b[47;5u
 keybind = ctrl+i=text:\x1b[105;5u
 keybind = ctrl+enter=unbind
 keybind = ctrl+backslash=unbind
