@@ -103,6 +103,7 @@ function lg() {
 }
 
 function ai() {
+  tmux resize-pane -y 25%
   nvim 'prompt.md'
 }
 function aic() {
