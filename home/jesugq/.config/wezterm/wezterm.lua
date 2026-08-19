@@ -61,7 +61,7 @@ local linux_letters = {
 local linux_bindings = {
   { key = 'Enter', mods = 'ALT', action = wezterm.action.SendString('\x1b\r') },
   { key = '<', mods = 'CTRL|SHIFT', action = wezterm.action.ReloadConfiguration },
-  { key = '/', mods = 'CTRL', action = wezterm.action.SendString('\x1f') },
+  { key = '/', mods = 'CTRL', action = wezterm.action.SendString('\x1b[47;5u') },
   { key = 'i', mods = 'CTRL', action = wezterm.action.SendString('\x1b[105;5u') },
   { key = 'PageUp', mods = 'CTRL', action = wezterm.action.SendKey({ key = 'PageUp', mods = 'CTRL' }) },
   { key = 'PageDown', mods = 'CTRL', action = wezterm.action.SendKey({ key = 'PageDown', mods = 'CTRL' }) },
