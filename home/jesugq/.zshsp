@@ -16,6 +16,13 @@
 # 'sp staging:db' # rev01
 # 'sp staging:logs' # rev01 -f -a simplepractice
 
+# spq
+QUEEN_DIR=~/Development
+function spq() {
+  tmux rename-window spq
+	cd $QUEEN_DIR
+}
+
 # spd
 DOCKER_DIR=~/Development/docker-dev
 function spd() {
@@ -34,7 +41,6 @@ function spdaws() {
   tmux rename-window spd
 	cd $DOCKER_DIR
   aws sso login --profile staging
-	cd $QUEEN_DIR
 }
 function spdssh() {
   tmux rename-window spd
@@ -53,7 +59,7 @@ function spbdb() {
   tmux rename-window spb
 	sp exec mysql -h mysql.local -u root $BACKEND_APP
 }
-function spbrspec() {
+function spbspec() {
   tmux rename-window spb
 	if [ $1 = true ]; then
 		shift
@@ -93,7 +99,7 @@ function spsdb() {
   tmux rename-window sps
 	sp exec mysql -h mysql.local -u root $SSO_APP
 }
-function spsrspec() {
+function spsspec() {
   tmux rename-window sps
 	if [ $1 = true ]; then
 		shift
@@ -106,29 +112,37 @@ function spsrspec() {
 
 # qa
 function qalog() {
+  tmux rename-window qa
   sp staging:logs "qa$1" -f
 }
 function qabash() {
+  tmux rename-window qa
   sp staging:exec "qa$1" bash
 }
 function qarails() {
+  tmux rename-window qa
   sp staging:exec "qa$1" rails console
 }
 function qadb() {
+  tmux rename-window qa
   sp staging:db "qa$1"
 }
 
 # rev
 function revlog() {
+  tmux rename-window rev
   sp staging:logs "rev$1" -f
 }
 function revbash() {
+  tmux rename-window rev
   sp staging:exec "rev$1" bash
 }
 function revrails() {
+  tmux rename-window rev
   sp staging:exec "rev$1" rails console
 }
 function revdb() {
+  tmux rename-window rev
   sp staging:db "rev$1"
 }
 
