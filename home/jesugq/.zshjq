@@ -112,3 +112,7 @@ function aic() {
 function aig() {
   agy
 }
+
+function afk() {
+  "$HOME/.script/afk"
+}

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+tmux rename-window afk
+
+if [[ "${OSTYPE:-}" == darwin* ]]; then
+  arch="$HOME/.script/drift_darwin"
+else
+  arch="$HOME/.script/drift_linux"
+fi
+
+scenes=(waveform constellation rain particles orrery starfield boids)
+themes=(cosmic nord dracula catppuccin gruvbox forest wildberries mono rosepine)
+
+scene="${scenes[RANDOM % ${#scenes[@]}]}"
+theme="${themes[RANDOM % ${#themes[@]}]}"
+
+exec "$arch" --scene "$scene" --theme "$theme"
+
