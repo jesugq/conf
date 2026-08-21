@@ -11,7 +11,7 @@ keybind = ctrl+b=text:\x02
 keybind = ctrl+c=text:\x03
 keybind = ctrl+d=text:\x04
 keybind = ctrl+e=text:\x05
-keybind = ctrl+f=text:\x06
+# keybind = ctrl+f=text:\x06
 keybind = ctrl+g=text:\x07
 keybind = ctrl+h=text:\x08
 # keybind = ctrl+i=text:\x09

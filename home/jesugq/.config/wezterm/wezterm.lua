@@ -6,15 +6,15 @@ local keys = wezterm.gui.default_keys()
 -- theme
 config.color_scheme = 'Tokyo Night'
 config.window_padding = {
-  left = '20pt',
-  right = '20pt',
-  top = '20pt',
-  bottom = '20pt',
+  left = '0pt',
+  right = '0pt',
+  top = '0pt',
+  bottom = '0pt',
 }
 
 -- font
+config.font_size = 20.0
 config.font = wezterm.font('Maple Mono NF')
-config.font_size = 16.0
 
 -- tab bar
 config.hide_tab_bar_if_only_one_tab = true
@@ -51,9 +51,9 @@ end
 
 -- linux consistency
 local linux_letters = {
-  --   'i', 'm',
+  --   'i', 'f', 'm',
   --   'n',
-  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l',
+  'a', 'b', 'c', 'd', 'e', 'g', 'h', 'j', 'k', 'l',
   'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 }
 
