@@ -39,8 +39,10 @@ function cl() {
 }
 function clrld() {
   tmux rename-window cl
-  calcurse-caldav
-  rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
+  calcurse-caldav --debug --verbose
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
+  fi
 }
 
 # local
@@ -80,6 +82,7 @@ function cfsrc() {
   tmux rename-window cf
   cd $CF_DIR
 	source $HOME/.zshrc
+  tmux source-file $HOME/.tmux.conf
 }
 NM_DIR=$HOME/.config/nvim
 function nm() {
