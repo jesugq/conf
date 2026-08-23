@@ -2,6 +2,7 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 local keys = wezterm.gui.default_keys()
+config.automatically_reload_config = false
 
 -- theme
 config.color_scheme = 'Tokyo Night'
