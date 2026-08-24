@@ -23,9 +23,18 @@ function fm() {
   tmux rename-window fm
   somafm
 }
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  FD_DIR=$HOME/Development/feedflow
+else
+  FD_DIR=$HOME/Sync/Apps/FeedFlow
+fi
 function fd() {
   tmux rename-window fd
   feedr
+}
+function fdrld() {
+  tmux rename-window fd
+  feedr --import $FD_DIR/Feeds.opml
 }
 CL_ORIGIN_DIR=$HOME/.config/calcurse
 if [[ "$OSTYPE" == "darwin"* ]]; then
