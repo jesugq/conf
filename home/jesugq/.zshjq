@@ -36,7 +36,7 @@ function fdrld() {
   tmux rename-window fd
   feedr --import $FD_DIR/Feeds.opml
 }
-CL_ORIGIN_DIR=$HOME/.config/calcurse
+CL_ORIGIN_DIR=$HOME/.local/share/calcurse
 if [[ "$OSTYPE" == "darwin"* ]]; then
   CL_TARGET_DIR=$HOME/Development/calcurse
 else
