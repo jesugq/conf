@@ -110,40 +110,22 @@ function spsspec() {
 	fi
 }
 
-# qa
-function qalog() {
-  tmux rename-window qa
-  sp staging:logs "qa$1" -f
+# stg
+function stglog() {
+  tmux rename-window "$1"
+  sp staging:logs "$1" -f
 }
-function qabash() {
-  tmux rename-window qa
-  sp staging:exec "qa$1" bash
+function stgbash() {
+  tmux rename-window "$1"
+  sp staging:exec "$1" bash
 }
-function qarails() {
-  tmux rename-window qa
-  sp staging:exec "qa$1" rails console
+function stgrails() {
+  tmux rename-window "$1"
+  sp staging:exec "$1" rails console
 }
-function qadb() {
-  tmux rename-window qa
-  sp staging:db "qa$1"
-}
-
-# rev
-function revlog() {
-  tmux rename-window rev
-  sp staging:logs "rev$1" -f
-}
-function revbash() {
-  tmux rename-window rev
-  sp staging:exec "rev$1" bash
-}
-function revrails() {
-  tmux rename-window rev
-  sp staging:exec "rev$1" rails console
-}
-function revdb() {
-  tmux rename-window rev
-  sp staging:db "rev$1"
+function stgdb() {
+  tmux rename-window "$1"
+  sp staging:db "$1"
 }
 
 # sp
