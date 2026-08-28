@@ -11,6 +11,7 @@ function macos() {
 }
 function tm() {
   cd $HOME
+  clear
   tmux new-session -s "$1" 2>/dev/null || tmux attach-session -t "$1"
 }
 function tmls() {
