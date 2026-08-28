@@ -55,6 +55,12 @@ spb() {
   tmux rename-window spb
 	cd $BACKEND_DIR
 }
+function spbrld() {
+	sp restart --backend
+}
+function spblog() {
+	sp attach --backend
+}
 function spbdb() {
   tmux rename-window spb
 	sp exec mysql -h mysql.local -u root $BACKEND_APP
@@ -71,13 +77,19 @@ function spbspec() {
 }
 
 # spf
-FRONTEND_DIR=~/Development/frontend
+FRONTEND_DIR=~/Development/simplepractice/frontend
 FRONTEND_APP=simplepractice-frontend
 function spf() {
   tmux rename-window spf
 	cd $FRONTEND_DIR
 }
-function spyarn() {
+function spfrld() {
+	sp restart --frontend
+}
+function spflog() {
+	sp attach --frontend
+}
+function spfyarn() {
   tmux rename-window spf
 	if [ $1 = true ]; then
 		shift
