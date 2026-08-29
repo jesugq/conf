@@ -120,10 +120,13 @@ function ai() {
   tmux resize-pane -y 25%
   nvim 'prompt.md'
 }
-function aic() {
+function air() {
+  claude
+}
+function air() {
   agent
 }
-function aig() {
+function aiy() {
   agy
 }
 
