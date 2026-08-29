@@ -91,7 +91,8 @@ function cfrld() {
 function cfsrc() {
   tmux rename-window cf
   cd $CF_DIR
-	source $HOME/.zshrc
+	source $HOME/.zshjq
+  source $HOME/.zshsp
   tmux source-file $HOME/.tmux.conf
 }
 NM_DIR=$HOME/.config/nvim
