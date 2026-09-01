@@ -5,7 +5,7 @@ local keys = wezterm.gui.default_keys()
 config.automatically_reload_config = false
 
 -- theme
-config.color_scheme = 'Tokyo Night'
+config.color_scheme = 'Ryuuko'
 config.window_padding = {
   left = '0pt',
   right = '0pt',
