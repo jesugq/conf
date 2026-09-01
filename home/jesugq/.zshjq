@@ -18,6 +18,9 @@ function tmls() {
   cd $HOME
   tmux ls
 }
+function tmrm() {
+  tmux kill-session -t "$1"
+}
 
 # shared
 function fm() {
