@@ -7,14 +7,14 @@ config.automatically_reload_config = false
 -- theme
 config.color_scheme = 'Ryuuko'
 config.window_padding = {
-  left = '0pt',
-  right = '0pt',
-  top = '0pt',
-  bottom = '0pt',
+  top = '16pt',
+  bottom = '16pt',
+  left = '12pt',
+  right = '12pt',
 }
 
 -- font
-config.font_size = 20.0
+config.font_size = 24.0
 config.font = wezterm.font('Maple Mono NF')
 
 -- tab bar

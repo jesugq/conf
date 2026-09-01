@@ -2,8 +2,13 @@
 theme = Ryuuko
 
 # font
-font-family = "CommitMono"
-font-size = 20.0
+font-family = "Maple Mono NF"
+font-size = 24.0
+
+# window
+window-padding-balance = true
+window-padding-x = 8
+window-padding-y = 8
 
 # linux consistency
 keybind = ctrl+a=text:\x01
