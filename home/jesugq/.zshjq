@@ -20,6 +20,7 @@ function tmls() {
 }
 function tmrm() {
   tmux kill-session -t "$1"
+  tmux kill-session -t "$1"-s
 }
 
 # shared
