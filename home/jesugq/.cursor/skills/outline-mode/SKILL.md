@@ -1,46 +1,39 @@
 ---
 name: outline-mode
-description: >-
-  Toggle a per-conversation "outline mode" that hides full responses behind a
-  numbered outline (~20 visible lines) and expands each section on demand when
-  the user replies with `<LETTER><NUMBER>`. Triggered only by the exact
-  commands `/outline-mode start`, `/outline-mode stop`, `/outline-mode clear`,
-  and `/outline-mode purge`.
+description: Every content reply is hidden behind a numbered outline the user expands with `<LETTER><NUMBER>`. Cursor tags each reply as major (`A..Z`) for new topics or minor (`a..z`) for follow-ups on the current major, marking each section with `*` once it's been read. Only activates via `/outline-mode start|stop|clear|close|purge`.
 disable-model-invocation: true
 ---
 
 # Outline mode
 
+State lives under `$DIR = ~/.cursor/outline-mode/sessions/$CID` where `$CID = $CURSOR_CONVERSATION_ID` (refuse if unset). Outline mode is active while `$DIR/ACTIVE` exists. Every subcommand replies with a single confirmation line and nothing else.
+
 ## Subcommands
 
-Each subcommand replies with a single line of confirmation and nothing else. Let `$CID = $CURSOR_CONVERSATION_ID` (refuse if unset) and `$ROOT = ~/.cursor/outline-mode`.
+- `start` — create `$DIR/ACTIVE`.
+- `stop` — remove `$DIR/ACTIVE`; response JSONs stay on disk.
+- `clear` — wipe only `$DIR/minor-*.json` (bash-clear: only minor topics). Resets the minor counter to `a`; recovery path for the minor 26-cap.
+- `close` — wipe `$DIR/major-*.json` + `$DIR/minor-*.json` + `$DIR/latest.json` (close-the-window). Resets both counters; recovery path for the major 26-cap.
+- `purge` — wipe major and minor JSONs across all sessions under `~/.cursor/outline-mode/sessions/*` (database purge).
 
-- `/outline-mode start` → `mkdir -p $ROOT/sessions/$CID && touch $ROOT/sessions/$CID/ACTIVE`. Reply: `outline-mode: started for this conversation.`
-- `/outline-mode stop` → `rm -f $ROOT/sessions/$CID/ACTIVE`. Reply: `outline-mode: stopped for this conversation.` Response JSONs remain on disk.
-- `/outline-mode clear` → this-session wipe: delete `$ROOT/sessions/$CID/response-*.json` and `latest.json`. Resets the letter counter to `A`; recovery path for the 26-letter limit. Reply: `outline-mode: cleared response JSONs for this conversation.`
-- `/outline-mode purge` → global purge: delete `$ROOT/sessions/*/response-*.json` and `$ROOT/sessions/*/latest.json` across all sessions. Reply: `outline-mode: purged response JSONs across all sessions.`
+Any other `/outline-mode …` message → one-line usage summary of the five subcommands.
 
-Any other `/outline-mode ...` message → one-line usage summary listing the four subcommands.
+## Response workflow (while `ACTIVE`)
 
-## Response workflow (while `$ROOT/sessions/$CID/ACTIVE` exists)
+1. Classify the query as **major** (new/distinct topic) or **minor** (short follow-up, clarification, or drill-in on the current major). If no `$DIR/major-*.json` exists yet, force major. When uncertain, default to major.
+2. Compose the reply internally, then split it into 3–7 sections with 5–10 word titles.
+3. Assign a letter and (for minors) a parent:
+   - Major: count `$DIR/major-*.json` as `N`. Letter = `chr(ord('A') + N)`. If `N >= 26`, write nothing and tell the user inline to run `/outline-mode close` or start a new conversation.
+   - Minor: count `$DIR/minor-*.json` as `N`. Letter = `chr(ord('a') + N)`. If `N >= 26`, write nothing and tell the user inline to run `/outline-mode clear` or `/outline-mode close`. Set `parent_letter` to the most recent major's letter (or an earlier major if the query obviously references it).
+4. Save `$DIR/<kind>-<LETTER>-<UTC-ISO>-<slug>.json` (where `<kind>` is `major` or `minor`) and mirror to `$DIR/latest.json`. Schema: `{created_at, kind, letter, parent_letter?, user_query_summary, outline, sections, read}`. `outline` is plain titles (index `0` is the summary); `sections` keys are bare numbers from `"1"`; `read` starts as `["0"]`. `parent_letter` is set only for minors.
+5. Reply with only the rendered outline, one entry per line. Prepend a tag line — `[major]` or `[minor of <PARENT>]` (uppercase parent letter). Render this response's own entries as `<LETTER><i> <M> - <title>` where `<M>` is `*` if `str(i)` in `read` else a single space, preserving letter case (upper for major, lower for minor). For a major, then append one line per child minor found by globbing `$DIR/minor-*.json` and keeping those with `parent_letter == this letter`, sorted by minor letter (creation order), formatted `<letter>0 * - <summary>` (the minor's `outline[0]`).
 
-1. Compose the full response internally. Split into 3–7 sections, each with a 5–10 word title.
-2. Assign this response's letter: count existing `$ROOT/sessions/$CID/response-*.json` files as `N`. If `N < 26`, letter = `chr(ord('A') + N)`. If `N >= 26`, write nothing and reply inline with exactly:
+## Follow-ups (case-sensitive routing)
 
-   ```
-   outline-mode: 26 letters (A–Z) exhausted for this conversation. Please run `/outline-mode clear` (this-conversation reset) or start a new conversation to continue.
-   ```
-
-3. Write `$ROOT/sessions/$CID/response-<LETTER>-<UTC-ISO>-<slug>.json` and mirror it to `latest.json`. Schema: `{created_at, letter, user_query_summary, outline: ["<LETTER>0 - Title", ...], sections: {"1": "...", "2": "..."}}`. Letter lives only at the top level; section keys stay as bare numbers; `outline` entries embed the letter prefix.
-4. Reply with ONLY the outline block (≤ 20 lines, one entry per line).
-
-## Handling follow-up input
-
-- `<LETTER><NUMBER>` (case-insensitive, e.g. `A2`, `i0`) → glob `$ROOT/sessions/$CID/response-<LETTER>-*.json`, print `sections["<NUMBER>"]` in full, then append that response's outline for re-navigation. Works across responses: typing `A2` from outline `I0` still resolves to A's section 2.
-- `<LETTER>` alone or `<LETTER>0` → print only that response's outline.
-- Unknown letter, missing section, or missing `latest.json` → one-line apology + reprint latest outline (or say none exists).
-- Anything else → treat as a new query and run the response workflow.
+- `<LETTER><NUMBER>` with NUMBER ≥ 1 → glob `$DIR/major-<LETTER>-*.json` if `<LETTER>` is uppercase, else `$DIR/minor-<LETTER>-*.json`. Print `sections["<NUMBER>"]` in full, append `"<NUMBER>"` to that response's `read` (dedupe), persist, then re-append the tagged updated outline.
+- `<LETTER>` alone or `<LETTER>0` → reprint only that response's tagged outline; no state change.
+- Unknown letter, missing section, or no `latest.json` → one-line apology and reprint the latest tagged outline (or say none exists). Anything else → treat as a new query.
 
 ## Bypass
 
-Reply inline (no outline) for short answers, tool output, or `/outline-mode` subcommand acknowledgements.
+Only subcommand acknowledgements and follow-up expansions/reprints skip the new-outline workflow; they operate on existing outlines or emit a single confirmation line.
