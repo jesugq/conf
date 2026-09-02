@@ -121,7 +121,7 @@ function lg() {
 }
 
 function ai() {
-  nvim 'prompt.md'
+  nvim 'draft.md'
 }
 function air() {
   claude
