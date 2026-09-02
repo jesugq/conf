@@ -153,6 +153,9 @@ function sprld() {
 function splog() {
 	sp attach
 }
+function spcop() {
+	sp rubocop "$@"
+}
 function spoas() {
 	sp exec rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
 }
