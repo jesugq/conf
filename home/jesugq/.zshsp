@@ -144,6 +144,10 @@ function stgdb() {
 function spbash() {
 	sp exec bash
 }
+function splake(){
+  sp setup:lake
+  sp bin/lake-console
+}
 function sprails() {
 	sp exec rails console
 }
