@@ -2,6 +2,7 @@ alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
 # tmux
+tmux rename-window bash
 function macos() {
   cd $HOME
 	hidutil property --set '{"UserKeyMapping":[
