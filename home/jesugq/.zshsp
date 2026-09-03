@@ -134,7 +134,7 @@ function stgbash() {
   sp staging:exec "$1" bash
 }
 function stgrails() {
-  sp staging:exec "$1" rails console
+  sp staging:exec "$1" bin/rails console
 }
 function stgdb() {
   sp staging:db "$1"
