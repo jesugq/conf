@@ -19,18 +19,15 @@
 # spq
 QUEEN_DIR=~/Development
 function spq() {
-  tmux rename-window spq
 	cd $QUEEN_DIR
 }
 
 # spd
 DOCKER_DIR=~/Development/docker-dev
 function spd() {
-  tmux rename-window spd
 	cd $DOCKER_DIR
 }
 function spdapp() {
-  tmux rename-window spd
   cd $DOCKER_DIR
   git pull
   sp apps:sync
@@ -38,12 +35,10 @@ function spdapp() {
   sp start
 }
 function spdaws() {
-  tmux rename-window spd
 	cd $DOCKER_DIR
   aws sso login --profile staging
 }
 function spdssh() {
-  tmux rename-window spd
 	cd $DOCKER_DIR
 	ssh-add ~/.ssh/id_ed25519
 }
@@ -52,7 +47,6 @@ function spdssh() {
 BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
 spb() {
-  tmux rename-window spb
 	cd $BACKEND_DIR
 }
 function spbrld() {
@@ -62,11 +56,9 @@ function spblog() {
 	sp attach --backend
 }
 function spbdb() {
-  tmux rename-window spb
 	sp exec mysql -h mysql.local -u root $BACKEND_APP
 }
 function spbspec() {
-  tmux rename-window spb
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
@@ -80,7 +72,6 @@ function spbspec() {
 FRONTEND_DIR=~/Development/simplepractice/frontend
 FRONTEND_APP=simplepractice-frontend
 function spf() {
-  tmux rename-window spf
 	cd $FRONTEND_DIR
 }
 function spfrld() {
@@ -90,7 +81,6 @@ function spflog() {
 	sp attach --frontend
 }
 function spfyarn() {
-  tmux rename-window spf
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
@@ -104,15 +94,12 @@ function spfyarn() {
 SSO_DIR=~/Development/sp-sso-account
 SSO_APP=sp-sso-account
 function sps() {
-  tmux rename-window sps
   cd $SSO_DIR
 }
 function spsdb() {
-  tmux rename-window sps
 	sp exec mysql -h mysql.local -u root $SSO_APP
 }
 function spsspec() {
-  tmux rename-window sps
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $SSO_APP bundle exec rspec "$@"
@@ -124,19 +111,15 @@ function spsspec() {
 
 # stg
 function stglog() {
-  tmux rename-window "$1"
   sp staging:logs "$1" -f
 }
 function stgbash() {
-  tmux rename-window "$1"
   sp staging:exec "$1" bash
 }
 function stgrails() {
-  tmux rename-window "$1"
   sp staging:exec "$1" rails console
 }
 function stgdb() {
-  tmux rename-window "$1"
   sp staging:db "$1"
 }
 
