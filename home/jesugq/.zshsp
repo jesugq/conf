@@ -58,6 +58,9 @@ function spblog() {
 function spbdb() {
 	sp exec mysql -h mysql.local -u root $BACKEND_APP
 }
+function spbcop() {
+	sp rubocop -a $BACKEND_APP "$@"
+}
 function spbspec() {
 	if [ $1 = true ]; then
 		shift
@@ -66,6 +69,12 @@ function spbspec() {
 		shift
 		docker exec -it $BACKEND_APP bundle exec rspec "$@"
 	fi
+}
+function spboas() {
+	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
+}
+function spusr() {
+	sp exec -a $BACKEND_APP rails r script/marketing/create_user.rb -- "$@"
 }
 
 # spf
@@ -89,6 +98,11 @@ function spfyarn() {
 		docker exec -it $FRONTEND_APP yarn test --serve -f 'dummy test'
 	fi
 }
+function spflint() {
+  local type="$1"
+  shift
+  sp exec -a $FRONTEND_APP yarn lint:"$type" "$@"
+}
 
 # sps
 SSO_DIR=~/Development/sp-sso-account
@@ -98,6 +112,9 @@ function sps() {
 }
 function spsdb() {
 	sp exec mysql -h mysql.local -u root $SSO_APP
+}
+function spscop() {
+	sp rubocop -a $SSO_APP "$@"
 }
 function spsspec() {
 	if [ $1 = true ]; then
@@ -139,13 +156,4 @@ function sprld() {
 }
 function splog() {
 	sp attach
-}
-function spcop() {
-	sp rubocop "$@"
-}
-function spoas() {
-	sp exec rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
-}
-function spusr() {
-	sp exec rails r script/marketing/create_user.rb -- "$@"
 }
