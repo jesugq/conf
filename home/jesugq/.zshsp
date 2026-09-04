@@ -89,10 +89,12 @@ function spflog() {
 function spfyarn() {
 	if [ $1 = true ]; then
 		shift
-		docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
+    sp exec -a $FRONTEND_APP -e COVERAGE=true yarn test:browser "$@"
+		# docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
 	else
 		shift
-		docker exec -it $FRONTEND_APP yarn test --serve -f 'dummy test'
+    sp exec -a simplepractice-frontend yarn test:browser "$@"
+		# docker exec -it $FRONTEND_APP yarn test --serve -f 'dummy test'
 	fi
 }
 function spflint() {
