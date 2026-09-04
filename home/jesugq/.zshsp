@@ -73,9 +73,6 @@ function spbspec() {
 function spboas() {
 	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
 }
-function spusr() {
-	sp exec -a $BACKEND_APP rails r script/marketing/create_user.rb -- "$@"
-}
 
 # spf
 FRONTEND_DIR=~/Development/simplepractice/frontend
