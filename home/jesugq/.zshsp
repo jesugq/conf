@@ -93,7 +93,7 @@ function spfyarn() {
 		# docker exec -it -e COVERAGE=true $FRONTEND_APP yarn test --serve -f 'dummy test'
 	else
 		shift
-    sp exec -a simplepractice-frontend yarn test:browser "$@"
+    sp exec -a $FRONTEND_APP yarn test:browser "$@"
 		# docker exec -it $FRONTEND_APP yarn test --serve -f 'dummy test'
 	fi
 }
