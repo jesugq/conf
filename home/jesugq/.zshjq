@@ -10,6 +10,11 @@ function macos() {
 	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
 	]}'
 }
+function jesugq() {
+  cd $HOME
+  clear
+  tmux new-session -s "jesugq" 2>/dev/null || tmux attach-session -t "jesugq"
+}
 function tm() {
   cd $HOME
   clear
