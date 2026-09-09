@@ -119,9 +119,6 @@ function lg() {
   lazygit
 }
 
-function ai() {
-  nvim 'prompt.md'
-}
 function air() {
   claude
 }
