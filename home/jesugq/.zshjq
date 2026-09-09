@@ -2,9 +2,7 @@ alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
 # tmux
-tmux rename-window bash
 function macos() {
-  cd $HOME
 	hidutil property --set '{"UserKeyMapping":[
 	  {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
 	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
@@ -25,7 +23,6 @@ function tmrm() {
 
 # shared
 function fm() {
-  tmux rename-window fm
   somafm
 }
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -34,11 +31,9 @@ else
   FD_DIR=$HOME/Sync/Apps/FeedFlow
 fi
 function fd() {
-  tmux rename-window fd
   feedr
 }
 function fdrld() {
-  tmux rename-window fd
   feedr --import $FD_DIR/Feeds.opml
 }
 CL_ORIGIN_DIR=$HOME/.local/share/calcurse
@@ -48,15 +43,19 @@ else
   CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
 fi
 function cl() {
-  tmux rename-window cl
   calcurse
 }
 function clrld() {
-  tmux rename-window cl
   calcurse-caldav --debug --verbose
   if [[ "$OSTYPE" == "darwin"* ]]; then
     rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
   fi
+}
+function afk() {
+  "$HOME/.script/afk"
+}
+function snc() {
+  "$HOME/.script/snc"
 }
 
 # local
@@ -67,8 +66,8 @@ else
   MD_DIR=$HOME/Sync/Apps/Markdown
 fi
 function md() {
+  cd $MD_DIR
   tmux rename-window md
-	cd $MD_DIR
 }
 if [[ "$OSTYPE" == "darwin"* ]]; then
   OG_DIR=$HOME/Development/orgmode
@@ -76,48 +75,37 @@ else
   OG_DIR=$HOME/Sync/Apps/Orgmode
 fi
 function og() {
-  tmux rename-window og
 	cd $OG_DIR
+  tmux rename-window og
 }
 
 # repos
 CF_DIR=$HOME/Development/conf
 function cf() {
-  tmux rename-window cf
 	cd $CF_DIR
+  tmux rename-window cf
 }
 function cfrld() {
-  tmux rename-window cf
   cd $CF_DIR
+  tmux rename-window cf
 	sudo rsync -av etc/ /etc/
 	rsync -av home/jesugq/ $HOME/
 }
 function cfsrc() {
-  tmux rename-window cf
   cd $CF_DIR
+  tmux rename-window cf
 	source $HOME/.zshjq
   source $HOME/.zshsp
   tmux source-file $HOME/.tmux.conf
 }
 NM_DIR=$HOME/.config/nvim
 function nm() {
-  tmux rename-window nm
 	cd $NM_DIR
+  tmux rename-window nm
 }
 
 # utils
-TM_SPC=(md og cf nm)
-function tmux_rename_window_common() {
-  local name
-  local special
-  name=$(tmux display-message -p '#W' 2>/dev/null)
-  for special in "${TM_SPC[@]}"; do
-    [[ "$name" == "$special" ]] && return 0
-  done
-  tmux rename-window "$1"
-}
 function yz() {
-  tmux_rename_window_common yz
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   command yazi "$@" --cwd-file="$tmp"
   IFS= read -r -d '' cwd < "$tmp"
@@ -125,36 +113,21 @@ function yz() {
   command rm -f -- "$tmp"
 }
 function ne() {
-  tmux_rename_window_common ne
   nvim .
 }
 function lg() {
-  tmux_rename_window_common lg
   lazygit
 }
 
 function ai() {
-  tmux_rename_window_common ai
   nvim 'prompt.md'
 }
 function air() {
-  tmux_rename_window_common ai
   claude
 }
 function air() {
-  tmux_rename_window_common ai
   agent
 }
 function aiy() {
-  tmux_rename_window_common ai
   agy
-}
-
-function afk() {
-  tmux_rename_window_common afk
-  "$HOME/.script/afk"
-}
-function snc() {
-  tmux_rename_window_common snc
-  "$HOME/.script/snc"
 }

@@ -20,15 +20,18 @@
 QUEEN_DIR=~/Development
 function spq() {
 	cd $QUEEN_DIR
+  tmux rename-window spq
 }
 
 # spd
 DOCKER_DIR=~/Development/docker-dev
 function spd() {
 	cd $DOCKER_DIR
+  tmux rename-window spd
 }
 function spdapp() {
   cd $DOCKER_DIR
+  tmux rename-window spd
   git pull
   sp apps:sync
   sp stop
@@ -36,10 +39,12 @@ function spdapp() {
 }
 function spdaws() {
 	cd $DOCKER_DIR
+  tmux rename-window spd
   aws sso login --profile staging
 }
 function spdssh() {
 	cd $DOCKER_DIR
+  tmux rename-window spd
 	ssh-add ~/.ssh/id_ed25519
 }
 
@@ -48,6 +53,7 @@ BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
 spb() {
 	cd $BACKEND_DIR
+  tmux rename-window spb
 }
 function spbrld() {
 	sp restart --backend
@@ -79,6 +85,7 @@ FRONTEND_DIR=~/Development/simplepractice/frontend
 FRONTEND_APP=simplepractice-frontend
 function spf() {
 	cd $FRONTEND_DIR
+  tmux rename-window spf
 }
 function spfrld() {
 	sp restart --frontend
@@ -108,6 +115,7 @@ SSO_DIR=~/Development/sp-sso-account
 SSO_APP=sp-sso-account
 function sps() {
   cd $SSO_DIR
+  tmux rename-window sps
 }
 function spsdb() {
 	sp exec mysql -h mysql.local -u root $SSO_APP
