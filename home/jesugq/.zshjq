@@ -141,7 +141,7 @@ function lg() {
 
 function ai() {
   tmux_rename_window_common ai
-  nvim 'draft.md'
+  nvim 'prompt.md'
 }
 function air() {
   tmux_rename_window_common ai
