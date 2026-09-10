@@ -25,31 +25,17 @@ function tmrm() {
 function fm() {
   somafm
 }
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  FD_DIR=$HOME/Development/feedflow
-else
-  FD_DIR=$HOME/Sync/Apps/FeedFlow
-fi
 function fd() {
   feedr
 }
 function fdrld() {
-  feedr --import $FD_DIR/Feeds.opml
+  feedr --import $HOME/Sync/Apps/FeedFlow/Feeds.opml
 }
-CL_ORIGIN_DIR=$HOME/.local/share/calcurse
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  CL_TARGET_DIR=$HOME/Development/calcurse
-else
-  CL_TARGET_DIR=$HOME/Sync/Apps/Calcurse
-fi
 function cl() {
   calcurse
 }
 function clrld() {
   calcurse-caldav --debug --verbose
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    rsync -av $CL_ORIGIN_DIR/ $CL_TARGET_DIR/
-  fi
 }
 function afk() {
   "$HOME/.script/afk"
