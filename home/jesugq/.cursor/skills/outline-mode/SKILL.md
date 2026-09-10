@@ -10,9 +10,7 @@ State lives under `$DIR = ~/.cursor/outline-mode/sessions/$CURSOR_CONVERSATION_I
 
 ## Subcommands
 
-- `/outline-mode` (no subcommand):
-  - **First activation** (`$DIR` does not exist) — activate outline mode for the rest of the conversation. Reply with the single line `[outline-mode] activated`.
-  - **Subsequent invocations** (`$DIR` exists) — treat as a signal that outline mode was not respected for the latest assistant response. Prepend the single line `[outline-mode] not respected for previous response; re-running workflow`, then run **Classify and letter** / **Persist** / **Render** against the previous turn: classify using the previous **user query** (major vs minor), split the previous **assistant response** into 3–7 sections, persist under the resulting letter, and render normally.
+- `/outline-mode` (no subcommand) — activate outline mode for the rest of the conversation. Reply with the single line `[outline-mode] activated`.
 - `clear` — wipe `$DIR/minor-*.json`. Resets every parent's minor counter to `a`; recovery for the minor 26-cap.
 - `close` — wipe `$DIR/major-*.json`, `$DIR/minor-*.json`, `$DIR/latest.json`. Resets both counters; recovery for the major 26-cap.
 - `purge` — wipe all major/minor JSONs across `~/.cursor/outline-mode/sessions/*`.
@@ -66,7 +64,7 @@ Case disambiguates: `A1` = major section 1; `Aa` = minor identifier; `Aa1` = min
 
 These skip the outline workflow and emit raw text:
 
-- **Activation and subcommand acks** — first-time bare `/outline-mode` (activation) and `/outline-mode clear|close|purge` (housekeeping) reply with a single confirmation line. Subsequent bare `/outline-mode` does **not** bypass — it runs the full outline workflow against the previous turn (see Subcommands).
+- **Activation and subcommand acks** — bare `/outline-mode` (activation) and `/outline-mode clear|close|purge` (housekeeping) reply with a single confirmation line.
 - **Follow-up expansions and reprints** — section expansions (which re-append the updated outline), plain reprints, and the one-line apology on bad routing.
 - **Capacity-error inline notices** — major or minor 26-cap message pointing at `close`/`clear`.
 - **Short prose** — trivial one-liners (e.g. "Yes", "Done", tool-only turns). Use sparingly; anything substantive still gets an outline.
