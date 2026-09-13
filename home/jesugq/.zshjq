@@ -38,10 +38,8 @@ function clrld() {
   calcurse-caldav --debug --verbose
 }
 function afk() {
-  "$HOME/.script/afk"
-}
-function snc() {
   "$HOME/.script/snc"
+  "$HOME/.script/afk"
 }
 
 # local
