@@ -8,11 +8,26 @@ else
   arch="$HOME/.script/drift_linux"
 fi
 
-scenes=(waveform constellation rain particles orrery starfield boids)
+scenes=(waveform constellation rain particles pipes orrery starfield dvd boids bonsai)
 themes=(cosmic nord dracula catppuccin gruvbox forest wildberries mono rosepine)
 
-scene="${scenes[RANDOM % ${#scenes[@]}]}"
+shuffle() {
+  local -n _arr=$1
+  local i j tmp
+  for ((i=${#_arr[@]}-1; i>0; i--)); do
+    j=$((RANDOM % (i+1)))
+    tmp=${_arr[i]}
+    _arr[i]=${_arr[j]}
+    _arr[j]=$tmp
+  done
+}
+
+shuffle scenes
+
+IFS=,
+scene="${scenes[*]}"
+unset IFS
 theme="${themes[RANDOM % ${#themes[@]}]}"
 
-exec "$arch" --scene "$scene" --theme "$theme"
+exec "$arch" --scene "$scene" --theme "$theme" --duration 10
 
