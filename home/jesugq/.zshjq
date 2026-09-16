@@ -103,12 +103,24 @@ function lg() {
   lazygit
 }
 
-function air() {
-  claude
-}
-function air() {
+function aicr() {
   agent
 }
-function aiy() {
+function aiay() {
   agy
+}
+function aicx() {
+  codex
+}
+function aicl() {
+  copilot
+}
+function aiqn() {
+  qwen
+}
+function aion() {
+  opencode
+}
+function aice() {
+  claude
 }
