@@ -23,18 +23,28 @@ function tmrm() {
 
 # shared
 function fm() {
+  cd $HOME
+  tmux rename-window fm
   somafm
 }
-function fd() {
+function fe() {
+  cd $HOME
+  tmux rename-window fe
   feedr
 }
-function fdrld() {
+function ferld() {
+  cd $HOME
+  tmux rename-window fe
   feedr --import $HOME/Sync/Apps/FeedFlow/Feeds.opml
 }
 function cl() {
+  cd $HOME
+  tmux rename-window cl
   calcurse
 }
 function clrld() {
+  cd $HOME
+  tmux rename-window cl
   calcurse-caldav --debug --verbose
 }
 function afk() {
