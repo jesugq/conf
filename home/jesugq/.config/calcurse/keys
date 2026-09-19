@@ -1,0 +1,56 @@
+#
+# Calcurse keys configuration file
+#
+# In this file the keybindings used by Calcurse are defined.
+# It is generated automatically by Calcurse and is maintained
+# via the key configuration menu of the interactive user
+# interface. It should not be edited directly.
+
+generic-cancel  ESC 
+generic-select  UNDEFINED
+generic-credits  UNDEFINED
+generic-help  . 
+generic-quit  q 
+generic-save  UNDEFINED
+generic-reload  UNDEFINED
+generic-copy  UNDEFINED
+generic-paste  UNDEFINED
+generic-change-view  ] 
+generic-prev-view  [ 
+generic-import  UNDEFINED
+generic-export  UNDEFINED
+generic-goto  G 
+generic-other-cmd  o 
+generic-config-menu  c 
+generic-redraw  UNDEFINED
+generic-add-appt  UNDEFINED
+generic-add-todo  UNDEFINED
+generic-prev-day  UNDEFINED
+generic-next-day  UNDEFINED
+generic-prev-week  UNDEFINED
+generic-next-week  UNDEFINED
+generic-prev-month  K 
+generic-next-month  J 
+generic-prev-year  H 
+generic-next-year  L 
+generic-scroll-down  UNDEFINED
+generic-scroll-up  UNDEFINED
+generic-goto-today  g 
+generic-command  UNDEFINED
+move-right  l 
+move-left  h 
+move-down  j 
+move-up  k 
+start-of-week  UNDEFINED
+end-of-week  UNDEFINED
+add-item  a 
+del-item  d 
+edit-item  e 
+view-item  RET 
+pipe-item  UNDEFINED
+flag-item  ! 
+repeat  r 
+edit-note  UNDEFINED
+view-note  UNDEFINED
+raise-priority  UNDEFINED
+lower-priority  UNDEFINED
