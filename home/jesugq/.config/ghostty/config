@@ -41,8 +41,8 @@ keybind = ctrl+z=text:\x1a
 # linux support
 keybind = ctrl+/=text:\x1b[47;5u
 keybind = ctrl+i=text:\x1b[105;5u
-keybind = ctrl+enter=unbind
-keybind = ctrl+backslash=unbind
+keybind = ctrl+enter=text:\x1b[27;5;13~
+keybind = ctrl+backslash=text:\x1c
 
 # macos consistency
 keybind = super+a=text:\x1ba
