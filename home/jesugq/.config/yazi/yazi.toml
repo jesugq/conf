@@ -27,11 +27,11 @@ trash = [
 
 [open]
 rules = [
-  { mime = "folder/*", use = [ "reveal" ] },
+  { mime = "folder/*", use = [ "open", "reveal" ] },
   { mime = "text/*", use = [ "edit", "reveal" ] },
   { mime = "image/*", use = [ "open", "reveal" ] },
   { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
   { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
-  { mime = "trash/**", use = [ "open", "trash" ] },
+  { mime = "trash/**", use = [ "trash", "reveal" ] },
 	{ url = "*", use = [ "open", "reveal" ] },
 ]
