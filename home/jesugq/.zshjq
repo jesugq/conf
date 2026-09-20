@@ -113,24 +113,34 @@ function lg() {
   lazygit
 }
 
-function aicr() {
-  agent
-}
-function aiay() {
-  agy
-}
-function aicx() {
-  codex
-}
-function aicl() {
-  copilot
-}
-function aiqn() {
-  qwen
-}
-function aion() {
-  opencode
-}
-function aice() {
-  claude
+function ai() {
+  local options=(
+    "Cursor|agent"
+    "Codex|codex"
+    "Antigravity|agy"
+    "Copilot|copilot"
+    "Qwen|qwen"
+    "Open Code|opencode"
+    "Claude|claude"
+  )
+
+  local labels=()
+  for item in "${options[@]}"; do
+    labels+=("${item%%|*}")
+  done
+
+  local selected_label
+  selected_label=$(gum choose "${labels[@]}" --header "Which AI do you still have tokens for?:")
+
+  if [ -n "$selected_label" ]; then
+    for item in "${options[@]}"; do
+      local label="${item%%|*}"
+      local cmd="${item#*|}"
+      if [ "$label" = "$selected_label" ]; then
+        echo "Running $label ($cmd)..."
+        eval "$cmd"
+        break
+      fi
+    done
+  fi
 }
