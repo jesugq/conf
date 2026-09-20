@@ -11,74 +11,73 @@ window-padding-x = 0
 window-padding-y = 0
 
 # linux consistency
-keybind = ctrl+a=text:\x01
-keybind = ctrl+b=text:\x02
-keybind = ctrl+c=text:\x03
-keybind = ctrl+d=text:\x04
-keybind = ctrl+e=text:\x05
-# keybind = ctrl+f=text:\x06
-keybind = ctrl+g=text:\x07
-keybind = ctrl+h=text:\x08
-# keybind = ctrl+i=text:\x09
-keybind = ctrl+j=text:\x0a
-keybind = ctrl+k=text:\x0b
-keybind = ctrl+l=text:\x0c
-# keybind = ctrl+m=text:\x0d
-# keybind = ctrl+n=text:\x0e
-keybind = ctrl+o=text:\x0f
-keybind = ctrl+p=text:\x10
-keybind = ctrl+q=text:\x11
-keybind = ctrl+r=text:\x12
-keybind = ctrl+s=text:\x13
-keybind = ctrl+t=text:\x14
-keybind = ctrl+u=text:\x15
-keybind = ctrl+v=text:\x16
-keybind = ctrl+w=text:\x17
-keybind = ctrl+x=text:\x18
-keybind = ctrl+y=text:\x19
-keybind = ctrl+z=text:\x1a
+keybind = ctrl+a=csi:97;5u
+keybind = ctrl+b=csi:98;5u
+keybind = ctrl+c=csi:99;5u
+keybind = ctrl+d=csi:100;5u
+keybind = ctrl+e=csi:101;5u
+# keybind = ctrl+f=csi:102;5u
+keybind = ctrl+g=csi:103;5u
+keybind = ctrl+h=csi:104;5u
+# keybind = ctrl+i=csi:105;5u
+keybind = ctrl+j=csi:106;5u
+keybind = ctrl+k=csi:107;5u
+keybind = ctrl+l=csi:108;5u
+# keybind = ctrl+m=csi:109;5u
+# keybind = ctrl+n=csi:110;5u
+keybind = ctrl+o=csi:111;5u
+keybind = ctrl+p=csi:112;5u
+keybind = ctrl+q=csi:113;5u
+keybind = ctrl+r=csi:114;5u
+keybind = ctrl+s=csi:115;5u
+keybind = ctrl+t=csi:116;5u
+keybind = ctrl+u=csi:117;5u
+keybind = ctrl+v=csi:118;5u
+keybind = ctrl+w=csi:119;5u
+keybind = ctrl+x=csi:120;5u
+keybind = ctrl+y=csi:121;5u
+keybind = ctrl+z=csi:122;5u
 
 # linux support
-keybind = ctrl+/=text:\x1b[47;5u
-keybind = ctrl+i=text:\x1b[105;5u
-keybind = ctrl+enter=text:\x1b[27;5;13~
-keybind = ctrl+backslash=text:\x1c
+keybind = ctrl+/=csi:47;5u
+keybind = ctrl+i=csi:105;5u
+keybind = ctrl+enter=csi:13;5u
+keybind = ctrl+backslash=csi:92;5u
 
 # macos consistency
-keybind = super+a=text:\x1ba
-keybind = super+b=text:\x1bb
-keybind = super+c=text:\x1bc
-keybind = super+d=text:\x1bd
-keybind = super+e=text:\x1be
-keybind = super+f=text:\x1bf
-keybind = super+h=text:\x1bh
-keybind = super+j=text:\x1bj
-keybind = super+k=text:\x1bk
-keybind = super+l=text:\x1bl
-keybind = super+m=text:\x1bm
-keybind = super+n=text:\x1bn
-keybind = super+p=text:\x1bp
-keybind = super+q=text:\x1bq
-keybind = super+r=text:\x1br
-keybind = super+s=text:\x1bs
-keybind = super+t=text:\x1bt
-keybind = super+u=text:\x1bu
-keybind = super+v=text:\x1bv
-keybind = super+w=text:\x1bw
-keybind = super+x=text:\x1bx
-keybind = super+y=text:\x1by
-keybind = super+z=text:\x1bz
+keybind = super+a=csi:97;9u
+keybind = super+b=csi:98;9u
+keybind = super+c=csi:99;9u
+keybind = super+d=csi:100;9u
+keybind = super+e=csi:101;9u
+keybind = super+f=csi:102;9u
+keybind = super+h=csi:104;9u
+keybind = super+j=csi:106;9u
+keybind = super+k=csi:107;9u
+keybind = super+l=csi:108;9u
+keybind = super+m=csi:109;9u
+keybind = super+n=csi:110;9u
+keybind = super+p=csi:112;9u
+keybind = super+q=csi:113;9u
+keybind = super+r=csi:114;9u
+keybind = super+s=csi:115;9u
+keybind = super+t=csi:116;9u
+keybind = super+u=csi:117;9u
+keybind = super+v=csi:118;9u
+keybind = super+w=csi:119;9u
+keybind = super+x=csi:120;9u
+keybind = super+y=csi:121;9u
+keybind = super+z=csi:122;9u
 
 # macos support
-keybind = super+enter=text:\x1b\r
-keybind = super+left_bracket=text:\x1b[
-keybind = super+right_bracket=text:\x1b]
-keybind = super+shift+[=text:\x1b{
-keybind = super+shift+]=text:\x1b}
+keybind = super+enter=csi:13;9u
+keybind = super+left_bracket=csi:91;9u
+keybind = super+right_bracket=csi:93;9u
+keybind = super+shift+[=csi:123;10u
+keybind = super+shift+]=csi:125;10u
 
 # globe support
 keybind = ctrl+shift+c=copy_to_clipboard
 keybind = ctrl+shift+v=paste_from_clipboard
 keybind = ctrl+shift+l=clear_screen
 keybind = ctrl+shift+f=start_search
-
