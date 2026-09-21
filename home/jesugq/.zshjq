@@ -117,8 +117,8 @@ function ai() {
   local options=(
     "Cursor|agent"
     "Codex|codex"
-    "Antigravity|agy"
     "Copilot|copilot"
+    "Antigravity|agy"
     "Qwen|qwen"
     "Open Code|opencode"
     "Claude|claude"
