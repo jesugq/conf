@@ -73,8 +73,8 @@ keybind = super+z=csi:122;9u
 keybind = super+enter=csi:13;9u
 keybind = super+left_bracket=csi:91;9u
 keybind = super+right_bracket=csi:93;9u
-keybind = super+shift+[=csi:123;10u
-keybind = super+shift+]=csi:125;10u
+keybind = super+shift+left_bracket=csi:123;3u
+keybind = super+shift+right_bracket=csi:125;3u
 
 # globe support
 keybind = ctrl+shift+c=copy_to_clipboard
