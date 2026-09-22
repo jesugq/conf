@@ -47,8 +47,11 @@ function clrld() {
   tmux rename-window cl
   calcurse-caldav --debug --verbose
 }
-function afk() {
+function snc() {
   "$HOME/.script/snc"
+  "$HOME/.script/afk"
+}
+function afk() {
   "$HOME/.script/afk"
 }
 
