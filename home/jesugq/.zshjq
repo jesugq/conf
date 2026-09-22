@@ -102,7 +102,18 @@ function nm() {
 }
 
 # utils
+TM_SPC=(md og cf nm)
+function tmux-rename-window() {
+  local name
+  local special
+  name=$(tmux display-message -p '#W' 2>/dev/null)
+  for special in "${TM_SPC[@]}"; do
+    [[ "$name" == "$special" ]] && return 0
+  done
+  tmux rename-window "$1"
+}
 function yz() {
+  tmux-rename-window find
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   command yazi "$@" --cwd-file="$tmp"
   IFS= read -r -d '' cwd < "$tmp"
@@ -110,13 +121,16 @@ function yz() {
   command rm -f -- "$tmp"
 }
 function ne() {
+  tmux-rename-window code
   nvim .
 }
 function lg() {
+  tmux-rename-window pull
   lazygit
 }
 
 function ai() {
+  tmux-rename-window vibe
   local options=(
     "Cursor|agent"
     "Codex|codex"
