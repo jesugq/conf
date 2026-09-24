@@ -22,18 +22,31 @@ While on, each substantive query writes exactly one new `$DIR/<NN>-<slug>.md` (n
     # <5-10 word summary>
 
     ## Response
+
     <the full chat reply>
 
     ## Changes
-    - <path>: <post-edit line ranges>
+
+    - <file>
+      - <absolute path>
+      - <path relative to the repository; omit a leading simplepractice/>
+      - <comma-separated post-edit line ranges>
 
     ## Commands
+
     ```
     <assertion commands actually run>
     ```
 
-Changes: one bullet per written/edited/deleted/renamed file this round (not reads). Relative paths unless the round spans repos. Empty if none. New: `path (new): 1-N`. Deleted: `path (deleted)`. Rename: `old → new: <locations>`.
+    ## <5-10 word title>
+    <full section body>
 
-Commands: tests, lints, typechecks, builds — not discovery, edits, or git used only for Changes. Last run only. Prefix `cd <dir> &&` if not from the init cwd. Empty fence if none.
+    ## ...
+
+Include Response, Changes, and Commands only when that section has content. Omit the heading when it would be empty. Add further `##` sections when the reply has distinct topics those three do not cover. Up to seven `##` sections. Each extra title is 5–10 words.
+
+Blank line before and after every heading except the H1, which starts the file. Changes: one parent bullet per written/edited/deleted/renamed file this round (not reads). Parent is the filename. Children, in order: absolute path, path relative to the repository (no `simplepractice/` prefix), then comma-separated line ranges (`10-21, 45-48`). New: filename `(new)`, ranges `1-N`. Deleted: filename `(deleted)`, no line child. Rename: `old → new` as the parent, then both paths and the new file’s ranges.
+
+Commands: tests, lints, typechecks, builds — not discovery, edits, or git used only for Changes. Last run only. Prefix `cd <dir> &&` if not from the init cwd.
 
 Skip the file for toggle/cap acks and trivial one-liners ("Yes", "Done", tool-only). Anything substantive still writes a file.
