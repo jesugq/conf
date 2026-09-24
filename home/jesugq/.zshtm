@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# tmux
+function macos() {
+	hidutil property --set '{"UserKeyMapping":[
+	  {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
+	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
+	]}'
+}
+function tm() {
+  cd $HOME
+  clear
+  tmux new-session -s "$1" 2>/dev/null || tmux attach-session -t "$1"
+}
+function tmls() {
+  cd $HOME
+  tmux ls
+}
+function tmrm() {
+  tmux kill-session -t "$1"
+}
+
+# utils
+TM_SAFE=(md og cf nm)
+function safe-tmux-rename() {
+  local name
+  local safe
+  name=$(tmux display-message -p '#W' 2>/dev/null)
+  for safe in "${TM_SAFE[@]}"; do
+    [[ "$name" == "$safe" ]] && return 0
+  done
+  tmux rename-window "$1"
+}

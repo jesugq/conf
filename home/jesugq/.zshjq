@@ -3,50 +3,30 @@
 alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
-# tmux
-function macos() {
-	hidutil property --set '{"UserKeyMapping":[
-	  {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0},
-	  {"HIDKeyboardModifierMappingSrc":0x700000029,"HIDKeyboardModifierMappingDst":0x7000000E0}
-	]}'
-}
-function tm() {
-  cd $HOME
-  clear
-  tmux new-session -s "$1" 2>/dev/null || tmux attach-session -t "$1"
-}
-function tmls() {
-  cd $HOME
-  tmux ls
-}
-function tmrm() {
-  tmux kill-session -t "$1"
-}
-
 # shared
 function fm() {
   cd $HOME
-  tmux rename-window fm
+  safe-tmux-rename fm
   somafm
 }
 function fe() {
   cd $HOME
-  tmux rename-window fe
+  safe-tmux-rename fe
   feedr
 }
 function ferld() {
   cd $HOME
-  tmux rename-window fe
+  safe-tmux-rename fe
   feedr --import $HOME/Sync/Apps/FeedFlow/Feeds.opml
 }
 function cl() {
   cd $HOME
-  tmux rename-window cl
+  safe-tmux-rename cl
   calcurse
 }
 function clrld() {
   cd $HOME
-  tmux rename-window cl
+  safe-tmux-rename cl
   calcurse-caldav --debug --verbose
 }
 function snc() {
@@ -66,7 +46,7 @@ else
 fi
 function md() {
   cd $MD_DIR
-  tmux rename-window md
+  safe-tmux-rename md
 }
 if [[ "$OSTYPE" == "darwin"* ]]; then
   OG_DIR=$HOME/Development/orgmode
@@ -75,24 +55,24 @@ else
 fi
 function og() {
 	cd $OG_DIR
-  tmux rename-window og
+  safe-tmux-rename og
 }
 
 # repos
 CF_DIR=$HOME/Development/conf
 function cf() {
 	cd $CF_DIR
-  tmux rename-window cf
+  safe-tmux-rename cf
 }
 function cfrld() {
   cd $CF_DIR
-  tmux rename-window cf
+  safe-tmux-rename cf
 	sudo rsync -av etc/ /etc/
 	rsync -av home/jesugq/ $HOME/
 }
 function cfsrc() {
   cd $CF_DIR
-  tmux rename-window cf
+  safe-tmux-rename cf
 	source $HOME/.zshjq
 	source $HOME/.zshai
   source $HOME/.zshsp
@@ -101,22 +81,11 @@ function cfsrc() {
 NM_DIR=$HOME/.config/nvim
 function nm() {
 	cd $NM_DIR
-  tmux rename-window nm
+  safe-tmux-rename nm
 }
 
-# utils
-TM_SPC=(md og cf nm)
-function tmux-rename-window() {
-  local name
-  local special
-  name=$(tmux display-message -p '#W' 2>/dev/null)
-  for special in "${TM_SPC[@]}"; do
-    [[ "$name" == "$special" ]] && return 0
-  done
-  tmux rename-window "$1"
-}
 function yz() {
-  tmux-rename-window find
+  safe-tmux-rename find
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   command yazi "$@" --cwd-file="$tmp"
   IFS= read -r -d '' cwd < "$tmp"
@@ -124,10 +93,10 @@ function yz() {
   command rm -f -- "$tmp"
 }
 function ne() {
-  tmux-rename-window code
+  safe-tmux-rename code
   nvim .
 }
 function lg() {
-  tmux-rename-window pull
+  safe-tmux-rename pull
   lazygit
 }

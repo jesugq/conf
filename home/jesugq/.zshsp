@@ -30,7 +30,7 @@ function spd() {
 	cd $DOCKER_DIR
 }
 function spdapp() {
-  tmux rename-window apps
+  safe-tmux-rename apps
   cd $DOCKER_DIR
   git pull
   sp apps:sync
@@ -56,7 +56,7 @@ function spbrld() {
 	sp restart --backend
 }
 function spblogs() {
-  tmux rename-window logs
+  safe-tmux-rename logs
 	sp attach --backend
 }
 function spbdb() {
@@ -66,7 +66,7 @@ function spbcop() {
 	sp rubocop -a $BACKEND_APP "$@"
 }
 function spbspec() {
-  tmux rename-window spec
+  safe-tmux-rename spec
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
@@ -89,11 +89,11 @@ function spfrld() {
 	sp restart --frontend
 }
 function spflogs() {
-  tmux rename-window logs
+  safe-tmux-rename logs
 	sp attach --frontend
 }
 function spfyarn() {
-  tmux rename-window yarn
+  safe-tmux-rename yarn
 	if [ $1 = true ]; then
 		shift
     sp exec -a $FRONTEND_APP -e COVERAGE=true yarn test:browser "$@"
@@ -123,7 +123,7 @@ function spscop() {
 	sp rubocop -a $SSO_APP "$@"
 }
 function spsspec() {
-  tmux rename-window spec
+  safe-tmux-rename spec
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $SSO_APP bundle exec rspec "$@"
@@ -135,7 +135,7 @@ function spsspec() {
 
 # stg
 function stglogs() {
-  tmux rename-window logs
+  safe-tmux-rename logs
   sp staging:logs "$1" -f
 }
 function stgbash() {
@@ -150,7 +150,7 @@ function stgdata() {
 
 # sp
 function splogs() {
-  tmux rename-window logs
+  safe-tmux-rename logs
 	sp attach
 }
 function spbash() {

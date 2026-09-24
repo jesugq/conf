@@ -2,7 +2,7 @@
 
 # ain
 function ain() {
-  tmux rename-window vibe
+  safe-tmux-rename vibe
 
   local csv="$HOME/.local/share/jesugq/ai.csv"
   local displays=()

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmux rename-window afk
+safe-tmux-rename afk
 
 if [[ "${OSTYPE:-}" == darwin* ]]; then
   arch="$HOME/.binary/drift_darwin"
