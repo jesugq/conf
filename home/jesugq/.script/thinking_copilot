@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copilot CLI: magenta "Thinking..." shimmer (v0.0.343) + braille spinner
+# Copilot CLI TextSpinner animation (1.0.x)
 exec python3 -u - <<'PY'
 import math
 import os
@@ -8,47 +8,50 @@ import signal
 import sys
 import time
 
-TEXT = "Thinking..."
-FRAMES = list("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
-INTERVAL = 0.032
-SPIN_MS = 0.08
+TEXT = "Working"
 PAD = "  "
-# GitHub Primer purple / Copilot thinking color
-BASE = (163, 113, 247)
-HIGH = (210, 168, 255)
-DIM = (88, 56, 148)
-reset = "\033[0m"
+PULSE_FRAMES = "●◉◎○◎◉"
+INTERVAL = 0.09
+TICK_STEP = 3
+PAUSE = 0.3
+# Copilot's "default" theme delegates these colors to the terminal palette.
+BRAND = "\033[35m"
+BRAND_BRIGHT = "\033[95m"
+GRADIENT = (
+    BRAND_BRIGHT,
+    BRAND_BRIGHT,
+    BRAND,
+    BRAND,
+    BRAND,
+    BRAND,
+    BRAND_BRIGHT,
+    BRAND_BRIGHT,
+)
+RESET = "\033[0m"
 
 
-def blend(a, b, t):
-    t = max(0.0, min(1.0, t))
-    return tuple(int(x * t + y * (1.0 - t)) for x, y in zip(a, b))
+def render(elapsed):
+    ticks = int(elapsed / INTERVAL) * TICK_STEP
+    gradient_length = len(GRADIENT)
+    shimmer_length = len(TEXT) + gradient_length
+    pause_ticks = round(PAUSE / INTERVAL) * TICK_STEP
+    cycle = math.ceil((shimmer_length + pause_ticks) / TICK_STEP) * TICK_STEP
+    position = min(ticks % cycle, shimmer_length)
+    frame_index = (ticks // TICK_STEP) % len(PULSE_FRAMES)
+    sweep_width = max((gradient_length - 1) * 2, 1)
+    sweep = (ticks // TICK_STEP) % sweep_width
+    color_index = sweep if sweep < gradient_length else sweep_width - sweep
 
-
-def rgb(color):
-    return f"\033[38;2;{color[0]};{color[1]};{color[2]}m"
-
-
-def spinner(elapsed):
-    frame = FRAMES[int(elapsed / SPIN_MS) % len(FRAMES)]
-    return f"{rgb(BASE)}{frame}{reset}"
-
-
-def shimmer(elapsed):
-    width = float(len(TEXT))
-    half = max(width * 0.1, 3.0)
-    position = (elapsed % 2.0) / 2.0 * (width + 2.0 * half) - half
-    out = []
-    for i, ch in enumerate(TEXT):
-        distance = min(abs((i + 0.5) - position) / half, 1.0)
-        intensity = 0.5 * (1.0 + math.cos(math.pi * distance))
-        color = blend(HIGH, DIM, 0.35 + 0.65 * intensity)
-        out.append(f"{rgb(color)}{ch}")
-    return "".join(out) + reset
+    text = []
+    for index, character in enumerate(TEXT):
+        gradient_index = position - index
+        color = GRADIENT[gradient_index] if 0 <= gradient_index < gradient_length else BRAND
+        text.append(f"{color}{character}")
+    return f"{GRADIENT[color_index]}{PULSE_FRAMES[frame_index]}{RESET} " + "".join(text) + RESET
 
 
 def restore(*_):
-    sys.stdout.write("\033[?25h" + reset + "\n")
+    sys.stdout.write("\033[?25h" + RESET + "\n")
     sys.stdout.flush()
     os._exit(0)
 
@@ -60,7 +63,7 @@ sys.stdout.flush()
 start = time.monotonic()
 while True:
     elapsed = time.monotonic() - start
-    sys.stdout.write(f"\r{PAD}{spinner(elapsed)} {shimmer(elapsed)}")
+    sys.stdout.write(f"\r{PAD}{render(elapsed)}")
     sys.stdout.flush()
     time.sleep(INTERVAL)
 PY
