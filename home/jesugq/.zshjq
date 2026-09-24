@@ -94,6 +94,7 @@ function cfsrc() {
   cd $CF_DIR
   tmux rename-window cf
 	source $HOME/.zshjq
+	source $HOME/.zshai
   source $HOME/.zshsp
   tmux source-file $HOME/.tmux.conf
 }
@@ -129,37 +130,4 @@ function ne() {
 function lg() {
   tmux-rename-window pull
   lazygit
-}
-
-function ai() {
-  tmux-rename-window vibe
-  local options=(
-    "Cursor|agent"
-    "Codex|codex"
-    "Copilot|copilot"
-    "Antigravity|agy"
-    "Qwen|qwen"
-    "Open Code|opencode"
-    "Claude|claude"
-  )
-
-  local labels=()
-  for item in "${options[@]}"; do
-    labels+=("${item%%|*}")
-  done
-
-  local selected_label
-  selected_label=$(gum choose "${labels[@]}" --header "Which AI do you still have tokens for?:")
-
-  if [ -n "$selected_label" ]; then
-    for item in "${options[@]}"; do
-      local label="${item%%|*}"
-      local cmd="${item#*|}"
-      if [ "$label" = "$selected_label" ]; then
-        echo "Running $label ($cmd)..."
-        eval "$cmd"
-        break
-      fi
-    done
-  fi
 }
