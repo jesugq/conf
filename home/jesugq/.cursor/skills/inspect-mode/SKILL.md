@@ -6,7 +6,11 @@ disable-model-invocation: true
 
 # Inspect mode
 
-`$DIR = ~/.cursor/inspect-mode/sessions/$CURSOR_CONVERSATION_ID` (refuse if unset). On iff `$DIR/ENABLED` exists. `/inspect-mode` toggles (ignore extra words).
+Shared with outline-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. Both modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
+
+On iff `$DIR/INSPECT` exists (zero-byte sentinel). `$DIR/OUTLINE` means outline-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The two sentinels are mutually exclusive. `/inspect-mode` toggles this mode (ignore extra words). `/outline-mode` belongs to the other skill: do not write a file and do not print an inspect-mode comment for it.
+
+Enabling while `OUTLINE` exists swaps. Delete `OUTLINE`, create `INSPECT`, keep every `NN-*.md`, and continue that index. The next substantive reply uses inspect-mode’s shape.
 
 Chat is only:
 
@@ -14,10 +18,10 @@ Chat is only:
     <absolute $DIR>
     [<absolute new file, write turns only>]
 
-Off → on: mkdir `$DIR`, create `ENABLED`, keep existing `NN-*.md`.
-On → off: delete `ENABLED` only.
+Off → on: mkdir `$DIR` if needed, create `INSPECT`, keep existing `NN-*.md`. If `OUTLINE` is present, delete it first (swap).
+On → off: delete `INSPECT` only.
 
-While on, each substantive query writes exactly one new `$DIR/<NN>-<slug>.md` (never edit prior files). `NN` = count of `[0-9][0-9]-*.md` + 1, two digits. Slug is kebab-case from the H1. At 100: write nothing, comment `limit reached`, tell the user to start a new conversation.
+While `INSPECT` exists, each substantive query writes exactly one new `$DIR/<NN>-<slug>.md` (never edit prior files, including ones outline-mode wrote). `NN` = count of `[0-9][0-9]-*.md` + 1, two digits. Slug is kebab-case from the H1. At 100: write nothing, comment `limit reached`, tell the user to start a new conversation.
 
     # <5-10 word summary>
 

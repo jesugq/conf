@@ -6,35 +6,39 @@ disable-model-invocation: true
 
 # Outline mode
 
-State lives under `$DIR = ~/.cursor/outline-mode/sessions/$CURSOR_CONVERSATION_ID` (refuse if unset). On is `$DIR/ENABLED` existing (a zero-byte sentinel, not JSON). Folder existence alone is not on — leftover markdown without `ENABLED` is off. `/outline-mode` toggles; extra words after it are ignored.
+Shared with inspect-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. Both modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
+
+On is `$DIR/OUTLINE` existing (a zero-byte sentinel, not JSON). `$DIR/INSPECT` means inspect-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The two sentinels are mutually exclusive. `/outline-mode` toggles this mode; extra words after it are ignored. `/inspect-mode` belongs to the other skill: do not write a file and do not print an outline-mode comment for it.
+
+Enabling while `INSPECT` exists swaps. Delete `INSPECT`, create `OUTLINE`, keep every `NN-*.md`, and continue that index. The next substantive reply uses outline-mode’s shape.
 
 ## Action comment
 
-Every outline-mode action — enabling, disabling, creating a file, hitting the 99-file cap — opens with exactly one line before any other content:
+Every outline-mode action — enabling, disabling, swapping on, creating a file, hitting the 99-file cap — opens with exactly one line before any other content:
 
     [outline-mode] <short comment>
 
-`<short comment>` is `enabled`, `disabled`, `created a file`, or `limit reached`. Then print the absolute path of `$DIR` on its own line. A write turn adds the absolute path of the new file on the next line. Nothing else (no titles, outline, or section bodies).
+`<short comment>` is `enabled`, `disabled`, `created a file`, or `limit reached`. A swap that turns outline-mode on uses `enabled`. Then print the absolute path of `$DIR` on its own line. A write turn adds the absolute path of the new file on the next line. Nothing else (no titles, outline, or section bodies).
 
-Enable / disable:
+Enable / swap / disable:
 
     [outline-mode] enabled
-    /Users/<you>/.cursor/outline-mode/sessions/<id>
+    /Users/<you>/.cursor/agent-mode/2026-09-24-<id>
 
 Write:
 
     [outline-mode] created a file
-    /Users/<you>/.cursor/outline-mode/sessions/<id>
-    /Users/<you>/.cursor/outline-mode/sessions/<id>/01-what-is-outline-mode.md
+    /Users/<you>/.cursor/agent-mode/2026-09-24-<id>
+    /Users/<you>/.cursor/agent-mode/2026-09-24-<id>/01-what-is-outline-mode.md
 
 ## Toggle
 
-- Off → on: create `$DIR` if needed, write `$DIR/ENABLED`, comment `enabled`, print `$DIR`. Keep any existing `NN-*.md`; the next write continues the index.
-- On → off: delete only `$DIR/ENABLED`. Leave every markdown file. Comment `disabled`, print `$DIR`.
+- Off → on: create `$DIR` if needed, write `$DIR/OUTLINE`, comment `enabled`, print `$DIR`. If `$DIR/INSPECT` exists, delete it first (swap). Keep any existing `NN-*.md`; the next write continues the index, including files inspect-mode already wrote.
+- On → off: delete only `$DIR/OUTLINE`. Leave every markdown file. Comment `disabled`, print `$DIR`.
 
 ## Write
 
-While on, each substantive user query creates exactly one new file. Never edit an existing file (follow-ups and revisions are the next index). Ignore leftover `major-*` / `minor-*` / `*.json` names.
+While `OUTLINE` exists, each substantive user query creates exactly one new file. Never edit an existing file (follow-ups and revisions are the next index), including files inspect-mode wrote. Ignore leftover `major-*` / `minor-*` / `*.json` names.
 
 - Next index = `count($DIR/[0-9][0-9]-*.md) + 1`, zero-padded to two digits (`01`, `02`, …).
 - Path: `$DIR/<NN>-<slug>.md`. `<slug>` is kebab-case from the H1 summary (lowercase, hyphens, no spaces).
@@ -55,6 +59,6 @@ Three to seven `##` sections. No YAML frontmatter. No JSON sidecar.
 
 These skip creating a markdown file but still open with the action comment line when they are outline-mode actions:
 
-- **Toggle acks** — comment plus the `$DIR` line only.
+- **Toggle acks** — comment plus the `$DIR` line only. A swap that enables outline-mode is an enable ack.
 - **Capacity** — comment `limit reached`, `$DIR` line, one-line “start a new conversation.”
 - **Short prose** — trivial one-liners unrelated to any outline-mode action (e.g. plain "Yes", "Done", tool-only turns) get no comment line and no file. Use sparingly; anything substantive still goes through outline mode.
