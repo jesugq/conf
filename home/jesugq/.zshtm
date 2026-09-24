@@ -30,7 +30,7 @@ function pane-tmux-side() {
   PANE_TMUX_MAIN_PANE=$(tmux display-message -p '#{pane_id}') || return
   printf -v command '%q ' "$@"
   command=${command% }
-  PANE_TMUX_SIDE_PANE=$(tmux split-window -v -l 1% -P -F '#{pane_id}' "$command") || return
+  PANE_TMUX_SIDE_PANE=$(tmux split-window -v -l 3 -P -F '#{pane_id}' "$command") || return
   PANE_TMUX_SIDE_PANES=("$PANE_TMUX_SIDE_PANE")
 }
 function pane-tmux-more() {
