@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 

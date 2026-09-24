@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # 'sp stop'
 # 'sp start'
 # 'sp doctor'
