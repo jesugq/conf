@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source "$HOME/.zshtm"
 safe-tmux-rename afk
 
 if [[ "${OSTYPE:-}" == darwin* ]]; then
@@ -24,4 +25,10 @@ scene="${scenes[*]}"
 unset IFS
 theme="${themes[RANDOM % ${#themes[@]}]}"
 
-exec "$arch" --scene "$scene" --theme "$theme" --duration 10
+pane-tmux-side "$HOME/.script/thinking_cursor" "Cursoring"
+pane-tmux-more "$HOME/.script/thinking_claude" "Clauding"
+pane-tmux-more "$HOME/.script/thinking_copilot" "Copiloting"
+pane-tmux-more "$HOME/.script/thinking_antigravity" "Graviting"
+pane-tmux-same
+
+pane-tmux-main "$arch" --scene "$scene" --theme "$theme" --duration 10

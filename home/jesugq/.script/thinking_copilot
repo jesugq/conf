@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 
 # Copilot CLI TextSpinner animation (1.0.x)
-exec python3 -u - <<'PY'
+exec python3 -u - "$@" <<'PY'
 import math
 import os
 import signal
 import sys
 import time
 
-TEXT = "Working"
+sys.path.insert(0, os.path.expanduser("~/.script"))
+from thinking_common import centered, enable_quit, quit_requested, restore_terminal
+
+TEXT = sys.argv[1] if len(sys.argv) > 1 else "Working"
 PAD = "  "
 PULSE_FRAMES = "●◉◎○◎◉"
 INTERVAL = 0.09
@@ -51,19 +54,20 @@ def render(elapsed):
 
 
 def restore(*_):
-    sys.stdout.write("\033[?25h" + RESET + "\n")
-    sys.stdout.flush()
-    os._exit(0)
+    restore_terminal(RESET)
 
 
+enable_quit()
 signal.signal(signal.SIGINT, restore)
 signal.signal(signal.SIGTERM, restore)
 sys.stdout.write("\033[?25l\n")
 sys.stdout.flush()
 start = time.monotonic()
 while True:
+    if quit_requested():
+        restore()
     elapsed = time.monotonic() - start
-    sys.stdout.write(f"\r{PAD}{render(elapsed)}")
+    sys.stdout.write(centered(render(elapsed)))
     sys.stdout.flush()
     time.sleep(INTERVAL)
 PY

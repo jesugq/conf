@@ -20,6 +20,45 @@ function tmrm() {
   tmux kill-session -t "$1"
 }
 
+# pane-tmux
+function pane-tmux-main() {
+  "$@"
+}
+function pane-tmux-side() {
+  local command
+  [[ $# -gt 0 ]] || return 2
+  PANE_TMUX_MAIN_PANE=$(tmux display-message -p '#{pane_id}') || return
+  printf -v command '%q ' "$@"
+  command=${command% }
+  PANE_TMUX_SIDE_PANE=$(tmux split-window -v -l 1% -P -F '#{pane_id}' "$command") || return
+  PANE_TMUX_SIDE_PANES=("$PANE_TMUX_SIDE_PANE")
+}
+function pane-tmux-more() {
+  local command
+  [[ $# -gt 0 && -n "${PANE_TMUX_SIDE_PANE:-}" ]] || return 2
+  printf -v command '%q ' "$@"
+  command=${command% }
+  PANE_TMUX_SIDE_PANE=$(tmux split-window -h -t "$PANE_TMUX_SIDE_PANE" -P -F '#{pane_id}' "$command") || return
+  PANE_TMUX_SIDE_PANES+=("$PANE_TMUX_SIDE_PANE")
+}
+function pane-tmux-same() {
+  local count window_width available base remainder pane_width i
+  [[ -n "${PANE_TMUX_MAIN_PANE:-}" && ${#PANE_TMUX_SIDE_PANES[@]} -gt 0 ]] || return 2
+  count=${#PANE_TMUX_SIDE_PANES[@]}
+  window_width=$(tmux display-message -t "$PANE_TMUX_MAIN_PANE" -p '#{window_width}') || return
+  available=$((window_width - count + 1))
+  base=$((available / count))
+  remainder=$((available % count))
+  for ((i=0; i<count; i++)); do
+    pane_width=$base
+    if ((i < remainder)); then
+      ((pane_width++))
+    fi
+    tmux resize-pane -t "${PANE_TMUX_SIDE_PANES[i]}" -x "$pane_width" || return
+  done
+  tmux select-pane -t "$PANE_TMUX_MAIN_PANE"
+}
+
 # utils
 TM_SAFE=(md og cf nm)
 function safe-tmux-rename() {
