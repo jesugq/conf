@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+# Codex TUI: motion.rs activity_indicator + summary_shimmer.rs
+exec python3 -u - <<'PY'
+import math
+import os
+import select
+import signal
+import sys
+import termios
+import time
+import tty
+
+TEXT = "Working"
+INTERVAL = 0.032
+PAD = "  "
+
+
+def blend(a, b, t):
+    t = max(0.0, min(1.0, t))
+    return tuple(int(x * t + y * (1.0 - t)) for x, y in zip(a, b))
+
+
+def query_osc(code, timeout=0.15):
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+        return None
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        sys.stdout.write(f"\033]{code};?\033\\")
+        sys.stdout.flush()
+        buf = ""
+        end = time.time() + timeout
+        while time.time() < end:
+            ready, _, _ = select.select([fd], [], [], max(0.0, end - time.time()))
+            if not ready:
+                break
+            buf += sys.stdin.read(1)
+            if buf.endswith("\a") or buf.endswith("\033\\"):
+                break
+    except (termios.error, OSError):
+        return None
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+    marker = "rgb:"
+    i = buf.find(marker)
+    if i < 0:
+        return None
+    parts = buf[i + len(marker) :].split("\033", 1)[0].split("\a", 1)[0].split("/")
+    if len(parts) != 3:
+        return None
+    try:
+        return tuple(int(p, 16) >> 8 if len(p) > 2 else int(p, 16) for p in parts)
+    except ValueError:
+        return None
+
+
+def rgb(color):
+    return f"\033[38;2;{color[0]};{color[1]};{color[2]}m"
+
+
+# GitHub Dark fallback when OSC 10/11 is unavailable
+fg = query_osc(10) or (201, 209, 217)
+bg = query_osc(11) or (13, 17, 23)
+bold = "\033[1m"
+reset = "\033[0m"
+
+
+def shimmer_dot(elapsed):
+    padding = 10
+    period = 1 + padding * 2
+    pos = int((elapsed % 2.0) / 2.0 * period)
+    dist = abs((0 + padding) - pos)
+    t = 0.5 * (1.0 + math.cos(math.pi * dist / 5.0)) if dist <= 5.0 else 0.0
+    return f"{bold}{rgb(blend(bg, fg, t * 0.9))}•{reset}"
+
+
+def summary_shimmer(elapsed):
+    width = float(len(TEXT))
+    half = 5.0  # shimmer.rs: band_half_width is a fixed constant, not width-proportional
+    position = (elapsed % 2.0) / 2.0 * (width + 2.0 * half) - half
+    out = []
+    for i, ch in enumerate(TEXT):
+        distance = min(abs((i + 0.5) - position) / half, 1.0)
+        intensity = 0.5 * (1.0 + math.cos(math.pi * distance))
+        out.append(f"{rgb(blend(fg, bg, 0.5 + 0.5 * intensity))}{ch}")
+    return "".join(out) + reset
+
+
+def restore(*_):
+    sys.stdout.write("\033[?25h" + reset + "\n")
+    sys.stdout.flush()
+    os._exit(0)
+
+
+signal.signal(signal.SIGINT, restore)
+signal.signal(signal.SIGTERM, restore)
+sys.stdout.write("\033[?25l\n")
+sys.stdout.flush()
+start = time.monotonic()
+while True:
+    elapsed = time.monotonic() - start
+    sys.stdout.write(f"\r{PAD}{shimmer_dot(elapsed)} {summary_shimmer(elapsed)}")
+    sys.stdout.flush()
+    time.sleep(INTERVAL)
+PY

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Claude Code: sparkle palindrome (Spinner.tsx) + dark theme claude / claudeShimmer
+exec python3 -u - <<'PY'
+import os
+import signal
+import sys
+import time
+
+# getDefaultCharacters() (darwin) + reverse — Spinner.tsx SPINNER_FRAMES
+BASE = ["·", "✢", "✱", "✶", "✻", "✽"]
+FRAMES = BASE + BASE[::-1]
+TEXT = "Thinking…"
+SPIN_MS = 0.12
+INTERVAL = 0.05
+CYCLE = 2.0
+PAD = "  "
+# darkTheme: claude rgb(215,119,87) / claudeShimmer rgb(235,159,127)
+CLAUDE = (215, 119, 87)
+SHIMMER = (235, 159, 127)
+reset = "\033[0m"
+
+
+def lerp(a, b, t):
+    t = max(0.0, min(1.0, t))
+    return tuple(int(x + (y - x) * t) for x, y in zip(a, b))
+
+
+def gradient_at(elapsed):
+    x = (elapsed % CYCLE) / CYCLE
+    t = x * 2 if x < 0.5 else 2 - x * 2
+    return lerp(CLAUDE, SHIMMER, t)
+
+
+def rgb(color):
+    return f"\033[38;2;{color[0]};{color[1]};{color[2]}m"
+
+
+def restore(*_):
+    sys.stdout.write("\033[?25h" + reset + "\n")
+    sys.stdout.flush()
+    os._exit(0)
+
+
+signal.signal(signal.SIGINT, restore)
+signal.signal(signal.SIGTERM, restore)
+sys.stdout.write("\033[?25l\n")
+sys.stdout.flush()
+start = time.monotonic()
+while True:
+    elapsed = time.monotonic() - start
+    color = gradient_at(elapsed)
+    frame = FRAMES[int(elapsed / SPIN_MS) % len(FRAMES)]
+    sys.stdout.write(f"\r{PAD}{rgb(color)}{frame} {TEXT}{reset}")
+    sys.stdout.flush()
+    time.sleep(INTERVAL)
+PY

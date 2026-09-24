@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Copilot CLI: magenta "Thinking..." shimmer (v0.0.343) + braille spinner
+exec python3 -u - <<'PY'
+import math
+import os
+import signal
+import sys
+import time
+
+TEXT = "Thinking..."
+FRAMES = list("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
+INTERVAL = 0.032
+SPIN_MS = 0.08
+PAD = "  "
+# GitHub Primer purple / Copilot thinking color
+BASE = (163, 113, 247)
+HIGH = (210, 168, 255)
+DIM = (88, 56, 148)
+reset = "\033[0m"
+
+
+def blend(a, b, t):
+    t = max(0.0, min(1.0, t))
+    return tuple(int(x * t + y * (1.0 - t)) for x, y in zip(a, b))
+
+
+def rgb(color):
+    return f"\033[38;2;{color[0]};{color[1]};{color[2]}m"
+
+
+def spinner(elapsed):
+    frame = FRAMES[int(elapsed / SPIN_MS) % len(FRAMES)]
+    return f"{rgb(BASE)}{frame}{reset}"
+
+
+def shimmer(elapsed):
+    width = float(len(TEXT))
+    half = max(width * 0.1, 3.0)
+    position = (elapsed % 2.0) / 2.0 * (width + 2.0 * half) - half
+    out = []
+    for i, ch in enumerate(TEXT):
+        distance = min(abs((i + 0.5) - position) / half, 1.0)
+        intensity = 0.5 * (1.0 + math.cos(math.pi * distance))
+        color = blend(HIGH, DIM, 0.35 + 0.65 * intensity)
+        out.append(f"{rgb(color)}{ch}")
+    return "".join(out) + reset
+
+
+def restore(*_):
+    sys.stdout.write("\033[?25h" + reset + "\n")
+    sys.stdout.flush()
+    os._exit(0)
+
+
+signal.signal(signal.SIGINT, restore)
+signal.signal(signal.SIGTERM, restore)
+sys.stdout.write("\033[?25l\n")
+sys.stdout.flush()
+start = time.monotonic()
+while True:
+    elapsed = time.monotonic() - start
+    sys.stdout.write(f"\r{PAD}{spinner(elapsed)} {shimmer(elapsed)}")
+    sys.stdout.flush()
+    time.sleep(INTERVAL)
+PY
