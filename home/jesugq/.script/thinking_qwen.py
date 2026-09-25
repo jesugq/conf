@@ -1,9 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-# Antigravity CLI (agy): dots8 spinner + Gemini brand gradient
-# Observed: ⣯ Thinking... / ⣽ Working... ; colors from gemini-cli darkTheme
-exec python3 -u - "$@" <<'PY'
-import math
+# Qwen Code CLI: reuses gemini-cli's GeminiSpinner.tsx verbatim (confirmed in
+# GeminiRespondingSpinner.tsx) - default spinnerType 'dots', tinygradient
+# cycling forward through the theme's Accent* colors every 4000ms, updated
+# every 30ms. Colors below are qwen-dark.ts's Accent* values (GradientColors
+# is a separate 2-stop array used only for the ASCII header banner).
 import os
 import signal
 import sys
@@ -12,20 +13,20 @@ import time
 sys.path.insert(0, os.path.expanduser("~/.script"))
 from thinking_common import centered, enable_quit, quit_requested, restore_terminal
 
-FRAMES = list("⣾⣽⣻⢿⡿⣟⣯⣷")
+FRAMES = list("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
 TEXT = sys.argv[1] if len(sys.argv) > 1 else "Thinking..."
 SPIN_MS = 0.08
 INTERVAL = 0.03
 CYCLE = 4.0
 PAD = "  "
-# gemini-cli darkTheme Accent* (GeminiSpinner tinygradient)
+# qwen-dark.ts Accent* (AccentPurple -> Blue -> Cyan -> Green -> Yellow -> Red -> loop)
 BRAND = [
-    (215, 175, 255),  # AccentPurple #D7AFFF
-    (135, 175, 255),  # AccentBlue   #87AFFF
-    (135, 215, 215),  # AccentCyan   #87D7D7
-    (215, 255, 215),  # AccentGreen  #D7FFD7
-    (255, 255, 175),  # AccentYellow #FFFFAF
-    (255, 135, 175),  # AccentRed    #FF87AF
+    (210, 166, 255),  # AccentPurple #D2A6FF
+    (57, 185, 230),   # AccentBlue   #39B9E6
+    (149, 214, 203),  # AccentCyan   #95D6CB
+    (170, 233, 76),   # AccentGreen  #AAE94C
+    (255, 215, 0),    # AccentYellow #FFD700
+    (242, 109, 120),  # AccentRed    #F26D78
 ]
 reset = "\033[0m"
 
@@ -63,4 +64,3 @@ while True:
     sys.stdout.write(centered(f"{rgb(color)}{frame} {TEXT}{reset}"))
     sys.stdout.flush()
     time.sleep(INTERVAL)
-PY

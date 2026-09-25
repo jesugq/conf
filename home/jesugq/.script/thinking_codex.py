@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
 # Codex TUI: motion.rs activity_indicator + summary_shimmer.rs
-exec python3 -u - "$@" <<'PY'
 import math
 import os
 import select
@@ -108,4 +107,3 @@ while True:
     sys.stdout.write(centered(f"{shimmer_dot(elapsed)} {summary_shimmer(elapsed)}"))
     sys.stdout.flush()
     time.sleep(INTERVAL)
-PY

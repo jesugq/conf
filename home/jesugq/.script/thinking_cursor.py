@@ -1,10 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
 # Cursor CLI: verified against the shipped bundle (spinner-definitions.ts +
 # app render tree). Frames/interval match exactly; the pending-turn indicator
 # renders the spinner in plain ANSI green next to bold "Working" text -
 # there is no orange/brand gradient on this indicator.
-exec python3 -u - "$@" <<'PY'
 import os
 import signal
 import sys
@@ -41,4 +40,3 @@ while True:
     sys.stdout.write(centered(f"{green}{frame}{reset} {bold}{TEXT}{reset}"))
     sys.stdout.flush()
     time.sleep(INTERVAL)
-PY

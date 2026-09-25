@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
 # Copilot CLI TextSpinner animation (1.0.x)
-exec python3 -u - "$@" <<'PY'
 import math
 import os
 import signal
@@ -70,4 +69,3 @@ while True:
     sys.stdout.write(centered(render(elapsed)))
     sys.stdout.flush()
     time.sleep(INTERVAL)
-PY

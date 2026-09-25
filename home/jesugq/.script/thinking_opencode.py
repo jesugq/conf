@@ -1,11 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
 # OpenCode TUI: verified against packages/tui/src/component/spinner.tsx.
 # Frames/interval match the real ink-style dots spinner exactly. The
 # component takes no gradient - its default color is theme.textMuted (a
 # flat, terminal-background-derived gray), so there is no primary/accent
 # color animation on this indicator.
-exec python3 -u - "$@" <<'PY'
 import os
 import signal
 import sys
@@ -45,4 +44,3 @@ while True:
     sys.stdout.write(centered(f"{rgb(MUTED)}{frame} {TEXT}{reset}"))
     sys.stdout.flush()
     time.sleep(SPIN_MS)
-PY

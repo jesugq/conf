@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
 # Claude Code: sparkle palindrome (Spinner.tsx) + dark theme claude / claudeShimmer
-exec python3 -u - "$@" <<'PY'
 import os
 import signal
 import sys
@@ -58,4 +57,3 @@ while True:
     sys.stdout.write(centered(f"{rgb(color)}{frame} {TEXT}{reset}"))
     sys.stdout.flush()
     time.sleep(INTERVAL)
-PY
