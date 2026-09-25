@@ -34,10 +34,11 @@ keymap = [
   { on = "y", run = "yank", desc = "Yank selected files (copy)" },
 
   # copy
-  { on = [ "c", "a" ], run = "copy path", desc = "Copy absolute" },
-  { on = [ "c", "A" ], run = "copy url", desc = "Copy absolute url" },
-  { on = [ "c", "w" ], run = "copy dirpath", desc = "Copy directory path" },
-  { on = [ "c", "f" ], run = "copy filename", desc = "Copy filename" },
+  { on = [ "c", "a", "a" ], run = "copy path", desc = "Copy absolute" },
+  { on = [ "c", "a", "u" ], run = "copy url", desc = "Copy absolute url" },
+  { on = [ "c", "w", "w" ], run = "copy dirpath", desc = "Copy directory path" },
+  { on = [ "c", "w", "u" ], run = "copy dirurl", desc = "Copy directory url" },
+  { on = [ "c", "f", "f" ], run = "copy filename", desc = "Copy filename" },
 
   # find
   { on = "/", run = "find --smart", desc = "Find next file" },
