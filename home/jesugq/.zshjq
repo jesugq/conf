@@ -9,26 +9,6 @@ function fm() {
   safe-tmux-rename fm
   somafm
 }
-function fe() {
-  cd $HOME
-  safe-tmux-rename fe
-  feedr
-}
-function ferld() {
-  cd $HOME
-  safe-tmux-rename fe
-  feedr --import $HOME/Sync/Apps/FeedFlow/Feeds.opml
-}
-function cl() {
-  cd $HOME
-  safe-tmux-rename cl
-  calcurse
-}
-function clrld() {
-  cd $HOME
-  safe-tmux-rename cl
-  calcurse-caldav --debug --verbose
-}
 function snc() {
   "$HOME/.script/snc"
   "$HOME/.script/afk"
