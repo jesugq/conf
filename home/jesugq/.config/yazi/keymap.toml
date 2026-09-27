@@ -16,8 +16,7 @@ keymap = [
   { on = "l", run = "enter", desc = "Enter the child directory" },
 
   # open
-  { on = "<C-Enter>", run = "open --interactive", desc = "Open selected files interactively" },
-  { on = "<Enter>", run = "open", desc = "Open selected files" },
+  { on = "<Enter>", run = "open --interactive", desc = "Open selected files interactively" },
   { on = "<Space>", run = [ "toggle", "arrow 1" ], desc = "Toggle the current selection state" },
   { on = "i", run = "spot", desc = "Spot hovered file" },
   { on = "v", run = "visual_mode", desc = "Enter visual mode (selection mode)" },
