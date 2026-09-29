@@ -56,7 +56,7 @@ function cfsrc() {
 	source $HOME/.zshjq
 	source $HOME/.zshai
   source $HOME/.zshsp
-  tmux source-file $HOME/.tmux.conf
+  tmux source-file $HOME/.config/tmux/tmux.conf
 }
 NM_DIR=$HOME/.config/nvim
 function nm() {
