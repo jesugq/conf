@@ -1,23 +1,5 @@
 #!/usr/bin/env bash
 
-# 'sp stop'
-# 'sp start'
-# 'sp doctor'
-# 'sp sidekiq'
-# 'sp yarn lint:all'
-# 'sp rails routes | grep'
-# 'sp restart -a' # {{app}}
-# 'sp exec -a' # {{app}} {{command}}
-# 'sp bash -a' # {{app}}
-# 'sp attach -a' # {{app}}
-# 'sp rails -a' # {{app}}
-# 'sp rspec -a' # {{app}} {{spec}}
-# 'sp rubocop -a' # {{app}} {{spec}}
-# 'sp bin/lake-console'
-# 'sp staging:exec' # rev01 bash
-# 'sp staging:db' # rev01
-# 'sp staging:logs' # rev01 -f -a simplepractice
-
 # spq
 QUEEN_DIR=~/Development
 function spq() {
@@ -29,13 +11,19 @@ DOCKER_DIR=~/Development/docker-dev
 function spd() {
 	cd $DOCKER_DIR
 }
-function spdapp() {
+function spdnew() {
   safe-tmux-rename apps
   cd $DOCKER_DIR
   git pull
   sp apps:sync
   sp stop
   sp start
+}
+function spdrld() {
+  safe-tmux-rename apps
+  cd $DOCKER_DIR
+  git pull
+  sp apps:sync
 }
 function spdaws() {
 	cd $DOCKER_DIR
@@ -49,21 +37,12 @@ function spdssh() {
 # spb
 BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
-spb() {
+function spb() {
 	cd $BACKEND_DIR
 }
-function spbrld() {
-	sp restart --backend
-}
-function spblogs() {
-  safe-tmux-rename logs
-	sp attach --backend
-}
 function spbdb() {
+  safe-tmux-rename data
 	sp exec mysql -h mysql.local -u root $BACKEND_APP
-}
-function spbcop() {
-	sp rubocop -a $BACKEND_APP "$@"
 }
 function spbspec() {
   safe-tmux-rename spec
@@ -85,13 +64,6 @@ FRONTEND_APP=simplepractice-frontend
 function spf() {
 	cd $FRONTEND_DIR
 }
-function spfrld() {
-	sp restart --frontend
-}
-function spflogs() {
-  safe-tmux-rename logs
-	sp attach --frontend
-}
 function spfyarn() {
   safe-tmux-rename yarn
 	if [ $1 = true ]; then
@@ -105,6 +77,7 @@ function spfyarn() {
 	fi
 }
 function spflint() {
+  safe-tmux-rename lint
   local type="$1"
   shift
   sp exec -a $FRONTEND_APP yarn lint:"$type" "$@"
@@ -117,9 +90,11 @@ function sps() {
   cd $SSO_DIR
 }
 function spsdb() {
+  safe-tmux-rename data
 	sp exec mysql -h mysql.local -u root $SSO_APP
 }
-function spscop() {
+function spsrcop() {
+  safe-tmux-rename rcop
 	sp rubocop -a $SSO_APP "$@"
 }
 function spsspec() {
@@ -131,38 +106,4 @@ function spsspec() {
 		shift
 		docker exec -it $SSO_APP bundle exec rspec "$@"
 	fi
-}
-
-# stg
-function stglogs() {
-  safe-tmux-rename logs
-  sp staging:logs "$1" -f
-}
-function stgbash() {
-  sp staging:exec "$1" bash
-}
-function stgrails() {
-  sp staging:exec "$1" bin/rails console
-}
-function stgdata() {
-  sp staging:db "$1"
-}
-
-# sp
-function splogs() {
-  safe-tmux-rename logs
-	sp attach
-}
-function spbash() {
-	sp exec bash
-}
-function splake(){
-  sp setup:lake
-  sp bin/lake-console
-}
-function sprails() {
-	sp exec rails console
-}
-function sprld() {
-	sp restart
 }

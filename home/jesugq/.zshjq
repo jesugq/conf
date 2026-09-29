@@ -4,29 +4,26 @@ alias logidrld="sudo systemctl restart logid"
 alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
 # shared
-function fm() {
-  cd $HOME
-  safe-tmux-rename fm
+function sfm() {
+  safe-tmux-rename sfm
   somafm
 }
-function snc() {
-  "$HOME/.script/snc"
-  "$HOME/.script/afk"
-}
 function afk() {
+  safe-tmux-rename afk
+  "$HOME/.script/snc"
   "$HOME/.script/afk"
 }
 
 # local
-unalias md
 if [[ "$OSTYPE" == "darwin"* ]]; then
   MD_DIR=$HOME/Development/markdown
 else
   MD_DIR=$HOME/Sync/Apps/Markdown
 fi
+unalias md
 function md() {
-  cd $MD_DIR
   safe-tmux-rename md
+  cd $MD_DIR
 }
 if [[ "$OSTYPE" == "darwin"* ]]; then
   OG_DIR=$HOME/Development/orgmode
@@ -34,25 +31,25 @@ else
   OG_DIR=$HOME/Sync/Apps/Orgmode
 fi
 function og() {
-	cd $OG_DIR
   safe-tmux-rename og
+	cd $OG_DIR
 }
 
 # repos
 CF_DIR=$HOME/Development/conf
 function cf() {
-	cd $CF_DIR
   safe-tmux-rename cf
+	cd $CF_DIR
 }
 function cfrld() {
-  cd $CF_DIR
   safe-tmux-rename cf
+  cd $CF_DIR
 	sudo rsync -av etc/ /etc/
 	rsync -av home/jesugq/ $HOME/
 }
 function cfsrc() {
-  cd $CF_DIR
   safe-tmux-rename cf
+  cd $CF_DIR
 	source $HOME/.zshjq
 	source $HOME/.zshai
   source $HOME/.zshsp
@@ -60,8 +57,8 @@ function cfsrc() {
 }
 NM_DIR=$HOME/.config/nvim
 function nm() {
-	cd $NM_DIR
   safe-tmux-rename nm
+	cd $NM_DIR
 }
 
 function yz() {
