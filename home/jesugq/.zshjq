@@ -5,7 +5,7 @@ alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
 # shared
 function sfm() {
-  safe-tmux-rename sfm
+  sudo-tmux-rename sfm
   somafm
 }
 function afk() {
@@ -22,7 +22,7 @@ else
 fi
 unalias md
 function md() {
-  safe-tmux-rename md
+  sudo-tmux-rename md
   cd $MD_DIR
 }
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -31,24 +31,24 @@ else
   OG_DIR=$HOME/Sync/Apps/Orgmode
 fi
 function og() {
-  safe-tmux-rename og
+  sudo-tmux-rename og
 	cd $OG_DIR
 }
 
 # repos
 CF_DIR=$HOME/Development/conf
 function cf() {
-  safe-tmux-rename cf
+  sudo-tmux-rename cf
 	cd $CF_DIR
 }
 function cfrld() {
-  safe-tmux-rename cf
+  sudo-tmux-rename cf
   cd $CF_DIR
 	sudo rsync -av etc/ /etc/
 	rsync -av home/jesugq/ $HOME/
 }
 function cfsrc() {
-  safe-tmux-rename cf
+  sudo-tmux-rename cf
   cd $CF_DIR
 	source $HOME/.zshjq
 	source $HOME/.zshai
@@ -57,12 +57,12 @@ function cfsrc() {
 }
 NM_DIR=$HOME/.config/nvim
 function nm() {
-  safe-tmux-rename nm
+  sudo-tmux-rename nm
 	cd $NM_DIR
 }
 
 function yz() {
-  safe-tmux-rename find
+  safe-tmux-rename yz
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   command yazi "$@" --cwd-file="$tmp"
   IFS= read -r -d '' cwd < "$tmp"
@@ -70,10 +70,10 @@ function yz() {
   command rm -f -- "$tmp"
 }
 function ne() {
-  safe-tmux-rename code
+  safe-tmux-rename ne
   nvim .
 }
 function lg() {
-  safe-tmux-rename pull
+  safe-tmux-rename lg
   lazygit
 }

@@ -60,7 +60,7 @@ function pane-tmux-same() {
 }
 
 # utils
-TM_SAFE=(md og cf nm)
+TM_SAFE=(md og cf nm spq spd spb spf sps)
 function safe-tmux-rename() {
   local name
   local safe
@@ -68,5 +68,8 @@ function safe-tmux-rename() {
   for safe in "${TM_SAFE[@]}"; do
     [[ "$name" == "$safe" ]] && return 0
   done
+  tmux rename-window "$1"
+}
+function sudo-tmux-rename() {
   tmux rename-window "$1"
 }

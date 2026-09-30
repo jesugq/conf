@@ -3,16 +3,18 @@
 # spq
 QUEEN_DIR=~/Development
 function spq() {
-	cd $QUEEN_DIR
+  sudo-tmux-rename spq
+  cd $QUEEN_DIR
 }
 
 # spd
 DOCKER_DIR=~/Development/docker-dev
 function spd() {
+  sudo-tmux-rename spd
 	cd $DOCKER_DIR
 }
-function spdnew() {
-  safe-tmux-rename apps
+function spdapp() {
+  sudo-tmux-rename spd
   cd $DOCKER_DIR
   git pull
   sp apps:sync
@@ -20,16 +22,18 @@ function spdnew() {
   sp start
 }
 function spdrld() {
-  safe-tmux-rename apps
+  sudo-tmux-rename spd
   cd $DOCKER_DIR
   git pull
   sp apps:sync
 }
 function spdaws() {
+  sudo-tmux-rename spd
 	cd $DOCKER_DIR
   aws sso login --profile staging
 }
 function spdssh() {
+  sudo-tmux-rename spd
 	cd $DOCKER_DIR
 	ssh-add ~/.ssh/id_ed25519
 }
@@ -38,14 +42,15 @@ function spdssh() {
 BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
 function spb() {
+  sudo-tmux-rename spb
 	cd $BACKEND_DIR
 }
 function spbdb() {
-  safe-tmux-rename data
+  sudo-tmux-rename spb
 	sp exec mysql -h mysql.local -u root $BACKEND_APP
 }
 function spbspec() {
-  safe-tmux-rename spec
+  sudo-tmux-rename spb
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
@@ -55,6 +60,7 @@ function spbspec() {
 	fi
 }
 function spboas() {
+  sudo-tmux-rename spb
 	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
 }
 
@@ -62,10 +68,11 @@ function spboas() {
 FRONTEND_DIR=~/Development/simplepractice/frontend
 FRONTEND_APP=simplepractice-frontend
 function spf() {
+  sudo-tmux-rename spf
 	cd $FRONTEND_DIR
 }
 function spfyarn() {
-  safe-tmux-rename yarn
+  sudo-tmux-rename spf
 	if [ $1 = true ]; then
 		shift
     sp exec -a $FRONTEND_APP -e COVERAGE=true yarn test:browser "$@"
@@ -77,7 +84,7 @@ function spfyarn() {
 	fi
 }
 function spflint() {
-  safe-tmux-rename lint
+  sudo-tmux-rename spf
   local type="$1"
   shift
   sp exec -a $FRONTEND_APP yarn lint:"$type" "$@"
@@ -87,18 +94,19 @@ function spflint() {
 SSO_DIR=~/Development/sp-sso-account
 SSO_APP=sp-sso-account
 function sps() {
+  sudo-tmux-rename sps
   cd $SSO_DIR
 }
 function spsdb() {
-  safe-tmux-rename data
+  sudo-tmux-rename sps
 	sp exec mysql -h mysql.local -u root $SSO_APP
 }
 function spsrcop() {
-  safe-tmux-rename rcop
+  sudo-tmux-rename sps
 	sp rubocop -a $SSO_APP "$@"
 }
 function spsspec() {
-  safe-tmux-rename spec
+  sudo-tmux-rename sps
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $SSO_APP bundle exec rspec "$@"
