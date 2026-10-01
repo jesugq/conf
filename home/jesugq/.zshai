@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# ain
-function ain() {
+# ai
+function ai() {
   tmux-rename-append ai
 
   local csv="$HOME/.local/share/jesugq/ai.csv"
@@ -38,9 +38,7 @@ function ain() {
     done
   fi
 }
-
-# ait
-function ait() {
+function airld() {
   tmux-rename-append ai
 
   local csv="$HOME/.local/share/jesugq/ai.csv"
