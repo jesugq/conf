@@ -6,11 +6,11 @@ disable-model-invocation: true
 
 # Outline mode
 
-Shared with inspect-mode and mermaid-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. All three modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
+Shared with inspect-mode, mermaid-mode, and handoff-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. All four modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
 
-On is `$DIR/OUTLINE` existing (a zero-byte sentinel, not JSON). `$DIR/INSPECT` means inspect-mode is on instead. `$DIR/MERMAID` means mermaid-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The three sentinels are mutually exclusive. `/outline-mode` toggles this mode; extra words after it are ignored. `/inspect-mode` and `/mermaid-mode` belong to the other skills: do not write a file and do not print an outline-mode comment for them.
+On is `$DIR/OUTLINE` existing (a zero-byte sentinel, not JSON). `$DIR/INSPECT` means inspect-mode is on instead. `$DIR/MERMAID` means mermaid-mode is on instead. `$DIR/HANDOFF` means handoff-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The four sentinels are mutually exclusive. `/outline-mode` toggles this mode; extra words after it are ignored. `/inspect-mode`, `/mermaid-mode`, and `/handoff-mode` belong to the other skills: do not write a file and do not print an outline-mode comment for them.
 
-Enabling while `INSPECT` or `MERMAID` exists swaps. Delete those sentinels, create `OUTLINE`, keep every `NN-*.md`, and continue that index. The next substantive reply uses outline-mode’s shape.
+Enabling while `INSPECT`, `MERMAID`, or `HANDOFF` exists swaps. Delete those sentinels, create `OUTLINE`, keep every `NN-*.md`, and continue that index. The next substantive reply uses outline-mode’s shape.
 
 ## Action comment
 
@@ -33,12 +33,12 @@ Write:
 
 ## Toggle
 
-- Off → on: create `$DIR` if needed, write `$DIR/OUTLINE`, comment `enabled`, print `$DIR`. If `$DIR/INSPECT` or `$DIR/MERMAID` exists, delete it first (swap). Keep any existing `NN-*.md`; the next write continues the index, including files inspect-mode or mermaid-mode already wrote.
+- Off → on: create `$DIR` if needed, write `$DIR/OUTLINE`, comment `enabled`, print `$DIR`. If `$DIR/INSPECT`, `$DIR/MERMAID`, or `$DIR/HANDOFF` exists, delete it first (swap). Keep any existing `NN-*.md`; the next write continues the index, including files inspect-mode, mermaid-mode, or handoff-mode already wrote.
 - On → off: delete only `$DIR/OUTLINE`. Leave every markdown file. Comment `disabled`, print `$DIR`.
 
 ## Write
 
-While `OUTLINE` exists, each substantive user query creates exactly one new file. Never edit an existing file (follow-ups and revisions are the next index), including files inspect-mode or mermaid-mode wrote. Ignore leftover `major-*` / `minor-*` / `*.json` names.
+While `OUTLINE` exists, each substantive user query creates exactly one new file. Never edit an existing file (follow-ups and revisions are the next index), including files inspect-mode, mermaid-mode, or handoff-mode wrote. Ignore leftover `major-*` / `minor-*` / `*.json` names.
 
 - Next index = `count($DIR/[0-9][0-9]-*.md) + 1`, zero-padded to two digits (`01`, `02`, …).
 - Path: `$DIR/<NN>-<slug>.md`. `<slug>` is kebab-case from the H1 summary (lowercase, hyphens, no spaces).
@@ -54,7 +54,7 @@ Shape:
 
     ## ...
 
-Three to seven `##` sections. No YAML frontmatter. No JSON sidecar. The H1 starts the file (no blank line before it). Blank line after every heading, including `#`.
+As many `##` sections as the reply needs. No YAML frontmatter. No JSON sidecar. The H1 starts the file (no blank line before it). Blank line after every heading, including `#`.
 
 ## Bypass
 

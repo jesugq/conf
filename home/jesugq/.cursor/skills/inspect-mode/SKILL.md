@@ -6,11 +6,11 @@ disable-model-invocation: true
 
 # Inspect mode
 
-Shared with outline-mode and mermaid-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. All three modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
+Shared with outline-mode, mermaid-mode, and handoff-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. All four modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
 
-On iff `$DIR/INSPECT` exists (zero-byte sentinel). `$DIR/OUTLINE` means outline-mode is on instead. `$DIR/MERMAID` means mermaid-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The three sentinels are mutually exclusive. `/inspect-mode` toggles this mode (ignore extra words). `/outline-mode` and `/mermaid-mode` belong to the other skills: do not write a file and do not print an inspect-mode comment for them.
+On iff `$DIR/INSPECT` exists (zero-byte sentinel). `$DIR/OUTLINE` means outline-mode is on instead. `$DIR/MERMAID` means mermaid-mode is on instead. `$DIR/HANDOFF` means handoff-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The four sentinels are mutually exclusive. `/inspect-mode` toggles this mode (ignore extra words). `/outline-mode`, `/mermaid-mode`, and `/handoff-mode` belong to the other skills: do not write a file and do not print an inspect-mode comment for them.
 
-Enabling while `OUTLINE` or `MERMAID` exists swaps. Delete those sentinels, create `INSPECT`, keep every `NN-*.md`, and continue that index. The next substantive reply uses inspect-mode’s shape.
+Enabling while `OUTLINE`, `MERMAID`, or `HANDOFF` exists swaps. Delete those sentinels, create `INSPECT`, keep every `NN-*.md`, and continue that index. The next substantive reply uses inspect-mode’s shape.
 
 Chat is only:
 
@@ -18,10 +18,10 @@ Chat is only:
     <absolute $DIR>
     [<absolute new file, write turns only>]
 
-Off → on: mkdir `$DIR` if needed, create `INSPECT`, keep existing `NN-*.md`. If `OUTLINE` or `MERMAID` is present, delete it first (swap).
+Off → on: mkdir `$DIR` if needed, create `INSPECT`, keep existing `NN-*.md`. If `OUTLINE`, `MERMAID`, or `HANDOFF` is present, delete it first (swap).
 On → off: delete `INSPECT` only.
 
-While `INSPECT` exists, each substantive query writes exactly one new `$DIR/<NN>-<slug>.md` (never edit prior files, including ones outline-mode or mermaid-mode wrote). `NN` = count of `[0-9][0-9]-*.md` + 1, two digits. Slug is kebab-case from the H1. At 100: write nothing, comment `limit reached`, tell the user to start a new conversation.
+While `INSPECT` exists, each substantive query writes exactly one new `$DIR/<NN>-<slug>.md` (never edit prior files, including ones outline-mode, mermaid-mode, or handoff-mode wrote). `NN` = count of `[0-9][0-9]-*.md` + 1, two digits. Slug is kebab-case from the H1. At 100: write nothing, comment `limit reached`, tell the user to start a new conversation.
 
     # <5-10 word summary>
 
@@ -48,7 +48,7 @@ While `INSPECT` exists, each substantive query writes exactly one new `$DIR/<NN>
 
     ## ...
 
-Include Response, Changes, and Commands only when that section has content. Omit the heading when it would be empty. Add further `##` sections when the reply has distinct topics those three do not cover. Up to seven `##` sections. Each extra title is 5–10 words.
+Include Response, Changes, and Commands only when that section has content. Omit the heading when it would be empty. Add further `##` sections when the reply has distinct topics those three do not cover. As many `##` sections as the reply needs. Each extra title is 5–10 words.
 
 The H1 starts the file (no blank line before it). Blank line after every heading, including `#`. Blank line before every `##`. Changes: one parent bullet per written/edited/deleted/renamed file this round (not reads). Parent is the filename. Children, in order: absolute path, path relative to the repository (no `simplepractice/` prefix), then comma-separated line ranges (`10-21, 45-48`). New: filename `(new)`, ranges `1-N`. Deleted: filename `(deleted)`, no line child. Rename: `old → new` as the parent, then both paths and the new file’s ranges.
 
