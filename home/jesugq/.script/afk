@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source "$HOME/.zshtm"
-safe-tmux-rename afk
+tmux-rename-create afk
 
 if [[ "${OSTYPE:-}" == darwin* ]]; then
   arch="$HOME/.binary/drift_darwin"

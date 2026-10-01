@@ -2,7 +2,7 @@
 
 # ain
 function ain() {
-  safe-tmux-rename vibe
+  tmux-rename-append ai
 
   local csv="$HOME/.local/share/jesugq/ai.csv"
   local displays=()
@@ -41,6 +41,8 @@ function ain() {
 
 # ait
 function ait() {
+  tmux-rename-append ai
+
   local csv="$HOME/.local/share/jesugq/ai.csv"
   local rows=()
   local displays=()

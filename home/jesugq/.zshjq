@@ -5,11 +5,11 @@ alias plasmarld="systemctl --user restart plasma-plasmashell.service"
 
 # shared
 function sfm() {
-  sudo-tmux-rename sfm
+  tmux-rename-create sfm
   somafm
 }
 function afk() {
-  safe-tmux-rename afk
+  tmux-rename-create afk
   "$HOME/.script/snc"
   "$HOME/.script/afk"
 }
@@ -22,7 +22,7 @@ else
 fi
 unalias md
 function md() {
-  sudo-tmux-rename md
+  tmux-rename-create md
   cd $MD_DIR
 }
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -31,25 +31,26 @@ else
   OG_DIR=$HOME/Sync/Apps/Orgmode
 fi
 function og() {
-  sudo-tmux-rename og
+  tmux-rename-create og
 	cd $OG_DIR
 }
 
 # repos
 CF_DIR=$HOME/Development/conf
 function cf() {
-  sudo-tmux-rename cf
+  tmux-rename-create cf
 	cd $CF_DIR
 }
 function cfrld() {
-  sudo-tmux-rename cf
+  tmux-rename-create cf
   cd $CF_DIR
 	sudo rsync -av etc/ /etc/
 	rsync -av home/jesugq/ $HOME/
 }
 function cfsrc() {
-  sudo-tmux-rename cf
+  tmux-rename-create cf
   cd $CF_DIR
+  source $HOME/.zshtm
 	source $HOME/.zshjq
 	source $HOME/.zshai
   source $HOME/.zshsp
@@ -57,12 +58,12 @@ function cfsrc() {
 }
 NM_DIR=$HOME/.config/nvim
 function nm() {
-  sudo-tmux-rename nm
+  tmux-rename-create nm
 	cd $NM_DIR
 }
 
 function yz() {
-  safe-tmux-rename yz
+  tmux-rename-append yz
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   command yazi "$@" --cwd-file="$tmp"
   IFS= read -r -d '' cwd < "$tmp"
@@ -70,10 +71,10 @@ function yz() {
   command rm -f -- "$tmp"
 }
 function ne() {
-  safe-tmux-rename ne
+  tmux-rename-append ne
   nvim .
 }
 function lg() {
-  safe-tmux-rename lg
+  tmux-rename-append lg
   lazygit
 }

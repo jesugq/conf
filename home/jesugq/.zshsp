@@ -3,18 +3,18 @@
 # spq
 QUEEN_DIR=~/Development
 function spq() {
-  sudo-tmux-rename spq
+  tmux-rename-create spq
   cd $QUEEN_DIR
 }
 
 # spd
 DOCKER_DIR=~/Development/docker-dev
 function spd() {
-  sudo-tmux-rename spd
+  tmux-rename-create spd
 	cd $DOCKER_DIR
 }
 function spdapp() {
-  sudo-tmux-rename spd
+  tmux-rename-create spd
   cd $DOCKER_DIR
   git pull
   sp apps:sync
@@ -22,18 +22,18 @@ function spdapp() {
   sp start
 }
 function spdrld() {
-  sudo-tmux-rename spd
+  tmux-rename-create spd
   cd $DOCKER_DIR
   git pull
   sp apps:sync
 }
 function spdaws() {
-  sudo-tmux-rename spd
+  tmux-rename-create spd
 	cd $DOCKER_DIR
   aws sso login --profile staging
 }
 function spdssh() {
-  sudo-tmux-rename spd
+  tmux-rename-create spd
 	cd $DOCKER_DIR
 	ssh-add ~/.ssh/id_ed25519
 }
@@ -42,15 +42,15 @@ function spdssh() {
 BACKEND_DIR=~/Development/simplepractice
 BACKEND_APP=simplepractice
 function spb() {
-  sudo-tmux-rename spb
+  tmux-rename-create spb
 	cd $BACKEND_DIR
 }
 function spbdb() {
-  sudo-tmux-rename spb
+  tmux-rename-create spb
 	sp exec mysql -h mysql.local -u root $BACKEND_APP
 }
 function spbspec() {
-  sudo-tmux-rename spb
+  tmux-rename-create spb
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $BACKEND_APP bundle exec rspec "$@"
@@ -60,7 +60,7 @@ function spbspec() {
 	fi
 }
 function spboas() {
-  sudo-tmux-rename spb
+  tmux-rename-create spb
 	sp exec -a $BACKEND_APP rails 'oas:generate[spec/acceptance/frontend/users_spec.rb,spec/acceptance/frontend/team_members_spec.rb]'
 }
 
@@ -68,11 +68,11 @@ function spboas() {
 FRONTEND_DIR=~/Development/simplepractice/frontend
 FRONTEND_APP=simplepractice-frontend
 function spf() {
-  sudo-tmux-rename spf
+  tmux-rename-create spf
 	cd $FRONTEND_DIR
 }
 function spfyarn() {
-  sudo-tmux-rename spf
+  tmux-rename-create spf
 	if [ $1 = true ]; then
 		shift
     sp exec -a $FRONTEND_APP -e COVERAGE=true yarn test:browser "$@"
@@ -84,7 +84,7 @@ function spfyarn() {
 	fi
 }
 function spflint() {
-  sudo-tmux-rename spf
+  tmux-rename-create spf
   local type="$1"
   shift
   sp exec -a $FRONTEND_APP yarn lint:"$type" "$@"
@@ -94,19 +94,19 @@ function spflint() {
 SSO_DIR=~/Development/sp-sso-account
 SSO_APP=sp-sso-account
 function sps() {
-  sudo-tmux-rename sps
+  tmux-rename-create sps
   cd $SSO_DIR
 }
 function spsdb() {
-  sudo-tmux-rename sps
+  tmux-rename-create sps
 	sp exec mysql -h mysql.local -u root $SSO_APP
 }
 function spsrcop() {
-  sudo-tmux-rename sps
+  tmux-rename-create sps
 	sp rubocop -a $SSO_APP "$@"
 }
 function spsspec() {
-  sudo-tmux-rename sps
+  tmux-rename-create sps
 	if [ $1 = true ]; then
 		shift
 		docker exec -it -e COVERAGE=true $SSO_APP bundle exec rspec "$@"
