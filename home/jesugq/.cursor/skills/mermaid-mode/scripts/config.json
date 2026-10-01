@@ -1,0 +1,62 @@
+{
+  "flowchart": {
+    "useMaxWidth": false,
+    "htmlLabels": true,
+    "padding": 4,
+    "diagramPadding": 4,
+    "nodeSpacing": 16,
+    "rankSpacing": 20,
+    "subGraphTitleMargin": { "top": 4, "bottom": 4 }
+  },
+  "sequence": {
+    "useMaxWidth": false,
+    "diagramMarginX": 8,
+    "diagramMarginY": 8,
+    "actorMargin": 16,
+    "boxMargin": 4,
+    "boxTextMargin": 2,
+    "noteMargin": 4,
+    "messageMargin": 16,
+    "mirrorActors": false
+  },
+  "class": {
+    "useMaxWidth": false,
+    "padding": 4
+  },
+  "state": {
+    "useMaxWidth": false,
+    "padding": 4
+  },
+  "er": {
+    "useMaxWidth": false,
+    "diagramPadding": 4,
+    "entityPadding": 6
+  },
+  "gantt": {
+    "useMaxWidth": false,
+    "topPadding": 12,
+    "leftPadding": 12,
+    "rightPadding": 12,
+    "barHeight": 16,
+    "barGap": 4
+  },
+  "journey": {
+    "useMaxWidth": false,
+    "diagramMarginX": 8,
+    "diagramMarginY": 8
+  },
+  "mindmap": {
+    "useMaxWidth": false,
+    "padding": 4
+  },
+  "timeline": {
+    "useMaxWidth": false,
+    "padding": 4
+  },
+  "gitGraph": {
+    "useMaxWidth": false
+  },
+  "themeVariables": {
+    "fontSize": "14px"
+  }
+}
