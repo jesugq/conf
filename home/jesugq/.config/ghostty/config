@@ -3,81 +3,15 @@ theme = Ryuuko
 
 # font
 font-family = "Maple Mono NF"
-font-size = 16.0
+font-size = 24.0
 
 # window
 window-padding-balance = true
 window-padding-x = 0
 window-padding-y = 0
 
-# linux consistency
-keybind = ctrl+a=csi:97;5u
-keybind = ctrl+b=csi:98;5u
-keybind = ctrl+c=csi:99;5u
-keybind = ctrl+d=csi:100;5u
-keybind = ctrl+e=csi:101;5u
-# keybind = ctrl+f=csi:102;5u
-keybind = ctrl+g=csi:103;5u
-keybind = ctrl+h=csi:104;5u
-# keybind = ctrl+i=csi:105;5u
-keybind = ctrl+j=csi:106;5u
-keybind = ctrl+k=csi:107;5u
-keybind = ctrl+l=csi:108;5u
-# keybind = ctrl+m=csi:109;5u
-# keybind = ctrl+n=csi:110;5u
-keybind = ctrl+o=csi:111;5u
-keybind = ctrl+p=csi:112;5u
-keybind = ctrl+q=csi:113;5u
-keybind = ctrl+r=csi:114;5u
-keybind = ctrl+s=csi:115;5u
-keybind = ctrl+t=csi:116;5u
-keybind = ctrl+u=csi:117;5u
-keybind = ctrl+v=csi:118;5u
-keybind = ctrl+w=csi:119;5u
-keybind = ctrl+x=csi:120;5u
-keybind = ctrl+y=csi:121;5u
-keybind = ctrl+z=csi:122;5u
-
-# linux support
-keybind = ctrl+/=csi:47;5u
-keybind = ctrl+i=csi:105;5u
-keybind = ctrl+enter=csi:13;5u
-keybind = ctrl+backslash=csi:92;5u
-
-# macos consistency
-keybind = super+a=csi:97;9u
-keybind = super+b=csi:98;9u
-keybind = super+c=csi:99;9u
-keybind = super+d=csi:100;9u
-keybind = super+e=csi:101;9u
-keybind = super+f=csi:102;9u
-keybind = super+h=csi:104;9u
-keybind = super+j=csi:106;9u
-keybind = super+k=csi:107;9u
-keybind = super+l=csi:108;9u
-keybind = super+m=csi:109;9u
-keybind = super+n=csi:110;9u
-keybind = super+p=csi:112;9u
-keybind = super+q=csi:113;9u
-keybind = super+r=csi:114;9u
-keybind = super+s=csi:115;9u
-keybind = super+t=csi:116;9u
-keybind = super+u=csi:117;9u
-keybind = super+v=csi:118;9u
-keybind = super+w=csi:119;9u
-keybind = super+x=csi:120;9u
-keybind = super+y=csi:121;9u
-keybind = super+z=csi:122;9u
-
 # macos support
-keybind = super+enter=csi:13;9u
-keybind = super+left_bracket=csi:91;9u
-keybind = super+right_bracket=csi:93;9u
+# cmd+shift+[ -> alt+{
+# cmd+shift+] -> alt+}
 keybind = super+shift+left_bracket=csi:123;3u
 keybind = super+shift+right_bracket=csi:125;3u
-
-# globe support
-keybind = ctrl+shift+c=copy_to_clipboard
-keybind = ctrl+shift+v=paste_from_clipboard
-keybind = ctrl+shift+l=clear_screen
-keybind = ctrl+shift+f=start_search
