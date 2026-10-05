@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "open3"
+
+# Issue id only. The subject after it is the script argument, not the branch description.
+BRANCH_PATTERN = /^(?:feature\/)?(?<issue_id>[a-zA-Z0-9]+-[0-9]+)(?:-.*)?$/
+EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+
+def capture(*args)
+  Open3.capture3(*args)
+end
+
+class GitFailure < StandardError
+end
+
+def git!(*args)
+  out, err, status = capture("git", *args)
+  unless status.success?
+    detail = err.strip
+    detail = "git #{args.join(" ")} failed" if detail.empty?
+    raise GitFailure, detail
+  end
+  out
+end
+
+def finish(new, message, error)
+  puts new if new
+  puts message if message
+  warn error if error
+  exit 1 if error
+end
+
+def main
+  name = ARGV.join(" ").strip
+  if name.empty?
+    return finish(nil, nil, "Commit name is required.\n  Usage: /empty-commit <commit name>")
+  end
+
+  branch, err, status = capture("git", "branch", "--show-current")
+  unless status.success?
+    return finish(nil, nil, err.strip.empty? ? "git branch --show-current failed" : err.strip)
+  end
+  branch = branch.strip
+
+  md = branch.match(BRANCH_PATTERN)
+  unless md
+    shown = branch.empty? ? "(none)" : branch
+    return finish(nil, nil, "Branch doesn't match pattern.\n  Expected: <issue-id>\n  Got: #{shown}")
+  end
+
+  message = "[#{md[:issue_id].upcase}] #{name}"
+
+  _head, _head_err, head_status = capture("git", "rev-parse", "--verify", "--quiet", "HEAD")
+  if head_status.success?
+    tree = git!("rev-parse", "HEAD^{tree}").strip
+    parent = git!("rev-parse", "HEAD").strip
+    new = git!("commit-tree", tree, "-p", parent, "-m", message).strip
+  else
+    tree = EMPTY_TREE
+    new = git!("commit-tree", tree, "-m", message).strip
+  end
+
+  _reset_out, reset_err, reset_status = capture("git", "reset", "--soft", new)
+  unless reset_status.success?
+    return finish(nil, nil, reset_err.strip.empty? ? "git reset --soft failed. No fallback." : reset_err.strip)
+  end
+
+  head_tree = git!("rev-parse", "HEAD^{tree}").strip
+  finish(new, message, head_tree == tree ? nil : "commit is not empty")
+rescue GitFailure => e
+  finish(nil, nil, e.message)
+end
+
+main if $PROGRAM_NAME == __FILE__
