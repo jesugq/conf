@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Outline mode
 
-Shared with inspect-mode, mermaid-mode, and handoff-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. All four modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
+Shared with inspect-mode, mermaid-mode, and handoff-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/dynamic-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/dynamic-mode/2026-09-24-<id>`. All four modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
 
 On is `$DIR/OUTLINE` existing (a zero-byte sentinel, not JSON). `$DIR/INSPECT` means inspect-mode is on instead. `$DIR/MERMAID` means mermaid-mode is on instead. `$DIR/HANDOFF` means handoff-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The four sentinels are mutually exclusive. `/outline-mode` toggles this mode; extra words after it are ignored. `/inspect-mode`, `/mermaid-mode`, and `/handoff-mode` belong to the other skills: do not write a file and do not print an outline-mode comment for them.
 
@@ -23,13 +23,13 @@ Every outline-mode action — enabling, disabling, swapping on, creating a file,
 Enable / swap / disable:
 
     [outline-mode] enabled
-    /Users/<you>/.cursor/agent-mode/2026-09-24-<id>
+    /Users/<you>/.cursor/dynamic-mode/2026-09-24-<id>
 
 Write:
 
     [outline-mode] created a file
-    /Users/<you>/.cursor/agent-mode/2026-09-24-<id>
-    /Users/<you>/.cursor/agent-mode/2026-09-24-<id>/01-what-is-outline-mode.md
+    /Users/<you>/.cursor/dynamic-mode/2026-09-24-<id>
+    /Users/<you>/.cursor/dynamic-mode/2026-09-24-<id>/01-what-is-outline-mode.md
 
 ## Toggle
 

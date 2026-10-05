@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Mermaid mode
 
-Shared with outline-mode, inspect-mode, and handoff-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/agent-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/agent-mode/2026-09-24-<id>`. All four modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
+Shared with outline-mode, inspect-mode, and handoff-mode. `$NAME` is `<local YYYY-MM-DD>-<$CURSOR_CONVERSATION_ID>`: the date, one hyphen, then the conversation id, with no spaces. `$DIR = ~/.cursor/dynamic-mode/$NAME` (refuse if the conversation id is unset). Example: `~/.cursor/dynamic-mode/2026-09-24-<id>`. All four modes use this one folder and the same `NN-*.md` sequence. The date is the local calendar date at the start of the turn; the same day and conversation always resolve to the same `$DIR`.
 
 On iff `$DIR/MERMAID` exists (zero-byte sentinel). `$DIR/OUTLINE` means outline-mode is on instead. `$DIR/INSPECT` means inspect-mode is on instead. `$DIR/HANDOFF` means handoff-mode is on instead. Neither sentinel means off — a folder or leftover markdown alone is off. The four sentinels are mutually exclusive. `/mermaid-mode` toggles this mode (ignore extra words). `/outline-mode`, `/inspect-mode`, and `/handoff-mode` belong to the other skills: do not write a file and do not print a mermaid-mode comment for them.
 
