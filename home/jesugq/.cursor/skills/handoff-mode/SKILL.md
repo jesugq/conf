@@ -38,7 +38,7 @@ Interpret that prompt as one of two cases. Do not implement the work in this con
 
     ## ...
 
-`# Instructions` is always the first heading and always that title. Its body is for the agent receiving this file. It must tell that agent to stop after applying or reading each heading, even when the heading is only internal — `# Instructions` itself is internal: read it, then stop. Resume with the next heading only when asked. Each later heading is one small, reviewable change; apply or read that heading only, then stop again.
+`# Instructions` is always the first heading and always that title. Its body is for the agent receiving this file. It must tell that agent to stop after applying or reading each heading, even when the heading is only internal — `# Instructions` itself is internal: read it, then stop. Resume with the next heading only when asked. It must also tell that agent to readjust the implementation from changes the user made, and to do that internally: keep the revision at the top of its mind and change later steps to match, instead of updating documentation the user may or may not have provided. Each later heading is one small, reviewable change; apply or read that heading only, then stop again.
 
 Each `##` is one small, reviewable, incremental change that builds on the previous heading and together completes the task from the conversation. Outline-mode shape: 5–10 word title, then a full section body. As many `##` headings as the task needs. One change per heading; do not bundle unrelated work. Order them so a later heading never depends on work a prior heading has not applied.
 
