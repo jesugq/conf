@@ -19,6 +19,7 @@ keybind = super+enter=csi:13;9u
 # cmd+shift+] -> alt+}
 keybind = super+shift+left_bracket=csi:123;3u
 keybind = super+shift+right_bracket=csi:125;3u
+keybind = super+h=csi:104;9u
 keybind = alt+enter=csi:13;3u
 
 # globe support
