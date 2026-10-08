@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+messages="$HOME/.script/actioning.txt"
+names="$HOME/.script/teammates.txt"
+reasoning="$HOME/.script/reasoning.txt"
+for file in "$messages" "$names" "$reasoning"; do
+  if [[ ! -f $file ]]; then
+    printf 'afk: %s: No such file or directory\n' "$file" >&2
+    exit 1
+  fi
+  if [[ ! -s $file ]]; then
+    printf 'afk: %s: file is empty\n' "$file" >&2
+    exit 1
+  fi
+done
+
 source "$HOME/.zshtm"
 tmux-rename-create afk
 
@@ -35,6 +49,10 @@ thinkings=(
   "$HOME/.script/thinking_qwen.py"
 )
 thinking="${thinkings[RANDOM % ${#thinkings[@]}]}"
+sides=(left right)
+side="${sides[RANDOM % ${#sides[@]}]}"
+focuses=(main side)
+focus="${focuses[RANDOM % ${#focuses[@]}]}"
 
-pane-tmux-side "$thinking" "$HOME/.script/actioning.txt" "$HOME/.script/reasoning.txt"
+pane-tmux-side "$side" "$focus" "$thinking" "$messages" "$names" "$reasoning"
 pane-tmux-main "$arch" --scene "$scene" --theme "$theme" --duration 10

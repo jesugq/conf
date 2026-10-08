@@ -40,4 +40,4 @@ def render(elapsed, label):
     return f"{rgb(color)}{frame} {label}{reset}"
 
 
-run(render, INTERVAL, "Thinking…")
+run(render, INTERVAL)

@@ -95,4 +95,4 @@ def render(elapsed, label):
     return f"{shimmer_dot(elapsed)} {summary_shimmer(elapsed, label)}"
 
 
-run(render, INTERVAL, "Working")
+run(render, INTERVAL)

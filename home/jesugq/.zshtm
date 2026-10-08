@@ -25,13 +25,30 @@ function pane-tmux-main() {
   "$@"
 }
 function pane-tmux-side() {
-  local command
-  [[ $# -gt 0 ]] || return 2
+  local command side focus flags target
+  [[ $# -gt 2 ]] || return 2
+  side=$1
+  focus=$2
+  shift 2
+  case $side in
+    left) flags=(-h -b -l 33% -P -F '#{pane_id}') ;;
+    right) flags=(-h -l 33% -P -F '#{pane_id}') ;;
+    *) return 2 ;;
+  esac
+  case $focus in
+    main|side) ;;
+    *) return 2 ;;
+  esac
   PANE_TMUX_MAIN_PANE=$(tmux display-message -p '#{pane_id}') || return
   printf -v command '%q ' "$@"
   command=${command% }
-  PANE_TMUX_SIDE_PANE=$(tmux split-window -h -l 33% -P -F '#{pane_id}' "$command") || return
-  tmux select-pane -t "$PANE_TMUX_MAIN_PANE"
+  PANE_TMUX_SIDE_PANE=$(tmux split-window "${flags[@]}" "$command") || return
+  if [[ $focus == main ]]; then
+    target=$PANE_TMUX_MAIN_PANE
+  else
+    target=$PANE_TMUX_SIDE_PANE
+  fi
+  tmux select-pane -t "$target"
 }
 
 # utils

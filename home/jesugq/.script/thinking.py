@@ -12,6 +12,7 @@ import tty
 _input_fd = None
 _input_settings = None
 _ansi = re.compile(r"\033\[[0-?]*[ -/]*[@-~]")
+_teammate = re.compile(r"\{\{TEAMMATE\}\}")
 
 # Halfway between the old faint gray (120, 120, 128) and Ryuuko foreground.
 DIM = "\033[38;2;178;178;182m"
@@ -23,14 +24,6 @@ BREAK_INTERVAL = 0.12
 LABEL_INTERVAL = 10
 # The status band is a blank row, the centered line, and a blank row.
 STATUS_ROWS = 3
-LOREM = (
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-    "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-    "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-    "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
-    "non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-)
 
 
 def tokenize(text):
@@ -59,32 +52,35 @@ def load_text(path):
         raise SystemExit(1) from exc
 
 
-def load_lines(path):
+def load_lines(path, kind):
     lines = [line.strip() for line in load_text(path).splitlines() if line.strip()]
     if not lines:
-        sys.stderr.write(f"thinking: {path}: no messages\n")
+        sys.stderr.write(f"thinking: {path}: no {kind}\n")
         raise SystemExit(1)
     return lines
 
 
-def parse_invocation(default_label):
-    """Optional positional args, same shape as the afk pane commands.
+def parse_invocation():
+    """Positional args, same shape as the afk pane commands.
 
-    script.py
-    script.py MESSAGES
-    script.py MESSAGES REASONING
+    script.py MESSAGES NAMES REASONING
 
-    MESSAGES is a text file with one status line per row. REASONING is the
-    dimmed text file. Both start on a random line and loop back to the top.
+    MESSAGES is a text file with one status line per row. NAMES is the same
+    shape, one person per row. REASONING is the dimmed text file. Each
+    Each {{TEAMMATE}} is replaced, as it is printed, with the next name.
+    Messages, names, and reasoning each start on a random line and loop.
     """
     args = sys.argv[1:]
-    messages = [default_label]
-    text = LOREM
-    if args:
-        messages = load_lines(args[0])
-    if len(args) > 1:
-        text = load_text(args[1])
-    return messages, text
+    if len(args) < 3:
+        sys.stderr.write("thinking: messages, names, and reasoning files are expected\n")
+        raise SystemExit(1)
+    messages = load_lines(args[0], "messages")
+    names = load_lines(args[1], "names")
+    text = load_text(args[2])
+    if not tokenize(text):
+        sys.stderr.write(f"thinking: {args[2]}: no reasoning\n")
+        raise SystemExit(1)
+    return messages, names, text
 
 
 def rotate_to_random_line(text):
@@ -99,7 +95,7 @@ def rotate_to_random_line(text):
 
 class Messages:
     def __init__(self, lines):
-        self.lines = lines or ["Thinking"]
+        self.lines = lines
         self.start = random.randrange(len(self.lines))
 
     def current(self, elapsed):
@@ -112,10 +108,13 @@ def reasoning_limit(height):
 
 
 class Reasoning:
-    def __init__(self, source):
-        self.tokens = tokenize(rotate_to_random_line(source)) or tokenize(LOREM)
+    def __init__(self, source, names):
+        self.tokens = tokenize(rotate_to_random_line(source))
+        self.names = names
+        self.name_at = random.randrange(len(names))
         self.max_lines = 1
         self.index = 0
+        self.pending = []
         self.emitted = []
         self.next_at = 0.0
         self.limit = 8
@@ -130,7 +129,24 @@ class Reasoning:
         self._trim()
         return self.visible()
 
+    def _next_name(self):
+        """Next person, walking forward from a random line and wrapping."""
+        name = self.names[self.name_at % len(self.names)]
+        self.name_at += 1
+        return name
+
+    def _fill_teammate(self, token):
+        """Swap each {{TEAMMATE}} for the next name. A suffix stays on the last word."""
+        if "{{TEAMMATE}}" not in token:
+            return [token]
+        filled = _teammate.sub(lambda _match: self._next_name(), token)
+        return filled.split() or [token]
+
     def _emit(self):
+        if self.pending:
+            self.emitted.append(self.pending.pop(0))
+            self.next_at += WORD_INTERVAL
+            return
         token = self.tokens[self.index % len(self.tokens)]
         cycling = self.index > 0 and self.index % len(self.tokens) == 0
         self.index += 1
@@ -140,43 +156,69 @@ class Reasoning:
             self.emitted.append(None)
             self.next_at += BREAK_INTERVAL
             return
-        self.emitted.append(token)
+        pieces = self._fill_teammate(token)
+        self.emitted.append(pieces[0])
+        self.pending.extend(pieces[1:])
         self.next_at += WORD_INTERVAL
 
-    def _wrap(self, tokens):
+    def _hyphenate(self, token):
+        """Break a token that cannot fit on one line, marking each cut with '-'."""
+        limit = max(self.limit, 2)
+        if len(token) <= limit:
+            return [token]
+        pieces = []
+        while len(token) > limit:
+            pieces.append(token[: limit - 1] + "-")
+            token = token[limit - 1 :]
+        if token:
+            pieces.append(token)
+        return pieces
+
+    def _layout(self, tokens):
+        """Wrap tokens. Each row records the emitted token that starts it."""
         rows = []
+        starts = []
         current = ""
-        for token in tokens:
-            if token is None:
-                if current:
-                    rows.append(current)
-                    current = ""
-                rows.append("")
-                continue
-            if current and len(current) + 1 + len(token) > self.limit:
-                rows.append(current)
-                current = token
-            elif current:
-                current = f"{current} {token}"
-            else:
-                current = token
-        if current:
+        current_start = None
+
+        def flush():
+            nonlocal current, current_start
+            if current_start is None:
+                return
             rows.append(current)
+            starts.append(current_start)
+            current = ""
+            current_start = None
+
+        for index, token in enumerate(tokens):
+            if token is None:
+                flush()
+                rows.append("")
+                starts.append(index)
+                continue
+            for piece in self._hyphenate(token):
+                if current and len(current) + 1 + len(piece) > self.limit:
+                    flush()
+                if current:
+                    current = f"{current} {piece}"
+                else:
+                    current = piece
+                    current_start = index
+        flush()
+        return rows, starts
+
+    def _wrap(self, tokens):
+        rows, _starts = self._layout(tokens)
         return rows
 
     def _trim(self):
         # Keep already-printed lines so a wider wrap can bring them back.
+        # Drop whole tokens so a later resize can rehyphenate the originals.
         slack = max(self.max_lines * 8, self.max_lines)
-        rows = self._wrap(self.emitted)
+        rows, starts = self._layout(self.emitted)
         if len(rows) <= slack:
             return
-        kept = []
-        for row in rows[-slack:]:
-            if row == "":
-                kept.append(None)
-            else:
-                kept.extend(row.split())
-        self.emitted = kept
+        self.emitted = self.emitted[starts[len(rows) - slack] :]
 
     def visible(self):
         if self.max_lines <= 0:
@@ -281,10 +323,10 @@ def restore_terminal(reset):
     os._exit(0)
 
 
-def run(render, interval, default_label="Thinking..."):
-    messages, source = parse_invocation(default_label)
+def run(render, interval):
+    messages, names, source = parse_invocation()
     status = Messages(messages)
-    reasoning = Reasoning(source)
+    reasoning = Reasoning(source, names)
 
     def restore(*_):
         restore_terminal(RESET)

@@ -48,4 +48,4 @@ def render(elapsed, label):
     return f"{GRADIENT[color_index]}{PULSE_FRAMES[frame_index]}{RESET} " + "".join(text) + RESET
 
 
-run(render, INTERVAL, "Working")
+run(render, INTERVAL)

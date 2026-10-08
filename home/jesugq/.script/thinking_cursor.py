@@ -23,4 +23,4 @@ def render(elapsed, label):
     return f"{green}{frame}{reset} {bold}{label}{reset}"
 
 
-run(render, INTERVAL, "Thinking")
+run(render, INTERVAL)

@@ -27,4 +27,4 @@ def render(elapsed, label):
     return f"{rgb(MUTED)}{frame} {label}{reset}"
 
 
-run(render, SPIN_MS, "Thinking")
+run(render, SPIN_MS)
