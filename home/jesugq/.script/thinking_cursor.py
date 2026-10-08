@@ -5,38 +5,22 @@
 # renders the spinner in plain ANSI green next to bold "Working" text -
 # there is no orange/brand gradient on this indicator.
 import os
-import signal
 import sys
-import time
 
 sys.path.insert(0, os.path.expanduser("~/.script"))
-from thinking_common import centered, enable_quit, quit_requested, restore_terminal
+from thinking import run
 
 FRAMES = ["⠀⠞", "⠠⠜", "⠰⠰", "⠘⠤", "⠘⠆", "⠘⠣", "⠰⠳", "⠠⠛"]
-TEXT = sys.argv[1] if len(sys.argv) > 1 else "Thinking"
 SPIN_MS = 0.25
 INTERVAL = 0.05
-PAD = "  "
 green = "\033[32m"
 bold = "\033[1m"
 reset = "\033[0m"
 
 
-def restore(*_):
-    restore_terminal(reset)
-
-
-enable_quit()
-signal.signal(signal.SIGINT, restore)
-signal.signal(signal.SIGTERM, restore)
-sys.stdout.write("\033[?25l\n")
-sys.stdout.flush()
-start = time.monotonic()
-while True:
-    if quit_requested():
-        restore()
-    elapsed = time.monotonic() - start
+def render(elapsed, label):
     frame = FRAMES[int(elapsed / SPIN_MS) % len(FRAMES)]
-    sys.stdout.write(centered(f"{green}{frame}{reset} {bold}{TEXT}{reset}"))
-    sys.stdout.flush()
-    time.sleep(INTERVAL)
+    return f"{green}{frame}{reset} {bold}{label}{reset}"
+
+
+run(render, INTERVAL, "Thinking")

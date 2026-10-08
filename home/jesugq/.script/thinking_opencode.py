@@ -6,17 +6,13 @@
 # flat, terminal-background-derived gray), so there is no primary/accent
 # color animation on this indicator.
 import os
-import signal
 import sys
-import time
 
 sys.path.insert(0, os.path.expanduser("~/.script"))
-from thinking_common import centered, enable_quit, quit_requested, restore_terminal
+from thinking import run
 
 FRAMES = list("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
-TEXT = sys.argv[1] if len(sys.argv) > 1 else "Thinking"
 SPIN_MS = 0.08
-PAD = "  "
 # theme.textMuted approximation (generateMutedTextColor over a dark bg)
 MUTED = (128, 128, 136)
 reset = "\033[0m"
@@ -26,21 +22,9 @@ def rgb(color):
     return f"\033[38;2;{color[0]};{color[1]};{color[2]}m"
 
 
-def restore(*_):
-    restore_terminal(reset)
-
-
-enable_quit()
-signal.signal(signal.SIGINT, restore)
-signal.signal(signal.SIGTERM, restore)
-sys.stdout.write("\033[?25l\n")
-sys.stdout.flush()
-start = time.monotonic()
-while True:
-    if quit_requested():
-        restore()
-    elapsed = time.monotonic() - start
+def render(elapsed, label):
     frame = FRAMES[int(elapsed / SPIN_MS) % len(FRAMES)]
-    sys.stdout.write(centered(f"{rgb(MUTED)}{frame} {TEXT}{reset}"))
-    sys.stdout.flush()
-    time.sleep(SPIN_MS)
+    return f"{rgb(MUTED)}{frame} {label}{reset}"
+
+
+run(render, SPIN_MS, "Thinking")

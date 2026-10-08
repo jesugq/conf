@@ -25,10 +25,16 @@ scene="${scenes[*]}"
 unset IFS
 theme="${themes[RANDOM % ${#themes[@]}]}"
 
-pane-tmux-side "$HOME/.script/thinking_cursor.py" "Cursoring"
-pane-tmux-more "$HOME/.script/thinking_claude.py" "Clauding"
-pane-tmux-more "$HOME/.script/thinking_copilot.py" "Copiloting"
-pane-tmux-more "$HOME/.script/thinking_antigravity.py" "Graviting"
-pane-tmux-same
+thinkings=(
+  "$HOME/.script/thinking_antigravity.py"
+  "$HOME/.script/thinking_claude.py"
+  "$HOME/.script/thinking_codex.py"
+  "$HOME/.script/thinking_copilot.py"
+  "$HOME/.script/thinking_cursor.py"
+  "$HOME/.script/thinking_opencode.py"
+  "$HOME/.script/thinking_qwen.py"
+)
+thinking="${thinkings[RANDOM % ${#thinkings[@]}]}"
 
+pane-tmux-side "$thinking" "$HOME/.script/actioning.txt" "$HOME/.script/reasoning.txt"
 pane-tmux-main "$arch" --scene "$scene" --theme "$theme" --duration 10

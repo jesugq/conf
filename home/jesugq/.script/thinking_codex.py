@@ -4,18 +4,16 @@
 import math
 import os
 import select
-import signal
 import sys
 import termios
 import time
 import tty
 
 sys.path.insert(0, os.path.expanduser("~/.script"))
-from thinking_common import centered, enable_quit, quit_requested, restore_terminal
+from thinking import run
 
-TEXT = sys.argv[1] if len(sys.argv) > 1 else "Working"
+
 INTERVAL = 0.032
-PAD = "  "
 
 
 def blend(a, b, t):
@@ -30,26 +28,29 @@ def query_osc(code, timeout=0.15):
     old = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
-        sys.stdout.write(f"\033]{code};?\033\\")
-        sys.stdout.flush()
-        buf = ""
+        # os.read, not sys.stdin.read: the text wrapper slurps the whole reply
+        # into its buffer, select() then sees an empty fd, and the parse fails.
+        # The leftover bytes later look like Escape and the animation exits.
+        os.write(sys.stdout.fileno(), f"\033]{code};?\033\\".encode())
+        buf = b""
         end = time.time() + timeout
         while time.time() < end:
             ready, _, _ = select.select([fd], [], [], max(0.0, end - time.time()))
             if not ready:
                 break
-            buf += sys.stdin.read(1)
-            if buf.endswith("\a") or buf.endswith("\033\\"):
+            buf += os.read(fd, 1)
+            if buf.endswith(b"\a") or buf.endswith(b"\033\\"):
                 break
     except (termios.error, OSError):
         return None
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
+    text = buf.decode("latin1")
     marker = "rgb:"
-    i = buf.find(marker)
+    i = text.find(marker)
     if i < 0:
         return None
-    parts = buf[i + len(marker) :].split("\033", 1)[0].split("\a", 1)[0].split("/")
+    parts = text[i + len(marker) :].split("\033", 1)[0].split("\a", 1)[0].split("/")
     if len(parts) != 3:
         return None
     try:
@@ -78,32 +79,20 @@ def shimmer_dot(elapsed):
     return f"{bold}{rgb(blend(bg, fg, t * 0.9))}•{reset}"
 
 
-def summary_shimmer(elapsed):
-    width = float(len(TEXT))
+def summary_shimmer(elapsed, label):
+    width = float(len(label))
     half = 5.0  # shimmer.rs: band_half_width is a fixed constant, not width-proportional
     position = (elapsed % 2.0) / 2.0 * (width + 2.0 * half) - half
     out = []
-    for i, ch in enumerate(TEXT):
+    for i, ch in enumerate(label):
         distance = min(abs((i + 0.5) - position) / half, 1.0)
         intensity = 0.5 * (1.0 + math.cos(math.pi * distance))
         out.append(f"{rgb(blend(fg, bg, 0.5 + 0.5 * intensity))}{ch}")
     return "".join(out) + reset
 
 
-def restore(*_):
-    restore_terminal(reset)
+def render(elapsed, label):
+    return f"{shimmer_dot(elapsed)} {summary_shimmer(elapsed, label)}"
 
 
-enable_quit()
-signal.signal(signal.SIGINT, restore)
-signal.signal(signal.SIGTERM, restore)
-sys.stdout.write("\033[?25l\n")
-sys.stdout.flush()
-start = time.monotonic()
-while True:
-    if quit_requested():
-        restore()
-    elapsed = time.monotonic() - start
-    sys.stdout.write(centered(f"{shimmer_dot(elapsed)} {summary_shimmer(elapsed)}"))
-    sys.stdout.flush()
-    time.sleep(INTERVAL)
+run(render, INTERVAL, "Working")

@@ -2,21 +2,16 @@
 
 # Antigravity CLI (agy): dots8 spinner + Gemini brand gradient
 # Observed: ⣯ Thinking... / ⣽ Working... ; colors from gemini-cli darkTheme
-import math
 import os
-import signal
 import sys
-import time
 
 sys.path.insert(0, os.path.expanduser("~/.script"))
-from thinking_common import centered, enable_quit, quit_requested, restore_terminal
+from thinking import run
 
 FRAMES = list("⣾⣽⣻⢿⡿⣟⣯⣷")
-TEXT = sys.argv[1] if len(sys.argv) > 1 else "Thinking..."
 SPIN_MS = 0.08
 INTERVAL = 0.03
 CYCLE = 4.0
-PAD = "  "
 # gemini-cli darkTheme Accent* (GeminiSpinner tinygradient)
 BRAND = [
     (215, 175, 255),  # AccentPurple #D7AFFF
@@ -43,22 +38,10 @@ def rgb(color):
     return f"\033[38;2;{color[0]};{color[1]};{color[2]}m"
 
 
-def restore(*_):
-    restore_terminal(reset)
-
-
-enable_quit()
-signal.signal(signal.SIGINT, restore)
-signal.signal(signal.SIGTERM, restore)
-sys.stdout.write("\033[?25l\n")
-sys.stdout.flush()
-start = time.monotonic()
-while True:
-    if quit_requested():
-        restore()
-    elapsed = time.monotonic() - start
+def render(elapsed, label):
     color = gradient_at(elapsed)
     frame = FRAMES[int(elapsed / SPIN_MS) % len(FRAMES)]
-    sys.stdout.write(centered(f"{rgb(color)}{frame} {TEXT}{reset}"))
-    sys.stdout.flush()
-    time.sleep(INTERVAL)
+    return f"{rgb(color)}{frame} {label}{reset}"
+
+
+run(render, INTERVAL, "Thinking...")
